@@ -1,0 +1,174 @@
+@font-face {
+	font-family: 'Avenir';
+    src: url('../fonts/Avenir-Light.ttf');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+	font-family: 'Avenir';
+    src: url('../fonts/Avenir-Roman.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+@font-face {
+	font-family: 'Avenir';
+    src: url('../fonts/Avenir-Medium.ttf');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@loot-blue: #37CDE9;
+@loot-light-blue: #E3F3F6;
+@loot-secondary-blue: #2AB3E7;
+@loot-white: #F5F7F7; 
+@loot-black: #231F20;
+@loot-green: #00B0BB;
+
+body {
+    font-family: 'Avenir';
+    margin: 0;
+}
+
+h1 {
+	text-align: center;
+}
+
+.loot-button {
+    font-family: 'Avenir';
+    font-weight: 200;
+    font-size: 15px;
+    height: 30px;
+    background: @loot-blue;
+    border: none;
+    border-radius: 3px;
+    color: @loot-white;
+}
+
+.top-banner-wrapper {
+    width: 100%;
+    display: table;
+}
+
+.top-banner {
+    vertical-align: middle;
+    display: table-cell;
+    text-align: center;
+    height: 60px;
+    width: 100%;
+}
+
+.top-banner img {
+    height: 80%;
+}
+
+.hero-image {
+    display: block;
+    overflow: hidden;
+    
+    img{ 
+        width: 100%;
+        display: block;
+    }
+}
+
+.section {
+    padding: 8vw 0;
+}
+
+.section-1 {
+	background: @loot-blue;
+	display: block;
+    
+    h1 {
+	   color: #F5F7F7;
+    }
+}
+
+.circle-banner {
+    text-align: center;
+	margin: 0 auto;
+    width: 790px;
+}
+
+.circle-container {
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+	margin: 0 -20px;
+	width: 300px;
+	height: 300px;
+
+    h2 {
+        text-align: center;
+    }
+}
+
+.circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    border-radius: 50%;
+	background-color: rgba(105, 240, 174, 0.7);
+}
+
+.circle-text {
+	color: #fff;
+    margin-top: 40px;
+    margin-left: 55px;
+    margin-right: 55px;
+    text-align: left;
+}
+
+.circle-prop {
+	margin-left: -60px;
+    margin-top: -60px; 
+    padding-bottom: 60px;
+    
+    img {
+        width: 93%;
+        
+    }
+}
+
+.section-2 {
+	background: #fff;
+	display: block;
+    
+    h1 {
+        color: @loot-blue;
+    }
+}
+
+.steps-container {
+	margin: 0 auto;
+    text-align: center;
+    
+    .step {
+        display: inline-block;
+        vertical-align: top;
+        width: 300px;
+    }
+}
+
+.step-image {
+	display: block;
+	margin: 0 auto;
+	height: 130px;
+}
+
+.button-container {
+	padding: 20px;
+	text-align: center;
+}
+
+.btn-custom {
+	background: @loot-blue;
+	color: @loot-white;
+	border: none;
+}

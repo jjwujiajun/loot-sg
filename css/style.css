@@ -1,0 +1,164 @@
+/* TODO
+- change font from Avenir to Circular bold
+*/
+
+@font-face {
+    font-family: 'Avenir';
+    src: url('../fonts/Avenir-Light.ttf');
+    font-weight: 200;
+    font-style: normal
+}
+@font-face {
+    font-family: 'Avenir';
+    src: url('../fonts/Avenir-Roman.ttf');
+    font-weight: 400;
+    font-style: normal
+}
+@font-face {
+    font-family: 'Avenir';
+    src: url('../fonts/Avenir-Medium.ttf');
+    font-weight: 500;
+    font-style: normal
+}
+body {
+    font-family: 'Avenir';
+    margin: 0
+}
+h1 {
+    text-align: center
+}
+.loot-button {
+    font-family: 'Avenir';
+    font-weight: 200;
+    font-size: 15px;
+    height: 30px;
+    background: #37cde9;
+    border: 0;
+    border-radius: 3px;
+    color: #f5f7f7
+}
+
+.navbar-default {
+    background-color: white;
+}
+
+.navbar-wrapper {
+    text-align: center;
+    height: 80px;
+}
+
+.logo-wrapper {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    vertical-align: middle;
+    height: 50%;
+    /*width: 107px;*/
+}
+
+.logo-wrapper img {
+    height: 100%
+}
+
+.menu-wrapper {
+    display: inline-block;
+    float: right;
+    position: relative;
+    top: 0%;
+    transform: translateY(-50%);
+}
+.menu-item {
+    padding: 0 20px;
+    /*border: 1px solid black;*/
+    display: inline;
+}
+
+.hero-image {
+    display: block;
+    overflow: hidden
+}
+.hero-image img {
+    width: 100%;
+    display: block
+}
+.section {
+    padding: 8vw 0
+}
+.section-1 {
+    background: #37cde9;
+    display: block
+}
+.section-1 h1 {
+    color: #f5f7f7
+}
+.circle-banner {
+    text-align: center;
+    margin: 0 auto;
+    width: 790px
+}
+.circle-container {
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    margin: 0 -20px;
+    width: 300px;
+    height: 300px
+}
+.circle-container h2 {
+    text-align: center
+}
+.circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    border-radius: 50%;
+    background-color: rgba(105, 240, 174, 0.7)
+}
+.circle-text {
+    color: #fff;
+    margin-top: 40px;
+    margin-left: 55px;
+    margin-right: 55px;
+    text-align: left
+}
+.circle-prop {
+    margin-left: -60px;
+    margin-top: -60px;
+    padding-bottom: 60px
+}
+.circle-prop img {
+    width: 93%
+}
+.section-2 {
+    background: #fff;
+    display: block
+}
+.section-2 h1 {
+    color: #37cde9
+}
+.steps-container {
+    margin: 0 auto;
+    text-align: center
+}
+.steps-container .step {
+    display: inline-block;
+    vertical-align: top;
+    width: 300px
+}
+.step-image {
+    display: block;
+    margin: 0 auto;
+    height: 130px
+}
+.button-container {
+    padding: 20px;
+    text-align: center
+}
+.btn-custom {
+    background: #37cde9;
+    color: #f5f7f7;
+    border: 0
+}
