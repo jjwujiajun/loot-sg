@@ -213,3 +213,59 @@ td div {
 .why-subtitle {
     font-size: 10px;
 }
+
+
+.section-4 {
+    position: relative;
+    height: 700px;
+}
+.final-content {
+    text-align: center;
+}
+.final-message {
+    display: inline-block;
+
+    margin-top: 180px;
+
+    max-width: 700px;
+
+    font-size: 42pt;
+    text-align: left;
+}
+.final-message span {
+    color: #37CDE9;
+}
+
+.btn-primary{
+    margin-top: 60pt;
+    border: none;
+    background-color: #37CDE9;
+
+    padding: 10px 30px;
+
+    color: white;
+    font-size: 15px;   
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    border: none;
+    background-color: #37CDE9;
+
+    padding: 10px 30px;
+
+    color: white;
+    font-size: 15px;
+}
+
+.social-media-wrapper {
+    position: absolute;
+    bottom: 15px;
+    right: 40px;
+}
+.social-media-wrapper div {
+    display: inline-block;
+    margin: 0 10pt;
+    width: 40pt;
+}
+.social-media-wrapper div img {
+    width: 100%;
+}
