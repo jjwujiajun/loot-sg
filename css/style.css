@@ -129,7 +129,6 @@ img.menu-item {
 }
 
 .ATF-deco {
-    /*border: 1px solid black;*/
     width: 100%;
 
     position: absolute;
@@ -149,7 +148,7 @@ img.menu-item {
 }
 
 .section-1 h2 {
-    margin-top: 40px;
+    margin-top: 140px;
     font-size: 13px;
 
     text-align: center;
@@ -163,7 +162,6 @@ img.menu-item {
     text-align: center;
 }
 .step-image-wrapper {
-    /*text-align: center;*/
 }
 .step-title {
     display: inline-block;
