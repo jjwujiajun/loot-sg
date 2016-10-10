@@ -22,24 +22,24 @@
 }
 @font-face {
     font-family: 'Circular';
-    src: url('../fonts/circular-Bold.ttf');
-    font-style: bold
+    src: url('../fonts/Circular-bold.ttf');
+    font-style: bold;
 }
 @font-face {
     font-family: 'Circular';
-    src: url('../fonts/circular.ttf');
-    font-style: normal
+    src: url('../fonts/Circular-medium.ttf');
+    font-style: normal;
 }
 
 body {
-    font-family: 'Avenir';
+    font-family: 'Circular';
     margin: 0
 }
 h1 {
     text-align: center
 }
 .loot-button {
-    font-family: 'Avenir';
+    font-family: 'Circular';
     font-weight: 200;
     font-size: 15px;
     height: 30px;
@@ -77,6 +77,10 @@ img.menu-item {
     padding: 0 15px;
     display: inline;
 }
+.menu-item a {    
+    color: black;
+    font-size: 16px;
+}
 
 .ATF {
     display: block;
@@ -84,9 +88,12 @@ img.menu-item {
 
     margin-top: 80px;
 
-    background-image: url('../images/ATF-background.jpg');
+    height: 667px;
+
+    /*background-image: url('../images/ATF-background.jpg');
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;*/
 }
 
 .hero-title {
@@ -121,6 +128,18 @@ img.menu-item {
 .put-bom-wrapper .note {
     font-size: 12px;
     color: gray;
+}
+
+.ATF-deco {
+    /*border: 1px solid black;*/
+    width: 100%;
+
+    position: absolute;
+    bottom: 0px;
+}
+
+.ATF-deco img {
+    width: 100%;
 }
 
 .section {
