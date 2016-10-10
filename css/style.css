@@ -208,10 +208,10 @@ td div {
     height: 70px;
 }
 .why-title {
-    font-size: 20px;
+    font-size: 25px;
 }
 .why-subtitle {
-    font-size: 10px;
+    font-size: 11px;
 }
 
 
@@ -268,4 +268,7 @@ td div {
 }
 .social-media-wrapper div img {
     width: 100%;
+=======
+    font-size: 11px;
+>>>>>>> Stashed changes
 }
