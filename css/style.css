@@ -141,7 +141,7 @@ img.menu-item {
 }
 
 .section {
-    padding: 8vw 0
+    /*padding: 8vw 0*/
 }
 
 .section-1 {
@@ -184,7 +184,6 @@ img.menu-item {
     color: #37CDE9;
 }
 .step-subtitle {
-    border: 1px orange solid;
     display: inline-block;
 
     margin-top: 8px;
@@ -195,34 +194,24 @@ img.menu-item {
 .step-subtitle #3 {
     width: 150px;
 }
+.step-subtitle a {
+    color: #37CDE9;
+}
 
-.section-2 {
-    background: #fff;
-    display: block
+table tr td {
+    text-align: center;
 }
-.section-2 h1 {
-    color: #37cde9
+td img {
+    width: 100%;
 }
-.steps-container {
-    margin: 0 auto;
-    text-align: center
+td div {
+    vertical-align: center;
+
+    height: 70px;
 }
-.steps-container .step {
-    display: inline-block;
-    vertical-align: top;
-    width: 300px
+.why-title {
+    font-size: 20px;
 }
-.step-image {
-    display: block;
-    margin: 0 auto;
-    height: 130px
-}
-.button-container {
-    padding: 20px;
-    text-align: center
-}
-.btn-custom {
-    background: #37cde9;
-    color: #f5f7f7;
-    border: 0
+.why-subtitle {
+    font-size: 10px;
 }
