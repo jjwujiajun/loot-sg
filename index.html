@@ -52,13 +52,15 @@
                 <span class="subtitle">Loot helps you get stuff from the U.S., delivered to Singapore for free.</span>
             </div>
 
-            <div class="form-group put-bom-wrapper" ng-app="putBom" ng-controller="putBomController">
-                <input class="form-control" id="putBomInput" type="text" name="item-url" placeholder="Just copy and paste your item URL here." ng-model="urlField" ng-change="scrapeURL()"><br>
+            <form name="putBom" class="form-group put-bom-wrapper" ng-app="putBom" ng-controller="putBomController">
+                Minus cart count <button ng-click="minusCartCount()">-</button>
+                <input class="form-control" id="putBomInput" type="text" name="itemURL" placeholder="Just copy and paste your item URL here." ng-model="urlField.text" ng-change="scrapeURL()"><br>
                 <div class="put-bom-output" ng-show="cartCount > 0">
                     <!-- for cartIem in cartCount, print cart -->
+                    Cart count: {{cartCount}}
                 </div>
                 <span class="note">* Items from Amazon should be over $20 and under 3KG.</span>
-            </div>
+            </form>
         </div>
 
         <div class="ATF-deco">
