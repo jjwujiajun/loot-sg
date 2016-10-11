@@ -2,6 +2,9 @@
 <html>
 <head>
     <title>Loot</title>
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
     <!-- jQuery -->
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
@@ -10,6 +13,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Others -->
+    <script type="text/javascript" src="./js/putBom.js"></script>
     <script src="./js/script.js"></script>
     <link rel="stylesheet" href="./css/style.css" />
     <link href="images/favicon.png" rel="icon" type="image/x-icon" />
@@ -48,8 +52,11 @@
                 <span class="subtitle">Loot helps you get stuff from the U.S., delivered to Singapore for free.</span>
             </div>
 
-            <div class="form-group put-bom-wrapper">
-                <input class="form-control" id="putBomInput" type="url" name="item-url" placeholder="Just copy and paste your item URL here."><br>
+            <div class="form-group put-bom-wrapper" ng-app="putBom" ng-controller="putBomController">
+                <input class="form-control" id="putBomInput" type="text" name="item-url" placeholder="Just copy and paste your item URL here." ng-model="urlField" ng-change="scrapeURL()"><br>
+                <div class="put-bom-output" ng-show="cartCount > 0">
+                    <!-- for cartIem in cartCount, print cart -->
+                </div>
                 <span class="note">* Items from Amazon should be over $20 and under 3KG.</span>
             </div>
         </div>
