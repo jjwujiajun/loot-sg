@@ -54,8 +54,7 @@
 
             <form name="putBom" class="form-group put-bom-wrapper" ng-app="putBom" ng-controller="putBomController">
                 Minus cart count <button ng-click="minusCartCount()">-</button>
-                <input class="form-control" id="putBomInput" type="text" name="itemURL" placeholder="Just copy and paste your item URL here." ng-model="urlField.text" ng-change="scrapeURL()"><br>
-                Cart count: {{data.items.length}}
+                <input class="form-control" id="putBomInput" type="text" name="itemURL" placeholder="Just copy and paste your item URL here." ng-model="urlField.text" ng-model-options='{ debounce: 2500 }' ng-change="scrapeURL()"><br>
                 <div class="put-bom-output" ng-show="data.items.length > 0">
                     <div ng-repeat="item in data.items">
                         No.: {{item.number}}<br/>
