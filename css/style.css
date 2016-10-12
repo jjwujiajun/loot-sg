@@ -82,7 +82,6 @@ img.menu-item {
     position: relative;
 
     display: block;
-    overflow: hidden;
 
     margin-top: 80px;
 
@@ -126,12 +125,13 @@ img.menu-item {
     height: 60px;
 }
 .put-bom-output {
-    border: 1px solid black;
+    border: 1px solid gray;
+    background: #f2f2f2;
+
     position: absolute;
     left: 0;
     right: 0;
-
-    height: 20px;
+    z-index: 100;
 }
 .put-bom-wrapper .note {
     font-size: 12px;
