@@ -1,7 +1,3 @@
-/* TODO
-- change font from Avenir to Circular bold
-*/
-
 @font-face {
     font-family: 'Avenir';
     src: url('../fonts/Avenir-Light.ttf');
@@ -20,15 +16,26 @@
     font-weight: 500;
     font-style: normal
 }
+@font-face {
+    font-family: 'Circular';
+    src: url('../fonts/Circular-bold.ttf');
+    font-style: bold;
+}
+@font-face {
+    font-family: 'Circular';
+    src: url('../fonts/Circular-medium.ttf');
+    font-style: normal;
+}
+
 body {
-    font-family: 'Avenir';
+    font-family: 'Circular';
     margin: 0
 }
 h1 {
     text-align: center
 }
 .loot-button {
-    font-family: 'Avenir';
+    font-family: 'Circular';
     font-weight: 200;
     font-size: 15px;
     height: 30px;
@@ -47,118 +54,221 @@ h1 {
     height: 80px;
 }
 
-.logo-wrapper {
+.menu-wrapper {
     position: relative;
+    vertical-align: middle;
+
     top: 50%;
     transform: translateY(-50%);
-    vertical-align: middle;
+
     height: 50%;
-    /*width: 107px;*/
 }
 
-.logo-wrapper img {
+img.menu-item {
+    padding: 0 45px;
     height: 100%
 }
 
-.menu-wrapper {
-    display: inline-block;
-    float: right;
-    position: relative;
-    top: 0%;
-    transform: translateY(-50%);
-}
 .menu-item {
-    padding: 0 20px;
-    /*border: 1px solid black;*/
+    padding: 0 15px;
     display: inline;
 }
+.menu-item a {    
+    color: black;
+    font-size: 16px;
+}
 
-.hero-image {
-    display: block;
-    overflow: hidden
-}
-.hero-image img {
-    width: 100%;
-    display: block
-}
-.section {
-    padding: 8vw 0
-}
-.section-1 {
-    background: #37cde9;
-    display: block
-}
-.section-1 h1 {
-    color: #f5f7f7
-}
-.circle-banner {
-    text-align: center;
-    margin: 0 auto;
-    width: 790px
-}
-.circle-container {
-    display: inline-block;
+.ATF {
     position: relative;
-    vertical-align: top;
-    margin: 0 -20px;
-    width: 300px;
-    height: 300px
-}
-.circle-container h2 {
-    text-align: center
-}
-.circle {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 0;
-    border-radius: 50%;
-    background-color: rgba(105, 240, 174, 0.7)
-}
-.circle-text {
-    color: #fff;
-    margin-top: 40px;
-    margin-left: 55px;
-    margin-right: 55px;
-    text-align: left
-}
-.circle-prop {
-    margin-left: -60px;
-    margin-top: -60px;
-    padding-bottom: 60px
-}
-.circle-prop img {
-    width: 93%
-}
-.section-2 {
-    background: #fff;
-    display: block
-}
-.section-2 h1 {
-    color: #37cde9
-}
-.steps-container {
-    margin: 0 auto;
-    text-align: center
-}
-.steps-container .step {
-    display: inline-block;
-    vertical-align: top;
-    width: 300px
-}
-.step-image {
+
     display: block;
-    margin: 0 auto;
-    height: 130px
+    overflow: hidden;
+
+    margin-top: 80px;
+
+    height: 667px;
+
+    /*background-image: url('../images/ATF-background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;*/
 }
-.button-container {
-    padding: 20px;
-    text-align: center
+
+.hero-title {
+    margin-top: 130px;
+    text-align: center;
 }
-.btn-custom {
-    background: #37cde9;
-    color: #f5f7f7;
-    border: 0
+
+.hero-title h1 {
+    font-size: 62px;
+}
+.hero-title h1 span {
+    color: #23b5e9;
+}
+
+.hero-title .subtitle {
+    margin-top: 20px;
+
+    font-size: 16px;
+}
+
+.put-bom-wrapper {
+    margin-top: 60px;
+    margin-left: auto;
+    margin-right: auto;
+
+    max-width: 656px;
+}
+
+.put-bom-wrapper input {
+    height: 60px;
+}
+.put-bom-wrapper .note {
+    font-size: 12px;
+    color: gray;
+}
+
+.ATF-deco {
+    width: 100%;
+
+    position: absolute;
+    bottom: 0px;
+}
+
+.ATF-deco img {
+    width: 100%;
+}
+
+.section {
+    /*padding: 8vw 0*/
+}
+
+.section-1 {
+    height: 667px;
+}
+
+.section-1 h2 {
+    margin-top: 140px;
+    font-size: 13px;
+
+    text-align: center;
+}
+
+.steps-wrapper {
+    margin-top: 40px;
+}
+.step-wrapper {
+    padding: 0 60px;
+    text-align: center;
+}
+.step-image-wrapper {
+}
+.step-title {
+    display: inline-block;
+
+    text-align: left;
+    font-size: 25px;
+}
+.step-title #1 {
+    width: 180px;
+}
+.step-title #2 {
+    width: 180px;
+}
+.step-title #3 {
+    width: 150px;
+}
+.step-number {
+    color: #37CDE9;
+}
+.step-subtitle {
+    display: inline-block;
+
+    margin-top: 8px;
+
+    text-align: left;
+    font-size: 11px;
+}
+.step-subtitle #3 {
+    width: 150px;
+}
+.step-subtitle a {
+    color: #37CDE9;
+}
+
+table tr td {
+    text-align: center;
+}
+td img {
+    width: 100%;
+}
+td div {
+    vertical-align: center;
+
+    height: 70px;
+}
+.why-title {
+    font-size: 25px;
+}
+.why-subtitle {
+    font-size: 11px;
+}
+
+
+.section-4 {
+    position: relative;
+    height: 700px;
+}
+.final-content {
+    text-align: center;
+}
+.final-message {
+    display: inline-block;
+
+    margin-top: 180px;
+
+    max-width: 700px;
+
+    font-size: 42pt;
+    text-align: left;
+}
+.final-message span {
+    color: #37CDE9;
+}
+
+.btn-primary{
+    margin-top: 60pt;
+    border: none;
+    background-color: #37CDE9;
+
+    padding: 10px 30px;
+
+    color: white;
+    font-size: 15px;   
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    border: none;
+    background-color: #37CDE9;
+
+    padding: 10px 30px;
+
+    color: white;
+    font-size: 15px;
+}
+
+.social-media-wrapper {
+    position: absolute;
+    bottom: 15px;
+    right: 40px;
+}
+.social-media-wrapper div {
+    display: inline-block;
+    margin: 0 10pt;
+    width: 40pt;
+}
+.social-media-wrapper div img {
+    width: 100%;
+=======
+    font-size: 11px;
+>>>>>>> Stashed changes
 }

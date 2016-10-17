@@ -2,8 +2,16 @@
 <html>
 <head>
     <title>Loot</title>
+    <!-- jQuery -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/style.css">
+
+    <!-- Others -->
+    <script src="./js/script.js"></script>
+    <link rel="stylesheet" href="./css/style.css" />
     <link href="images/favicon.png" rel="icon" type="image/x-icon" />
     
     <!-- GOOGLE ANALYTICS -->
@@ -19,104 +27,111 @@
 </head>
 
 <body>
-    <!-- TODO: Make navbar white -->
+    <!-- Navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container navbar-wrapper">
-            <div class="logo-wrapper">
+            <div class="menu-wrapper">
                 <div class="menu-item"><a href="">How it works</a></div>
                 <div class="menu-item"><a href="">Why Loot?</a></div>
                 <img class="menu-item" src="./images/loot-logo-blue.png" />
                 <div class="menu-item"><a href="">FAQ</a></div>
                 <div class="menu-item"><a href="">Contact Us</a></div>
             </div>
-           <!--  <div class="menu-wrapper">
-                <div class="menu-item"><a href="">FAQ</a></div>
-                <div class="menu-item"><a href="">Contact Us</a></div>
-            </div> -->
         </div>
     </nav>
     
     <!-- ATF -->
-    <div class="hero-image">
-        <a href="http://spree.loot.sg">
-            <img src="./images/ATF-background.jpg" />
-        </a>
+    <div class="ATF">
+        <div class="container">
+            <div class="hero-title">
+                <h1>Overseas shopping, <span>simplified</span>.</h1>
+                <span class="subtitle">Loot helps you get stuff from the U.S., delivered to Singapore for free.</span>
+            </div>
+
+            <div class="form-group put-bom-wrapper">
+                <input class="form-control" id="putBomInput" type="url" name="item-url" placeholder="Just copy and paste your item URL here."><br>
+                <span class="note">* Items from Amazon should be over $20 and under 3KG.</span>
+            </div>
+        </div>
+
+        <div class="ATF-deco">
+            <img src="./images/ATF_deco.png">
+        </div>
     </div>
     
     <!-- Section 1 -->
     <div class="section section-1">
-        <h1>What's Loot</h1>
-
-        <div class="circle-banner">
-            <div class="circle-container">
-                <div class="circle">
-                    <div class="circle-text">
-                        <h2>WHO</h2>
-                        <p>
-                            Loot is a startup funded by NUS Enterprise, funded by alumni of the NUS Overseas College in Silicon Valley.
-                        </p>
+        <div class="container">
+            <h2>/ HOW IT WORKS</h2>
+            <div class="steps-wrapper">
+                <div class="step-wrapper col-sm-4">
+                    <div class="step-image-wrapper"><img src="./images/Ic_Mouse.png"></div>
+                    <div class="step-title">
+                        <span style="white-space: nowrap;"><span class="step-number" id="1">1 </span>Shop online</span>
                     </div>
+                    <div class="step-subtitle"  id="1">Shop at <a href="">www.amazon.com</a> or <a href="">www.forever21.com</a> and send us the item URL.</div>
                 </div>
-                
-            </div>
-
-            <div class="circle-container">
-                <div class="circle">
-                    <div class="circle-text">
-                        <h2>WHAT</h2>
-                        <p>
-                            Loot is a shopping platform that gives shoppers huge instant discounts across major US retailers, often at 4-30% off their shopping carts!
-                        </p>
+                <div class="step-wrapper col-sm-4">
+                    <img src="./images/Ic_Cart.png">
+                    <div class="step-title">
+                        <span style="white-space: nowrap;"><span class="step-number" id="2">2 </span>Check out </span>on Loot
                     </div>
-                </div>
-                
-            </div>
 
-            <div class="circle-container">
-                <div class="circle">
-                    <div class="circle-text">
-                        <h2>HOW</h2>
-                        <p>
-                            Our closed beta offers 21% off Forever21.com sitewide. The discount applies to all items including sale items. It STACKS with coupons too!
-                        </p>
-                    </div>
+                    <div class="step-subtitle" id="2">We accept debit, credit or Paypal.</div>
                 </div>
-                
-            </div>
-            
-            <div class="circle-prop">
-                <img src="./images/squigglyline.png" />
+                <div class="step-wrapper col-sm-4">
+                    <div class="step-image-wrapper"><img src="./images/Ic_Present.png"></div>
+                    <div class="step-title">
+                        <span style="white-space: nowrap;"><span class="step-number" id="3">3 </span>Delivered</span>
+                    </div>
+                    <div class="step-subtitle" id="3">Have it delivered in 2 weeks!</div>
+                </div>
             </div>
         </div>
-
 
     </div>
     <div class="section section-2">
-        <h1>How Can I Order with Loot?</h1>
+        <table border="0" width="100%">
+            <tr>
+                <td><img src="./images/Pic_Freeshipping.png"></td>
+                <td>
+                    <div>
+                        <span class="why-title">Free shipping</span><br />
+                        <span class="why-subtitle">Delivered from U.S. merchants to your Singapore address.</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="why-title">Upfront pricing</span><br />
+                        <span class="why-subtitle">No hidden fees, forex markup, or GST. Pay what you see.</span>
+                </td>
+                <td><img src="./images/Pic_Upfrontpricing.png"></td>
+            </tr>
+            <tr>
+                <td><img src="./images/Pic_Hasslefree.png"></td>
+                <td>
+                    <span class="why-title">Hassle-free</span><br />
+                    <span class="why-subtitle">Save time on creating an account. Check out as guest.</span>
+                </td>
+            </tr>
+        </table>
+    </div>
 
-        <div class="steps-container">
-            <div class="step">
-                <img src="./images/step1.png" class="step-image" />
-                <p>Browse on forever21.com USA. Send us details of the items you want to buy using the Loot form.</p>
+    <div class="section section-4">
+        <div class="container">
+            <div class="final-content">
+                <div class="final-message">
+                    Online shopping +<br />
+                    <span>Free international delivery</span>.
+                </div>
+                <div><button type="button" class="btn btn-primary" id="backToTop">Try Loot now!</button></div>
             </div>
-            <div class="step">
-                <img src="./images/step2.png" class="step-image" />
-                <p>Loot sends you an invoice with the final price including doorstep delivery to your Singapore address. Upfront final pricing - no surprise charges!</p>
-            </div>
-            <div class="step">
-                <img src="./images/step3.png" class="step-image" />
-                <p>Pay securely using credit/debit card.</p>
-            </div>
-            <div class="step">
-                <img src="./images/step4.png" class="step-image" />
-                <p>We deliver your Loot within 10-15 working days anywhere in Singapore.</p>
-            </div>
-        </div>
 
-        <div class="button-container">
-            <a href="http://spree.loot.sg">
-                <button class="loot-button">Order Now!</button>
-            </a>
+            <div class="social-media-wrapper">
+                <div><img src="./images/share_fb.png"></div>
+                <div><img src="./images/share_email.png"></div>
+            </div>
         </div>
     </div>
 </body>
