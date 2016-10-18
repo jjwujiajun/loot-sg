@@ -15,7 +15,8 @@ app.service('data', function() {
         sizes: ['S', 'M', 'L'],
         colors: ['Cream', 'Green'],
         details: '',
-        shouldShowDeleteBtn: false
+        shouldShowDeleteBtn: false,
+        useCircleForSizes: true
 	}];
 
 	this.userInfo = {
@@ -82,6 +83,10 @@ app.controller('putBomController', ['data', '$scope', '$http', function(data, $s
 	    }).then(function (result) {
 	    	return result.data;
 	    }).then(function (resultData) {
+	    	// For multiple cart items. Remove this.
+	    	data.items.shift();
+	    	/********/
+
 	    	$scope.createEmptyItem();
 
 	    	var result = resultData.results[0];
@@ -122,7 +127,15 @@ app.controller('putBomController', ['data', '$scope', '$http', function(data, $s
 	            data.items[0].colors = result["colors_available/_alt"];    
 	        }
 
-			$scope.urlField.text = '';
+	        if (isNaN(data.items[0].sizes[0])) {
+	        	data.items[0].useCircleForSizes = data.items[0].sizes[0].length <= 2;
+	        } else {
+	        	data.items[0].useCircleForSizes = data.items[0].sizes[0].toString().length <= 2;
+	        }
+	        console.log(data.items[0].useCircleForSizes);
+	        
+
+			// $scope.urlField.text = '';
 	    });
 	};
 

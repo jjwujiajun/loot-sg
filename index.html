@@ -74,13 +74,13 @@
                                     </div>
                                 </div>
                                 <div class="item-qty">
-                                    Quantity <input type="number" value="{{item.quantity}}">
+                                    Quantity <input class="form-control" type="number" value="{{item.quantity}}">
                                 </div>
                             </div>
                             <div class="middle-col-row row2">
                                 <div class="item-sizes">
                                     <div class="key">Size</div>
-                                    <div ng-repeat="sizei in item.sizes" class="item-size" ng-class="{'selected': sizei==item.size}" ng-click="selectSizeForItem(sizei, item)">
+                                    <div ng-repeat="sizei in item.sizes" class="item-size" ng-class="{'selected': sizei==item.size, 'circular': item.useCircleForSizes, 'rectangle': !useCircleForSizes, 'btn': !useCircleForSizes}" ng-click="selectSizeForItem(sizei, item)">
                                         {{sizei}}
                                     </div>
                                 </div>

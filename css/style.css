@@ -135,7 +135,7 @@ img.menu-item {
     white-space: nowrap;
 }
 .pb-pic-col {
-    display: inline-block;;
+    display: inline-block;
     vertical-align: top;
 
     position: relative;
@@ -188,29 +188,42 @@ img.menu-item {
     line-height: 30px;
 }
 .pb-item .item-color.selected {
-    background: gray;
+    background: #EBEBEB;
 }
 .pb-item .item-qty {
     display: inline-block;
     width: 25%;
 }
 .pb-item .item-qty input {
+    display: inline-block;
+
     height: 30px;
     width: 50px;
+    padding: 0 5px;
+    border: none;
+
+    background-color: #EBEBEB;
 }
 .pb-item .item-size {
     display: inline-block;
-
-    border-radius: 50%;
-    height: 30px;
-    width: 30px;
 
     line-height: 30px;
     text-align: center;
 
 }
+.pb-item .circular {
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+
+    margin: 0 5px;
+}
+.pb-item .rectangle {
+    height: 30px;
+    padding: 0 10px;
+}
 .pb-item .item-size.selected {
-    background: gray;
+    background: #EBEBEB;
 }
 
 .pb-price-col {
