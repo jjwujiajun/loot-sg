@@ -5,7 +5,7 @@ app.service('data', function() {
 		number: 1, // temp
         name: 'Contemporary Floral Print Dress',
         url: 'http://forever21.com/blah/?blah=1#hello',
-        quantity: '1',
+        quantity: 1,
         size: '',
         color: '',
         instructions: '',
@@ -135,7 +135,7 @@ app.controller('putBomController', ['data', '$scope', '$http', function(data, $s
 	        console.log(data.items[0].useCircleForSizes);
 	        
 
-			// $scope.urlField.text = '';
+			$scope.urlField.text = '';
 	    });
 	};
 

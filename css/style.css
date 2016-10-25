@@ -133,6 +133,12 @@ img.menu-item {
     z-index: 100;
 
     white-space: nowrap;
+
+    opacity: 0;
+}
+.put-bom-output.fade{
+    opacity: 1;
+    transition: all linear 0.4s;
 }
 .pb-pic-col {
     display: inline-block;
@@ -239,7 +245,7 @@ img.menu-item {
     margin-top: 30px;
 }
 .cart-actions {
-    margin-top: 30px;
+    margin-top: 10px;
 }
 .cart-actions .add-more {
     display: inline-block;
@@ -275,7 +281,9 @@ img.menu-item {
     position: absolute;
     bottom: 0px;
 }
-
+.ATF-deco.fade {
+    opacity: 0.2;
+}
 .ATF-deco img {
     width: 100%;
 }
@@ -285,7 +293,7 @@ img.menu-item {
 }
 
 .section-1 {
-    height: 667px;
+    min-height: 667px;
 }
 
 .section-1 h2 {
@@ -297,8 +305,12 @@ img.menu-item {
 
 .steps-wrapper {
     margin-top: 40px;
+    text-align: center;
 }
 .step-wrapper {
+    max-width: 300px;
+
+    display: inline-block;
     padding: 0 60px;
     text-align: center;
 }
