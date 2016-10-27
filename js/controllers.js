@@ -86,7 +86,7 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 	    	return result.data;
 	    }).then(function (resultData) {
 	    	// For multiple cart items. Remove this.
-	    	data.items.shift();
+	    	//data.items.shift();
 	    	/********/
 
 	    	createEmptyItem();
