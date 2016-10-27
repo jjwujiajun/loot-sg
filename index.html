@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Others -->
+    <script type="text/javascript" src="./js/putBom.js"></script>
     <script src="./js/script.js"></script>
     <link rel="stylesheet" href="./css/style.css" />
     <link href="images/favicon.png" rel="icon" type="image/x-icon" />
@@ -45,8 +46,74 @@
             </div>
         </div>
     </nav>
-    <div class="ngView" ng-app="loot-sg">
+    
+    <!-- ATF -->
+    <div class="ATF" ng-app="putBom" ng-controller="putBomController">
+        <div class="container">
+            <div class="hero-title">
+                <h1>Overseas shopping, <span>simplified</span>.</h1>
+                <span class="subtitle">Loot helps you get stuff from the U.S., delivered to Singapore for free.</span>
+            </div>
 
+            <form name="putBom" class="form-group put-bom-wrapper">
+
+                <input class="form-control" id="putBomInput" type="text" name="itemURL" placeholder="Just copy and paste your item URL here." ng-model="urlField.text" ng-model-options='{ debounce: 1000 }' ng-change="scrapeURL()"><br>
+                <div class="put-bom-output" ng-class="{'fade': data.items.length > 0}">
+
+                    <div class="pb-item" ng-repeat="item in data.items" ng-mouseenter="item.shouldShowDeleteBtn = true;" ng-mouseleave="item.shouldShowDeleteBtn = false;">
+                        <div class="pb-pic-col">
+                            <img src="{{item.imageUrl}}" />
+                        </div>
+                        <div class="pb-middle-col">
+                            <div class="middle-col-row row1">
+                                <div>{{item.name}}</div>
+                                <div class="item-url">{{item.url}}</div>
+                            </div>
+                            <div class="middle-col-row row2">
+                                <div class="item-colors">
+                                    <div class="key">Color</div>
+                                    <div ng-repeat="colori in item.colors" class="item-color btn" ng-class="{'selected': colori==item.color}" ng-click="selectColorForItem(colori, item)">
+                                        {{colori}}
+                                    </div>
+                                </div>
+                                <div class="item-qty">
+                                    Quantity <input class="form-control" type="number" value="{{item.quantity}}">
+                                </div>
+                            </div>
+                            <div class="middle-col-row row2">
+                                <div class="item-sizes">
+                                    <div class="key">Size</div>
+                                    <div ng-repeat="sizei in item.sizes" class="item-size" ng-class="{'selected': sizei==item.size, 'circular': item.useCircleForSizes, 'rectangle': !item.useCircleForSizes, 'btn': !item.useCircleForSizes}" ng-click="selectSizeForItem(sizei, item)">
+                                        {{sizei}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pb-price-col">
+                            ${{item.listPrice}}<br/> 
+                            <div class="pb-X-col" ng-show="item.shouldShowDeleteBtn">
+                                <button ng-click="removeItem(item.number)">x</button>
+                            </div>
+                        </div> 
+
+                    </div>
+                    <!-- Add to cart -->
+                    <div class="cart-actions">
+                        <div class="btn add-more">Add More items +</div>
+                        <div class="btn checkout">
+                            Checkout
+                            <img src="">
+                        </div>
+                    </div>
+                </div>
+                <span class="note">* Items from Amazon should be over $20 and under 3KG.</span>
+            </form>
+        </div>
+
+        <div class="ATF-deco" ng-class="{'fade': data.items.length > 0}">
+            
+            <img src="./images/ATF_deco.png">
+        </div>
     </div>
 </body>
 </html>
