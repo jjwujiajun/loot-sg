@@ -2,21 +2,23 @@ var mod = angular.module('loot-sg', ['ngRoute']);
 
 
 mod.service('data', function() {
-	this.items    = [{
-						number: 1,
-                        name: '',
-                        url: '',
-                        quantity: '',
-                        size: '',
-                        color: '',
-                        instructions: '',
-						proceedOrder: true,
-                        listPrice: '',
-                        imageUrl: '',
-                        sizes: [],
-                        colors: [],
-                        details: ''
-					}];
+	this.items    = [];
+
+	// {
+	// 					number: 1,
+ //                        name: '',
+ //                        url: '',
+ //                        quantity: '',
+ //                        size: '',
+ //                        color: '',
+ //                        instructions: '',
+	// 					proceedOrder: true,
+ //                        listPrice: '',
+ //                        imageUrl: '',
+ //                        sizes: [],
+ //                        colors: [],
+ //                        details: ''
+	// 				}
 
 /* DEBUG
 	this.items    = [
