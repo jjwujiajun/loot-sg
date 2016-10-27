@@ -231,14 +231,29 @@ function routeConfig($routeProvider) {
 		controller: 'homeController',
 		controllerAs: 'home',
 		templateUrl: 'home.html'
+	}).when('/login', {
+		controller: 'loginController',
+		controllerAs: 'login',
+		templateUrl: 'login.html'
 	})
 }
 mod.config(routeConfig);
+
+	
 
 mod.controller('homeController', ['data', 'utility','$location', function(data, utility, $location){
 	var vm  = this;
 	vm.urlField = {'text': ''};
 	vm.data = data;
+
+	var isValidURL = function(str) {
+		if (str.indexOf('amazon.com') != -1) {
+			return true;
+		} else if (str.indexOf('forever21.com') != -1) {
+			return true;
+		};
+		return false;
+	}
 
 	vm.scrapeURL = function () {
 		// Check if input is valid url
@@ -246,7 +261,7 @@ mod.controller('homeController', ['data', 'utility','$location', function(data, 
 
 			// try scrape from import.io
 			utility.scrapeF21(vm.urlField.text);
-			vm.urlField.text = '';
+			//vm.urlField.text = '';
 		}
 	};
 	
@@ -264,13 +279,14 @@ mod.controller('homeController', ['data', 'utility','$location', function(data, 
 		item.size = size;
 	}
 	
+	vm.checkOut = function(){
+		$location.path('login');
+	}
+
 }]);
 
-function isValidURL(str) {
-	if (str.indexOf('amazon.com') != -1) {
-		return true;
-	} else if (str.indexOf('forever21.com') != -1) {
-		return true;
-	};
-	return false;
-}
+mod.controller('loginController', ['data','$location', function(data, $location){
+	var vm = this;
+
+
+}]);
