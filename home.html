@@ -7,10 +7,10 @@
 
         <form name="putBom" class="form-group put-bom-wrapper">
 
-            <input class="form-control" id="putBomInput" type="text" name="itemURL" placeholder="Just copy and paste your item URL here." ng-model="urlField.text" ng-model-options='{ debounce: 1000 }' ng-change="scrapeURL()"><br>
-            <div class="put-bom-output" ng-class="{'fade': data.items.length > 0}">
+            <input class="form-control" id="putBomInput" type="text" name="itemURL" placeholder="Just copy and paste your item URL here." ng-model="home.urlField.text" ng-model-options='{ debounce: 1000 }' ng-change="home.scrapeURL()"><br>
+            <div class="put-bom-output" ng-class="{'fade': home.data.items.length > 0}">
 
-                <div class="pb-item" ng-repeat="item in data.items" ng-mouseenter="item.shouldShowDeleteBtn = true;" ng-mouseleave="item.shouldShowDeleteBtn = false;">
+                <div class="pb-item" ng-repeat="item in home.data.items" ng-mouseenter="item.shouldShowDeleteBtn = true;" ng-mouseleave="item.shouldShowDeleteBtn = false;">
                     <div class="pb-pic-col">
                         <img src="{{item.imageUrl}}" />
                     </div>
@@ -42,7 +42,7 @@
                     <div class="pb-price-col">
                         ${{item.listPrice}}<br/> 
                         <div class="pb-X-col" ng-show="item.shouldShowDeleteBtn">
-                            <button ng-click="removeItem(item.number)">x</button>
+                            <button ng-click="home.removeItem(item.number)">x</button>
                         </div>
                     </div> 
 
@@ -60,7 +60,7 @@
         </form>
     </div>
 
-    <div class="ATF-deco" ng-class="{'fade': data.items.length > 0}">
+    <div class="ATF-deco" ng-class="{'fade': home.data.items.length > 0}">
         
         <img src="./images/ATF_deco.png">
     </div>
