@@ -235,6 +235,10 @@ function routeConfig($routeProvider) {
 		controller: 'loginController',
 		controllerAs: 'login',
 		templateUrl: 'login.html'
+	}).when('/delivery', {
+		controller: 'deliveryController',
+		controllerAs: 'delivery',
+		templateUrl: 'delivery.html'
 	})
 }
 mod.config(routeConfig);
@@ -294,7 +298,21 @@ mod.controller('loginController', ['data','$location', function(data, $location)
 	}
 
 	vm.next = function(){
-		$location.path('info');
+		$location.path('delivery');
+	}
+
+}]);
+
+mod.controller('deliveryController', ['data','$location', function(data, $location){
+	var vm = this;
+	vm.userInfo = data.userInfo;
+
+	vm.back = function(){
+		$location.path('login');
+	}
+
+	vm.next = function(){
+		$location.path('payment');
 	}
 
 }]);

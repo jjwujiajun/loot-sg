@@ -1,0 +1,40 @@
+<div class="ATF">
+
+    <div class="header">
+        <div id="header-graphic"></div>
+        <div id="header-circle">
+            <div class="step-num">2</div>
+            <p>Delivery</p>
+        </div>
+    </div>
+    <div class="form-body">
+        <form ng-submit="delivery.next()">
+            <div class="inputs">
+                <label>
+                    <p>First Name</p>
+                    <input type="text" ng-model="delivery.userInfo.firstName" required>
+                </label>
+                <label>
+                    <p>Last Name</p>
+                    <input type="text" ng-model="delivery.userInfo.lastName" required>
+                </label>
+                <label>
+                    <p>Address</p>
+                    <input type="text" class="xl" ng-model="delivery.userInfo.address" required>
+                </label>
+                <label>
+                    <p>Postal Code</p>
+                    <input type="text" maxlength="6" size="6" ng-model="delivery.userInfo.postalCode" required>
+                </label>
+                <label>
+                    <p>Contact</p>
+                    <input type="text" ng-model="delivery.userInfo.contact" required>
+                </label>
+            </div>
+            <div class="button-row">
+                <span><button class="button" type="button" ng-click="delivery.back()">Back</button></span>
+                <span><button class="button">Next: <span class="bold">Confirm Email</span></button></span></div>
+        </form>
+    </div>
+
+</div>
