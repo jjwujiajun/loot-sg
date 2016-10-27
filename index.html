@@ -2,8 +2,14 @@
 <html>
 <head>
     <title>Loot</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- AngularJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
+    <script src="./js/controllers.js"></script>
+    <script src="./js/angular-route.js"></script>
+
     <!-- jQuery -->
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 
     <!-- Bootstrap -->
@@ -39,100 +45,8 @@
             </div>
         </div>
     </nav>
-    
-    <!-- ATF -->
-    <div class="ATF">
-        <div class="container">
-            <div class="hero-title">
-                <h1>Overseas shopping, <span>simplified</span>.</h1>
-                <span class="subtitle">Loot helps you get stuff from the U.S., delivered to Singapore for free.</span>
-            </div>
+    <div class="ngView" ng-app="loot-sg">
 
-            <div class="form-group put-bom-wrapper">
-                <input class="form-control" id="putBomInput" type="url" name="item-url" placeholder="Just copy and paste your item URL here."><br>
-                <span class="note">* Items from Amazon should be over $20 and under 3KG.</span>
-            </div>
-        </div>
-
-        <div class="ATF-deco">
-            <img src="./images/ATF_deco.png">
-        </div>
-    </div>
-    
-    <!-- Section 1 -->
-    <div class="section section-1">
-        <div class="container">
-            <h2>/ HOW IT WORKS</h2>
-            <div class="steps-wrapper">
-                <div class="step-wrapper col-sm-4">
-                    <div class="step-image-wrapper"><img src="./images/Ic_Mouse.png"></div>
-                    <div class="step-title">
-                        <span style="white-space: nowrap;"><span class="step-number" id="1">1 </span>Shop online</span>
-                    </div>
-                    <div class="step-subtitle"  id="1">Shop at <a href="">www.amazon.com</a> or <a href="">www.forever21.com</a> and send us the item URL.</div>
-                </div>
-                <div class="step-wrapper col-sm-4">
-                    <img src="./images/Ic_Cart.png">
-                    <div class="step-title">
-                        <span style="white-space: nowrap;"><span class="step-number" id="2">2 </span>Check out </span>on Loot
-                    </div>
-
-                    <div class="step-subtitle" id="2">We accept debit, credit or Paypal.</div>
-                </div>
-                <div class="step-wrapper col-sm-4">
-                    <div class="step-image-wrapper"><img src="./images/Ic_Present.png"></div>
-                    <div class="step-title">
-                        <span style="white-space: nowrap;"><span class="step-number" id="3">3 </span>Delivered</span>
-                    </div>
-                    <div class="step-subtitle" id="3">Have it delivered in 2 weeks!</div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <div class="section section-2">
-        <table border="0" width="100%">
-            <tr>
-                <td><img src="./images/Pic_Freeshipping.png"></td>
-                <td>
-                    <div>
-                        <span class="why-title">Free shipping</span><br />
-                        <span class="why-subtitle">Delivered from U.S. merchants to your Singapore address.</span>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span class="why-title">Upfront pricing</span><br />
-                        <span class="why-subtitle">No hidden fees, forex markup, or GST. Pay what you see.</span>
-                </td>
-                <td><img src="./images/Pic_Upfrontpricing.png"></td>
-            </tr>
-            <tr>
-                <td><img src="./images/Pic_Hasslefree.png"></td>
-                <td>
-                    <span class="why-title">Hassle-free</span><br />
-                    <span class="why-subtitle">Save time on creating an account. Check out as guest.</span>
-                </td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="section section-4">
-        <div class="container">
-            <div class="final-content">
-                <div class="final-message">
-                    Online shopping +<br />
-                    <span>Free international delivery</span>.
-                </div>
-                <div><button type="button" class="btn btn-primary" id="backToTop">Try Loot now!</button></div>
-            </div>
-
-            <div class="social-media-wrapper">
-                <div><img src="./images/share_fb.png"></div>
-                <div><img src="./images/share_email.png"></div>
-            </div>
-        </div>
     </div>
 </body>
 </html>
