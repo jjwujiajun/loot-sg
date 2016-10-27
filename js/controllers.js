@@ -287,6 +287,14 @@ mod.controller('homeController', ['data', 'utility','$location', function(data, 
 
 mod.controller('loginController', ['data','$location', function(data, $location){
 	var vm = this;
+	vm.userInfo = data.userInfo;
 
+	vm.back = function(){
+		$location.path('');
+	}
+
+	vm.next = function(){
+		$location.path('info');
+	}
 
 }]);
