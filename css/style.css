@@ -247,21 +247,10 @@ img.menu-item {
 .cart-actions {
     margin-top: 10px;
 }
-.cart-actions .add-more {
-    display: inline-block;
-
-    width: 70%;
-    height: 50px;
-    line-height: 35px;
-
-    font-size: 15px;
-    text-align: center;
-    background: #BDE8F8;
-}
 .cart-actions .checkout {
     display: inline-block;
     
-    width: 30%;
+    width: 100%;
     height: 50px;
     line-height: 35px;
 
