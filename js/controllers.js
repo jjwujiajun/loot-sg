@@ -209,7 +209,7 @@ mod.service('utility', ['$http', 'data', function($http, data) {
     };
 
 	this.getPlurality = function(number) {
-		if(number > 1) {
+		if(number != 1) {
 			return 's';
 		}
 		return '';
@@ -243,6 +243,10 @@ function routeConfig($routeProvider) {
 		controller: 'confirmController',
 		controllerAs: 'confirm',
 		templateUrl: 'confirm.html'
+	}).when('/modify', {
+		controller: 'modifyController',
+		controllerAs: 'modify',
+		templateUrl: 'modify.html'
 	})
 }
 mod.config(routeConfig);
@@ -321,12 +325,14 @@ mod.controller('deliveryController', ['data','$location', function(data, $locati
 
 }]);
 
-mod.controller('confirmController', ['data','$location', function(data, $location){
+mod.controller('confirmController', ['data','utility','$location', function(data, utility, $location){
 	var vm = this;
-	vm.userInfo = data.userInfo;
+	vm.items        = data.items;
+	vm.itemCount    = data.items.length;
+	vm.getPlurality = utility.getPlurality;
 
 	vm.back = function(){
-		$location.path('login');
+		$location.path('delivery');
 	}
 
 	vm.confirmAndPay = function(){
@@ -338,3 +344,4 @@ mod.controller('confirmController', ['data','$location', function(data, $locatio
 	}
 
 }]);
+
