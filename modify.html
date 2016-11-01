@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="hero-title">
+        <h1>Cart</h1>
+    </div>
+
+    <form name="putBom" class="form-group put-bom-wrapper">
+
+        <input class="form-control" id="putBomInput" type="text" name="itemURL" placeholder="Just copy and paste your item URL here." ng-model="modify.urlField.text" ng-model-options='{ debounce: 1000 }' ng-change="modify.scrapeURL()"><br>
+        <div class="put-bom-output" ng-class="{'fade': modify.data.items.length > 0}">
+
+            <div class="pb-item" ng-repeat="item in modify.data.items" ng-mouseenter="item.shouldShowDeleteBtn = true;" ng-mouseleave="item.shouldShowDeleteBtn = false;">
+                <div class="pb-pic-col">
+                    <img src="{{item.imageUrl}}" />
+                </div>
+                <div class="pb-middle-col">
+                    <div class="middle-col-row row1">
+                        <div>{{item.name}}</div>
+                        <div class="item-url">{{item.url}}</div>
+                    </div>
+                    <div class="middle-col-row row2">
+                        <div class="item-colors">
+                            <div class="key">Color</div>
+                            <div ng-repeat="colori in item.colors" class="item-color btn" ng-class="{'selected': colori==item.color}" ng-click="modify.selectColorForItem(colori, item)">
+                                {{colori}}
+                            </div>
+                        </div>
+                        <div class="item-qty">
+                            Quantity <input class="form-control" type="number" value="{{item.quantity}}">
+                        </div>
+                    </div>
+                    <div class="middle-col-row row2">
+                        <div class="item-sizes">
+                            <div class="key">Size</div>
+                            <div ng-repeat="sizei in item.sizes" class="item-size" ng-class="{'selected': sizei==item.size, 'circular': item.useCircleForSizes, 'rectangle': !item.useCircleForSizes, 'btn': !item.useCircleForSizes}" ng-click="modify.selectSizeForItem(sizei, item)">
+                                {{sizei}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pb-price-col">
+                    ${{item.listPrice}}<br/>
+                    <div class="pb-X-col" ng-show="item.shouldShowDeleteBtn">
+                        <button ng-click="modify.removeItem(item.number)">x</button>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Add to cart -->
+            <div class="cart-actions">
+                <div class="btn checkout" ng-click="modify.save()">
+                    Save
+                    <img src="">
+                </div>
+            </div>
+        </div>
+        <span class="note">* Items from Amazon should be over $20 and under 3KG.</span>
+    </form>
+</div>

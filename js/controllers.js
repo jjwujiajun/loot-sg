@@ -345,3 +345,46 @@ mod.controller('confirmController', ['data','utility','$location', function(data
 
 }]);
 
+mod.controller('modifyController', ['data','utility','$location', function(data, utility, $location){
+	var vm = this;
+	vm.urlField = {'text': ''};
+	vm.data = data;
+
+	var isValidURL = function(str) {
+		if (str.indexOf('amazon.com') != -1) {
+			return true;
+		} else if (str.indexOf('forever21.com') != -1) {
+			return true;
+		};
+		return false;
+	}
+
+	vm.scrapeURL = function () {
+		// Check if input is valid url
+		if (isValidURL(vm.urlField.text)) { 
+
+			// try scrape from import.io
+			utility.scrapeF21(vm.urlField.text);
+			//vm.urlField.text = '';
+		}
+	};
+	
+
+	vm.removeItem = function(itemNumber) {
+		index = vm.data.items.length - itemNumber;
+		vm.data.items.splice(index, 1);
+	}
+
+	vm.selectColorForItem = function(color, item) {
+		item.color = color;
+	}
+
+	vm.selectSizeForItem = function(size, item) {
+		item.size = size;
+	}
+
+	vm.save = function(){
+		$location.path('confirm');
+	}
+
+}]);
