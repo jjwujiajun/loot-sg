@@ -256,7 +256,9 @@ mod.config(routeConfig);
 mod.controller('homeController', ['data', 'utility','$location', function(data, utility, $location){
 	var vm  = this;
 	vm.urlField = {'text': ''};
+	vm.urlFieldPlaceholder = 'Just copy and paste your item URL here.';
 	vm.data = data;
+	var firstScrape = true;
 
 	var isValidURL = function(str) {
 		if (str.indexOf('amazon.com') != -1) {
@@ -274,6 +276,10 @@ mod.controller('homeController', ['data', 'utility','$location', function(data, 
 			// try scrape from import.io
 			utility.scrapeF21(vm.urlField.text).then(function(){
 				vm.urlField.text = '';
+				if(firstScrape){
+					vm.urlFieldPlaceholder = 'Paste your next item URL here.'
+					firstScrape = false
+				}
 			})
 		}
 	};
