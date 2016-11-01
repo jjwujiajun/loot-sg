@@ -255,8 +255,7 @@ mod.config(routeConfig);
 
 mod.controller('homeController', ['data', 'utility','$location', function(data, utility, $location){
 	var vm  = this;
-	vm.urlField = {'text': ''};
-	vm.urlFieldPlaceholder = 'Just copy and paste your item URL here.';
+	vm.urlField = {'text': '', 'placeholder': 'Just copy and paste your item URL here'};
 	vm.data = data;
 	var firstScrape = true;
 
@@ -277,10 +276,10 @@ mod.controller('homeController', ['data', 'utility','$location', function(data, 
 			utility.scrapeF21(vm.urlField.text).then(function(){
 				vm.urlField.text = '';
 				if(firstScrape){
-					vm.urlFieldPlaceholder = 'Paste your next item URL here.'
+					vm.urlField.placeholder = 'Paste your next item URL here'
 					firstScrape = false
 				}
-			})
+			});
 		}
 	};
 	
@@ -354,7 +353,7 @@ mod.controller('confirmController', ['data','utility','$location', function(data
 
 mod.controller('modifyController', ['data','utility','$location', function(data, utility, $location){
 	var vm = this;
-	vm.urlField = {'text': ''};
+	vm.urlField = {'text': '', 'placeholder': 'Paste your next item URL here'};
 	vm.data = data;
 
 	var isValidURL = function(str) {
@@ -371,8 +370,10 @@ mod.controller('modifyController', ['data','utility','$location', function(data,
 		if (isValidURL(vm.urlField.text)) { 
 
 			// try scrape from import.io
-			utility.scrapeF21(vm.urlField.text);
-			//vm.urlField.text = '';
+			utility.scrapeF21(vm.urlField.text).then(function(){
+				vm.urlField.text = '';	
+			});
+			
 		}
 	};
 	
