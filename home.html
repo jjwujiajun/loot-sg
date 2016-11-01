@@ -22,7 +22,7 @@
                         <div class="middle-col-row row2">
                             <div class="item-colors">
                                 <div class="key">Color</div>
-                                <div ng-repeat="colori in item.colors" class="item-color btn" ng-class="{'selected': colori==item.color}" ng-click="selectColorForItem(colori, item)">
+                                <div ng-repeat="colori in item.colors" class="item-color btn" ng-class="{'selected': colori==item.color}" ng-click="home.selectColorForItem(colori, item)">
                                     {{colori}}
                                 </div>
                             </div>
@@ -33,18 +33,18 @@
                         <div class="middle-col-row row2">
                             <div class="item-sizes">
                                 <div class="key">Size</div>
-                                <div ng-repeat="sizei in item.sizes" class="item-size" ng-class="{'selected': sizei==item.size, 'circular': item.useCircleForSizes, 'rectangle': !item.useCircleForSizes, 'btn': !item.useCircleForSizes}" ng-click="selectSizeForItem(sizei, item)">
+                                <div ng-repeat="sizei in item.sizes" class="item-size" ng-class="{'selected': sizei==item.size, 'circular': item.useCircleForSizes, 'rectangle': !item.useCircleForSizes, 'btn': !item.useCircleForSizes}" ng-click="home.selectSizeForItem(sizei, item)">
                                     {{sizei}}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="pb-price-col">
-                        ${{item.listPrice}}<br/> 
+                        ${{item.listPrice}}<br/>
                         <div class="pb-X-col" ng-show="item.shouldShowDeleteBtn">
                             <button ng-click="home.removeItem(item.number)">x</button>
                         </div>
-                    </div> 
+                    </div>
 
                 </div>
                 <!-- Add to cart -->
@@ -60,7 +60,7 @@
     </div>
 
     <div class="ATF-deco" ng-class="{'fade': home.data.items.length > 0}">
-        
+
         <img src="./images/ATF_deco.png">
     </div>
 </div>
