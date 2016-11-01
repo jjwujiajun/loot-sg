@@ -239,6 +239,10 @@ function routeConfig($routeProvider) {
 		controller: 'deliveryController',
 		controllerAs: 'delivery',
 		templateUrl: 'delivery.html'
+	}).when('/confirm', {
+		controller: 'confirmController',
+		controllerAs: 'confirm',
+		templateUrl: 'confirm.html'
 	})
 }
 mod.config(routeConfig);
@@ -312,7 +316,25 @@ mod.controller('deliveryController', ['data','$location', function(data, $locati
 	}
 
 	vm.next = function(){
+		$location.path('confirm');
+	}
+
+}]);
+
+mod.controller('confirmController', ['data','$location', function(data, $location){
+	var vm = this;
+	vm.userInfo = data.userInfo;
+
+	vm.back = function(){
+		$location.path('login');
+	}
+
+	vm.confirmAndPay = function(){
 		$location.path('payment');
+	}
+
+	vm.modify = function(){
+		$location.path('modify');
 	}
 
 }]);
