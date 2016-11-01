@@ -29,7 +29,8 @@ mod.service('data', function() {
 	this.userInfo = {
 		firstName: '',
 		lastName: '',
-		address: '',
+		addressLine1: '',
+		addressLine2: '',
 		postalCode: '',
 		contact: '+65 ',
 		email: '',
@@ -40,7 +41,8 @@ mod.service('data', function() {
 	this.userInfo = {
 		firstName: 'Will',
 		lastName: 'Ho',
-		address: '20 Heng Mui Keng Terrace',
+		addressLine1: '20 Heng Mui Keng Terrace',
+		addressLine2: 'D618',
 		postalCode: '119618',
 		contact: '+65 1234 1234',
 		email: 'will@loot.sg',
