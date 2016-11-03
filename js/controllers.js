@@ -2,7 +2,7 @@ var mod = angular.module('loot-sg', ['ngRoute']);
 
 
 mod.service('data', function() {
-	this.items    = [];
+	// this.items    = [];
 
 	// {
 	// 					number: 1,
@@ -20,12 +20,12 @@ mod.service('data', function() {
  //                        details: ''
 	// 				}
 
-/* DEBUG
+
 	this.items    = [
 						{name: 'Loot.sg', number: 1, url: 'http://www.loot.sg', quantity: 3, size: 'M', color: 'Black', listPrice: '0', instructions: 'FRAGILE!', proceedOrder: true},
 						{name: 'Lootcommerce.com', number: 2, url: 'http://spree.loot.sg', quantity: 2, size: 'XL', listPrice: '10', color: 'Rainbow', instructions: 'NOT FRAGILE!', proceedOrder: true}
 					];
-*/
+
 	this.userInfo = {
 		firstName: '',
 		lastName: '',
