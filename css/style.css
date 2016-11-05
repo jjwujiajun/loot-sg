@@ -584,4 +584,19 @@ td div {
     font-weight: bold;
 }
 
+/********  Done  ********/
+#done {
+    text-align: center;
+    margin-top: 60px;
+    position: relative;
+}
+
+#done img {
+    width:70px
+}
+
+#done p {
+    font-size:25px
+}
+
 /********  ••••••  ********/
