@@ -6,14 +6,15 @@
 	\Stripe\Stripe::setApiKey("sk_test_FnJ4cAEkJPjdjevU1pOnt0uf");
 
 	// Get the credit card details submitted by the form
-	$token = $_POST['stripeToken'];
+	$json       = file_get_contents('php://input');
+    $request    = json_decode($json, true);
 
 	// Create a charge: this will charge the user's card
 	try {
 	  $charge = \Stripe\Charge::create(array(
-	    "amount" => 10000, // Amount in cents
+	    "amount" => $request['amount'], // Amount in cents
 	    "currency" => "usd",
-	    "source" => $token,
+	    "source" => $request['token'],
 	    "description" => "Example charge"
 	    ));
 	} catch(\Stripe\Error\Card $e) {

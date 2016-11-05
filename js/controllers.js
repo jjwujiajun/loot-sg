@@ -333,7 +333,7 @@ mod.controller('deliveryController', ['data','$location', function(data, $locati
 
 }]);
 
-mod.controller('confirmController', ['data', 'utility','$location', '$window', function(data, utility, $location, $window){
+mod.controller('confirmController', ['data', 'utility', '$location', '$window', '$http', function(data, utility, $location, $window, $http){
 	var vm = this;
 	vm.items        = data.items;
 	vm.itemCount    = data.items.length;
@@ -352,14 +352,15 @@ mod.controller('confirmController', ['data', 'utility','$location', '$window', f
 		locale: 'auto',
 		token: function(token) {
 			var request = {
-
+				amount: vm.total * 100,
+				token: token.id
 			}
 
 			// Send POST request to server
 			$http({
 				method  : 'POST',
 				url     : './backend/stripe.php',
-	            data    : token,  //param method from jQuery
+	            data    : request,
 	            headers : {'Content-Type': 'application/json'}
 	        }).success(function(data){
 	            // console.log(data);
