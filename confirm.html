@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="pb-price-col">
-                $ <span class="confirmed-value">{{item.listPrice}}</span>
+                $ <span class="confirmed-value">{{item.listPrice * item.quantity | currency : '$'}}</span>
             </div>
 
             <!-- Item separator line -->
