@@ -27,7 +27,7 @@
                                 </div>
                             </div>
                             <div class="item-qty">
-                                Quantity <input class="form-control" type="number" value="{{item.quantity}}">
+                                Quantity <input class="form-control" type="number" value="{{item.quantity}}" ng-model="item.quantity">
                             </div>
                         </div>
                         <div class="middle-col-row row2">
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div class="pb-price-col">
-                        ${{item.listPrice}}<br/>
+                        ${{item.listPrice * item.quantity}}<br/>
                         <div class="pb-X-col">
                             <div class="pb-remove-item-btn" ng-click="home.removeItem(item.number)" ng-mouseenter="item.shouldShowDeleteBtn = true;" ng-mouseleave="item.shouldShowDeleteBtn = false;" ng-class="{'highlight': item.shouldShowDeleteBtn }">x</div>
                         </div>
