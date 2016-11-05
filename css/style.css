@@ -2,7 +2,7 @@
     font-family: 'Avenir';
     src: url('../fonts/Avenir-Light.ttf');
     font-weight: 200;
-    font-style: normal
+    font-style: normal;
 }
 @font-face {
     font-family: 'Avenir';
@@ -14,7 +14,7 @@
     font-family: 'Avenir';
     src: url('../fonts/Avenir-Medium.ttf');
     font-weight: 500;
-    font-style: normal
+    font-style: bold
 }
 @font-face {
     font-family: 'Circular';
@@ -29,12 +29,20 @@
 
 body {
     font-family: 'Circular';
-    margin: 0
+    margin: 0;
 }
 h1 {
     text-align: center
 }
-.loot-button {
+
+/*
+ * --- Main ---
+ *  index.html
+ */
+
+/********  Navbar  ********/
+
+.home.loot-button {
     font-family: 'Circular';
     font-weight: 200;
     font-size: 15px;
@@ -78,12 +86,21 @@ img.menu-item {
     font-size: 16px;
 }
 
+.appView{
+    margin-top: 80px;
+}
+
+/*
+ * --- Main ---
+ *  index.html
+ */
+
+/********  ATF  ********/
+
 .ATF {
     position: relative;
 
     display: block;
-
-    margin-top: 80px;
 
     height: 667px;
 
@@ -169,13 +186,15 @@ img.menu-item {
     overflow: hidden;
 
     font-size: 10px;
+}
+.pb-item .item-url a {
     color: gray;
 }
 .pb-item .key {
     display: inline-block;
     padding: 0;
 
-    width: 40px;
+    width: 60px;
 
     line-height: 30px;
 }
@@ -237,13 +256,32 @@ img.menu-item {
     vertical-align: top;
 
     position: relative;
-    width: 15%;
+    width: 13%;
 
     text-align: right;
 }
 .pb-X-col {
     margin-top: 30px;
 }
+.pb-remove-item-btn {
+    float: right;
+
+    background-color: transparent;
+    border-radius: 3px;
+    border: #37cde9 solid 1px;
+    width: 17px;
+    height: 17px;
+
+    font-family: 'Avenir';
+    text-align: center;
+    color: #37cde9;
+    line-height: 14.5px;
+}
+.pb-remove-item-btn.highlight {
+    color: white;
+    background-color: #37cde9;
+}
+
 .cart-actions {
     margin-top: 10px;
 }
@@ -276,6 +314,8 @@ img.menu-item {
 .ATF-deco img {
     width: 100%;
 }
+
+/********  Section 1  ********/
 
 .section {
     /*padding: 8vw 0*/
@@ -356,6 +396,7 @@ td div {
     font-size: 11px;
 }
 
+/********  Section 4  ********/
 
 .section-4 {
     position: relative;
@@ -413,3 +454,134 @@ td div {
 
     font-size: 11px;
 }
+
+/*
+ * --- Order form ---
+ *  login.html
+ *  delivery.html
+ */
+
+/********  Overall order form  ********/
+.orderForm
+{
+    font-family: 'Avenir';
+    font-weight: 200;
+}
+
+.header {
+    height: 180px;
+    width: 100%;
+    background: #37cde9;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 60px;
+    position: relative
+}
+
+.header #header-graphic {
+    position: absolute;
+    left: 3vw;
+    bottom: 0;
+    height: 106px;
+    width: 119px;
+    background: url(../images/Loot%20bags.png) no-repeat
+}
+
+.header #header-circle {
+    padding: 1px;
+    vertical-align: middle
+}
+
+.header .step-num {
+    margin: 40px auto 0 auto;
+
+    height: 60px;
+    width: 60px;
+    background: #fff;
+    border: 18px solid #fff;
+    border-radius: 50%;
+    color: #37cde9;
+    font-weight: 400;
+    vertical-align: middle;
+    font-size: 38px;
+    line-height: 27px
+}
+.header p {
+    font-size: 23px;
+    margin: 13px auto 0
+}
+
+.personal-message {
+    font-family: 'Avenir';
+    font-weight: 500;
+    color: #37cde9;
+    font-size: 17px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px
+}
+
+.btn.next {
+    background-color: #6ECEF1;
+}
+
+/********  Delivery  ********/
+
+.form-body {
+    width: 60vw;
+    margin: 0 auto;
+}
+
+.form-body .inputs {
+    /*display: flex;*/
+    /*flex-flow: row wrap;*/
+    margin-bottom: 40px
+}
+.form-body label {
+    margin: 5px 10px;
+
+    font-weight: 200;
+}
+.form-body label p {
+    color: #231f20
+}
+.form-body .row-label {
+    width: 100%
+}
+.form-body .button {
+    margin-left: auto
+}
+
+.inputs-row {
+    clear: all;
+
+    min-height:100px;
+    margin-bottom: 10px;
+}
+
+.address {
+    margin-bottom: 10px;
+}
+.postal-code {
+    max-width:130px;
+}
+
+.contact-number {
+    max-width: 250px;
+}
+
+.button-row{
+    clear: all;
+    margin-top: 100px;
+    margin-bottom: 20px;
+
+    text-align: center;
+}
+
+/********  Confirm  ********/
+.confirmed-value {
+    font-family: 'Circular';
+    font-weight: bold;
+}
+
+/********  ••••••  ********/

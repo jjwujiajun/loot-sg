@@ -10,14 +10,14 @@
             <input class="form-control" id="putBomInput" type="text" name="itemURL" placeholder="{{home.urlField.placeholder}}" ng-model="home.urlField.text" ng-model-options='{ debounce: 100 }' ng-change="home.scrapeURL()"><br>
             <div class="put-bom-output" ng-class="{'fade': home.data.items.length > 0}">
 
-                <div class="pb-item" ng-repeat="item in home.data.items" ng-mouseenter="item.shouldShowDeleteBtn = true;" ng-mouseleave="item.shouldShowDeleteBtn = false;">
+                <div class="pb-item" ng-repeat="item in home.data.items">
                     <div class="pb-pic-col">
                         <img src="{{item.imageUrl}}" />
                     </div>
                     <div class="pb-middle-col">
                         <div class="middle-col-row row1">
                             <div>{{item.name}}</div>
-                            <div class="item-url">{{item.url}}</div>
+                            <div class="item-url"><a href="{{item.url}}">{{item.url}}</a></div>
                         </div>
                         <div class="middle-col-row row2">
                             <div class="item-colors">
@@ -41,11 +41,12 @@
                     </div>
                     <div class="pb-price-col">
                         ${{item.listPrice}}<br/>
-                        <div class="pb-X-col" ng-show="item.shouldShowDeleteBtn">
-                            <button ng-click="home.removeItem(item.number)">x</button>
+                        <div class="pb-X-col">
+                            <div class="pb-remove-item-btn" ng-click="home.removeItem(item.number)" ng-mouseenter="item.shouldShowDeleteBtn = true;" ng-mouseleave="item.shouldShowDeleteBtn = false;" ng-class="{'highlight': item.shouldShowDeleteBtn }">x</div>
                         </div>
                     </div>
-
+                    <!-- Item separator line -->
+                    <hr ng-hide="item == home.data.items[home.data.items.length - 1]">
                 </div>
                 <!-- Add to cart -->
                 <div class="cart-actions">
