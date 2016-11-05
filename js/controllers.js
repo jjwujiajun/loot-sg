@@ -352,6 +352,11 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 		key: 'pk_test_rlSGgE3saZE9iDvzNtKlc1Tb',
 		image: 'https://s3.amazonaws.com/stripe-uploads/acct_17kbl6LmG6293IlZmerchant-icon-1456937740742-Loot_logo_128px.png',
 		locale: 'auto',
+		email: data.userInfo.email,
+		name: 'Loot',
+		description: 'Order Info',
+		zipCode: false,
+		currency: 'USD',
 		token: function(token) {
 			var request = {
 				amount: vm.total * 100,
@@ -384,9 +389,6 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 
 	vm.confirmAndPay = function(){
 		handler.open({
-			name: 'Loot',
-			description: '2 widgets',
-			zipCode: true,
 			amount: vm.total * 100
 		});
 
