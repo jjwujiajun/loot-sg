@@ -23,7 +23,7 @@ mod.service('data', function() {
 
 	this.items    = [
 						{name: 'Loot.sg', number: 1, url: 'http://www.loot.sg', quantity: 3, sizes: ['S','M','XL'], size: 'M', colors: ['Black','Blue'], color: 'Black', listPrice: '0', instructions: 'FRAGILE!', proceedOrder: true, imageUrl: 'test-img.jpg'},
-						{name: 'Lootcommerce.com', number: 2, url: 'http://spree.loot.sg', quantity: 2, sizes: ['S','M','XL'], size: 'XL', listPrice: '10', colors: ['Black','Blue'], color: 'Rainbow', instructions: 'NOT FRAGILE!', proceedOrder: true,  imageUrl: 'test-img.jpg'}
+						{name: 'Lootcommerce.com', number: 2, url: 'http://spree.loot.sg', quantity: 2, sizes: ['S','M','XL'], size: 'XL', listPrice: '1990', colors: ['Black','Blue'], color: 'Rainbow', instructions: 'NOT FRAGILE!', proceedOrder: true,  imageUrl: 'test-img.jpg'}
 					];
 /* DEBUG
 	this.userInfo = {
@@ -48,14 +48,6 @@ mod.service('data', function() {
 		email: 'a@loot.sg',
 		keepMeUpdated: true
 	};
-
-	this.orderInfo = {
-        coupon: '',
-		deliveryOption: 'none',
-		deliveryCost: 0,
-	};
-
-	this.orderId = '';
 });
 
 
@@ -104,9 +96,9 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 
 	    	// Price
 	    	if(result.price_sale) {
-	            data.items[0].listPrice = result.price_sale;
+	            data.items[0].listPrice = result.price_sale * 100;
 	        } else if(result.price_normal) {
-	            data.items[0].listPrice = result.price_normal;
+	            data.items[0].listPrice = result.price_normal * 100;
 	        }
 	        
 	        console.log(result.price_sale);
@@ -141,67 +133,11 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 	        	data.items[0].useCircleForSizes = data.items[0].sizes[0].toString().length <= 2;
 	        }
 	        console.log(data.items[0].useCircleForSizes);
+
+	        // Select first size and color
+	        data.items[0].size = data.items[0].sizes[0]
+	        data.items[0].color = data.items[0].colors[0]
 	    });
-	};
-
-	this.sendOrderEmail = function(data) {
-		//console.log(data.userInfo);
-        
-        // Replace blank fields with dashes
-        replaceWithDash(data.userInfo);
-        replaceWithDash(data.orderInfo);
-        for(i = 0; i < data.items.length; i++) {
-            replaceWithDash(data.items[i]);
-        };
-
-        // Prepare Data
-		var formData = {
-			userInfo: data.userInfo,
-			items: data.items,
-			orderInfo: data.orderInfo
-		};
-
-        // Send POST request to email engine
-		$http({
-			method  : 'POST',
-			url     : 'emailengine.php',
-            data    : formData,  //param method from jQuery
-            headers : {'Content-Type': 'application/json'}
-        }).success(function(data){
-            // console.log(data);
-            if (data.success) { //success comes from the return json object
-            	console.log('email-success');
-            } else {
-            	console.log('email-failure');
-            	console.log(data.error);
-            	console.log(data.errorBody);
-            }
-        });
-	};
-
-	this.sendOrderDB = function(data) {
-		// Prepare Data
-		var formData = {
-			userInfo: data.userInfo,
-			items: data.items,
-			orderInfo: data.orderInfo
-		};
-
-		// Send POST request to DB return a promise
-		return $http({
-			method  : 'POST',
-			url     : 'save.php',
-            data    : formData,  //param method from jQuery
-            headers : {'Content-Type': 'application/json'}
-        }).success(function(data){
-            // console.log(data);
-            if (data.orders_id) { //success comes from the return json object
-            	console.log('db-success');
-            	return data.orders_id;
-            } else {
-            	console.log('db-failure');
-            }
-        });
 	};
     
     var replaceWithDash = function(obj){
@@ -218,16 +154,6 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 		}
 		return '';
 	};
-
-	this.registerNavConfirm = function() {
-		window.onbeforeunload = function() {
-			return "You are not done looting!";
-		}
-	}
-
-	this.deregisterNavConfirm = function() {
-		window.onbeforeunload = function() {}
-	}
 }]);
 
 function routeConfig($routeProvider) {
@@ -359,7 +285,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 		currency: 'USD',
 		token: function(token) {
 			var request = {
-				amount: vm.total * 100,
+				amount: vm.total,
 				token: token.id
 			}
 
@@ -388,7 +314,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 
 	vm.confirmAndPay = function(){
 		handler.open({
-			amount: vm.total * 100
+			amount: vm.total
 		});
 
 		// TODO: Close checkout page on navigation

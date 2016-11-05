@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div class="pb-price-col">
-                        ${{item.listPrice * item.quantity}}<br/>
+                        {{item.listPrice / 100 * item.quantity | currency : '$'}}<br/>
                         <div class="pb-X-col">
                             <div class="pb-remove-item-btn" ng-click="home.removeItem(item.number)" ng-mouseenter="item.shouldShowDeleteBtn = true;" ng-mouseleave="item.shouldShowDeleteBtn = false;" ng-class="{'highlight': item.shouldShowDeleteBtn }">x</div>
                         </div>

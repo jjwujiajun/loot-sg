@@ -2,7 +2,7 @@
 <div class="header">
     <div id="header-graphic"></div>
     <div id="header-circle">
-        <div class="step-num">4</div>
+        <div class="step-num">3</div>
         <p>Confirm Your Order</p>
     </div>
 </div>
@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="pb-price-col">
-                $ <span class="confirmed-value">{{item.listPrice}}</span>
+                <span class="confirmed-value">{{item.listPrice / 100 * item.quantity | currency : '$'}}</span>
             </div>
 
             <!-- Item separator line -->
