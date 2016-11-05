@@ -333,18 +333,61 @@ mod.controller('deliveryController', ['data','$location', function(data, $locati
 
 }]);
 
-mod.controller('confirmController', ['data','utility','$location', function(data, utility, $location){
+mod.controller('confirmController', ['data', 'utility','$location', '$window', function(data, utility, $location, $window){
 	var vm = this;
 	vm.items        = data.items;
 	vm.itemCount    = data.items.length;
 	vm.getPlurality = utility.getPlurality;
+	vm.total		= 0;
+
+	for (var i = 0; i < vm.items.length; i++) {
+		vm.total += vm.items[i].listPrice * vm.items[i].quantity;
+	}
+
+
+	// Configure Checkout.js
+	var handler = $window.StripeCheckout.configure({
+		key: 'pk_test_rlSGgE3saZE9iDvzNtKlc1Tb',
+		image: 'https://s3.amazonaws.com/stripe-uploads/acct_17kbl6LmG6293IlZmerchant-icon-1456937740742-Loot_logo_128px.png',
+		locale: 'auto',
+		token: function(token) {
+			var request = {
+
+			}
+
+			// Send POST request to server
+			$http({
+				method  : 'POST',
+				url     : './backend/stripe.php',
+	            data    : token,  //param method from jQuery
+	            headers : {'Content-Type': 'application/json'}
+	        }).success(function(data){
+	            // console.log(data);
+	            if (data.success) { //success comes from the return json object
+	            	console.log('email-success');
+	            } else {
+	            	console.log('email-failure');
+	            	console.log(data.error);
+	            	console.log(data.errorBody);
+	            }
+	        });
+		
+		}
+	});
 
 	vm.back = function(){
 		$location.path('delivery');
 	}
 
 	vm.confirmAndPay = function(){
-		$location.path('payment');
+		handler.open({
+			name: 'Loot',
+			description: '2 widgets',
+			zipCode: true,
+			amount: vm.total * 100
+		});
+
+		// TODO: Close checkout page on navigation
 	}
 
 	vm.modify = function(){
