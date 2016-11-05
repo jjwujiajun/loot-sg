@@ -141,6 +141,10 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 	        	data.items[0].useCircleForSizes = data.items[0].sizes[0].toString().length <= 2;
 	        }
 	        console.log(data.items[0].useCircleForSizes);
+
+	        // Select first size and color
+	        data.items[0].size = data.items[0].sizes[0]
+	        data.items[0].color = data.items[0].colors[0]
 	    });
 	};
 
