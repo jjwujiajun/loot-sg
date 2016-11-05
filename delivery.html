@@ -7,18 +7,18 @@
     </div>
 </div>
 <div class="form-body form-group">
-    <form ng-submit="addCon.next()">
+    <form ng-submit="delivery.next()">
         <div class="inputs">
             <div class="inputs-row">
                 <div class="personal-message">Who should receive the delivery?</div>
                 <div class="col-sm-7">
                     <p>First Name</p>
-                    <input class="form-control" type="text" ng-model="addCon.userInfo.firstName" placeholder="Mei Mei" required>
+                    <input class="form-control" type="text" ng-model="delivery.userInfo.firstName" placeholder="Mei Mei" required>
                 </div>
 
                 <div class="col-sm-5">
                     <p>Last Name</p>
-                    <input class="form-control" type="text" ng-model="addCon.userInfo.lastName" placeholder="Tan" required>
+                    <input class="form-control" type="text" ng-model="delivery.userInfo.lastName" placeholder="Tan" required>
                 </div>
             </div>
             <div class="inputs-row">
@@ -27,13 +27,13 @@
 
                 <div class="col-sm-12">
                     <p>Address</p>
-                    <input class="form-control address" type="text" class="xl" ng-model="addCon.userInfo.addressLine1" placeholder="Street name"required>
+                    <input class="form-control address" type="text" class="xl" ng-model="delivery.userInfo.addressLine1" placeholder="Street name"required>
 
-                    <input class="form-control address" type="text" class="xl" ng-model="addCon.userInfo.addressLine2" placeholder="Unit no."required>
+                    <input class="form-control address" type="text" class="xl" ng-model="delivery.userInfo.addressLine2" placeholder="Unit no."required>
                     
                     <div class="input-group">
                         <span class="input-group-addon">Singapore</span>
-                        <input class="form-control address postal-code" type="text" maxlength="6" size="6" ng-model="addCon.userInfo.postalCode" placeholder="Postal Code" required>
+                        <input class="form-control address postal-code" type="text" maxlength="6" size="6" ng-model="delivery.userInfo.postalCode" placeholder="Postal Code" required>
                     </div>
                 </div>
 
@@ -46,7 +46,7 @@
                     <p>Contact Number</p>
                     <div class="input-group">
                         <span class="input-group-addon">+65</span>
-                        <input class="form-control contact-number" type="text" ng-model="addCon.userInfo.contact" placeholder="91234567" required>
+                        <input class="form-control contact-number" type="text" ng-model="delivery.userInfo.contact" placeholder="91234567" required>
                     </div>
                 </div>
             </div>
