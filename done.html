@@ -1,13 +1,11 @@
-<div class="orderForm">
-    <div>
-        <div class="receipt-logo">
-            <img src="images/bag-02.png"/>
-            <p>Your Order ID is {{done.orderId}}</p>
-            <p>Thank you for shopping with Loot.</p>
-        </div>
-
+<div class="orderForm clearfix">
+    <div id="done">
+        <img src="images/bag-02.png"/>
+        <p>Your Order ID is {{done.orderId}}</p>
+        <p>Thank you for shopping with Loot.</p>
+    </div>
+    <div class="button-row">
         <p>Please check your inbox for receipt.</p>
-
-        <p><button ng-click="done.restart()" class="button btn next">New Order</button></p>
+        <button ng-click="done.restart()" class="button btn next">New Order</button>
     </div>
 </div>
