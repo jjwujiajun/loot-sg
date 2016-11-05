@@ -48,14 +48,6 @@ mod.service('data', function() {
 		email: 'a@loot.sg',
 		keepMeUpdated: true
 	};
-
-	this.orderInfo = {
-        coupon: '',
-		deliveryOption: 'none',
-		deliveryCost: 0,
-	};
-
-	this.orderId = '';
 });
 
 
@@ -147,66 +139,6 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 	        data.items[0].color = data.items[0].colors[0]
 	    });
 	};
-
-	this.sendOrderEmail = function(data) {
-		//console.log(data.userInfo);
-        
-        // Replace blank fields with dashes
-        replaceWithDash(data.userInfo);
-        replaceWithDash(data.orderInfo);
-        for(i = 0; i < data.items.length; i++) {
-            replaceWithDash(data.items[i]);
-        };
-
-        // Prepare Data
-		var formData = {
-			userInfo: data.userInfo,
-			items: data.items,
-			orderInfo: data.orderInfo
-		};
-
-        // Send POST request to email engine
-		$http({
-			method  : 'POST',
-			url     : 'emailengine.php',
-            data    : formData,  //param method from jQuery
-            headers : {'Content-Type': 'application/json'}
-        }).success(function(data){
-            // console.log(data);
-            if (data.success) { //success comes from the return json object
-            	console.log('email-success');
-            } else {
-            	console.log('email-failure');
-            	console.log(data.error);
-            	console.log(data.errorBody);
-            }
-        });
-	};
-
-	this.sendOrderDB = function(data) {
-		// Prepare Data
-		var formData = {
-			userInfo: data.userInfo,
-			items: data.items,
-			orderInfo: data.orderInfo
-		};
-
-		// Send POST request to DB return a promise
-		return $http({
-			method  : 'POST',
-			url     : 'save.php',
-            data    : formData,  //param method from jQuery
-            headers : {'Content-Type': 'application/json'}
-        }).success(function(data){
-            // console.log(data);
-            if (data.orders_id) { //success comes from the return json object
-            	console.log('db-success');
-            	return data.orders_id;
-            } else {
-            	console.log('db-failure');
-            }
-        });
-	};
     
     var replaceWithDash = function(obj){
         angular.forEach(obj, function(value, field){
@@ -222,16 +154,6 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 		}
 		return '';
 	};
-
-	this.registerNavConfirm = function() {
-		window.onbeforeunload = function() {
-			return "You are not done looting!";
-		}
-	}
-
-	this.deregisterNavConfirm = function() {
-		window.onbeforeunload = function() {}
-	}
 }]);
 
 function routeConfig($routeProvider) {
