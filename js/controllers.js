@@ -23,7 +23,7 @@ mod.service('data', function() {
 
 	this.items    = [
 						{name: 'Loot.sg', number: 1, url: 'http://www.loot.sg', quantity: 3, sizes: ['S','M','XL'], size: 'M', colors: ['Black','Blue'], color: 'Black', listPrice: '0', instructions: 'FRAGILE!', proceedOrder: true, imageUrl: 'test-img.jpg'},
-						{name: 'Lootcommerce.com', number: 2, url: 'http://spree.loot.sg', quantity: 2, sizes: ['S','M','XL'], size: 'XL', listPrice: '10', colors: ['Black','Blue'], color: 'Rainbow', instructions: 'NOT FRAGILE!', proceedOrder: true,  imageUrl: 'test-img.jpg'}
+						{name: 'Lootcommerce.com', number: 2, url: 'http://spree.loot.sg', quantity: 2, sizes: ['S','M','XL'], size: 'XL', listPrice: '1990', colors: ['Black','Blue'], color: 'Rainbow', instructions: 'NOT FRAGILE!', proceedOrder: true,  imageUrl: 'test-img.jpg'}
 					];
 /* DEBUG
 	this.userInfo = {
@@ -104,9 +104,9 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 
 	    	// Price
 	    	if(result.price_sale) {
-	            data.items[0].listPrice = result.price_sale;
+	            data.items[0].listPrice = result.price_sale * 100;
 	        } else if(result.price_normal) {
-	            data.items[0].listPrice = result.price_normal;
+	            data.items[0].listPrice = result.price_normal * 100;
 	        }
 	        
 	        console.log(result.price_sale);
@@ -359,7 +359,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 		currency: 'USD',
 		token: function(token) {
 			var request = {
-				amount: vm.total * 100,
+				amount: vm.total,
 				token: token.id
 			}
 
@@ -389,7 +389,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 
 	vm.confirmAndPay = function(){
 		handler.open({
-			amount: vm.total * 100
+			amount: vm.total
 		});
 
 		// TODO: Close checkout page on navigation
