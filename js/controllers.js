@@ -100,6 +100,8 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 	    	data.items[0].url = url;
 	    	data.items[0].details = result.details;
 
+	    	data.items[0].quantity = 1;
+
 	    	// Price
 	    	if(result.price_sale) {
 	            data.items[0].listPrice = result.price_sale;
