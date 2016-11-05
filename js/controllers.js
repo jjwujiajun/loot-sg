@@ -303,6 +303,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 	            // console.log(data);
 	            if (data.success) { //success comes from the return json object
 	            	console.log('email-success');
+	            	$location.path('done');
 	            } else {
 	            	console.log('email-failure');
 	            	console.log(data.error);
