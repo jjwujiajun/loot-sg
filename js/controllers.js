@@ -29,7 +29,8 @@ mod.service('data', function() {
 	this.userInfo = {
 		firstName: '',
 		lastName: '',
-		address: '',
+		addressLine1: '',
+		addressLine2: '',
 		postalCode: '',
 		contact: '+65 ',
 		email: '',
@@ -40,7 +41,8 @@ mod.service('data', function() {
 	this.userInfo = {
 		firstName: 'Will',
 		lastName: 'Ho',
-		address: '20 Heng Mui Keng Terrace',
+		addressLine1: '20 Heng Mui Keng Terrace',
+		addressLine2: 'D618',
 		postalCode: '119618',
 		contact: '+65 1234 1234',
 		email: 'will@loot.sg',
@@ -81,7 +83,7 @@ mod.service('utility', ['$http', 'data', function($http, data) {
     this.scrapeF21 = function(url) {
 		var urlString = "https://api.import.io/store/connector/7525a0ab-c857-4f60-8c23-73eb625083de/_query?input=webpage/url:" + encodeURIComponent(url) + "&&_apikey=b34ce8b353894e91b3ef33342f0c5ddb82cce3b3dd7be5b65977ed3fd532f3521d5f3c08c232bafdcc60a719fe799b1b03a95e181771f5bf511f85950dcb7c132b1575addd5fa8c5eeb70645857f693c";
 	    console.log('scrapeF21 GET: ' + urlString);
-	    $http({
+	    return $http({
 	        method : 'GET',
 	        url    : urlString
 	    }).then(function (result) {
@@ -209,7 +211,7 @@ mod.service('utility', ['$http', 'data', function($http, data) {
     };
 
 	this.getPlurality = function(number) {
-		if(number > 1) {
+		if(number != 1) {
 			return 's';
 		}
 		return '';
@@ -239,6 +241,14 @@ function routeConfig($routeProvider) {
 		controller: 'deliveryController',
 		controllerAs: 'delivery',
 		templateUrl: 'delivery.html'
+	}).when('/confirm', {
+		controller: 'confirmController',
+		controllerAs: 'confirm',
+		templateUrl: 'confirm.html'
+	}).when('/modify', {
+		controller: 'modifyController',
+		controllerAs: 'modify',
+		templateUrl: 'modify.html'
 	})
 }
 mod.config(routeConfig);
@@ -247,8 +257,9 @@ mod.config(routeConfig);
 
 mod.controller('homeController', ['data', 'utility','$location', function(data, utility, $location){
 	var vm  = this;
-	vm.urlField = {'text': ''};
+	vm.urlField = {'text': '', 'placeholder': 'Just copy and paste your item URL here'};
 	vm.data = data;
+	var firstScrape = true;
 
 	var isValidURL = function(str) {
 		if (str.indexOf('amazon.com') != -1) {
@@ -264,8 +275,13 @@ mod.controller('homeController', ['data', 'utility','$location', function(data, 
 		if (isValidURL(vm.urlField.text)) { 
 
 			// try scrape from import.io
-			utility.scrapeF21(vm.urlField.text);
-			//vm.urlField.text = '';
+			utility.scrapeF21(vm.urlField.text).then(function(){
+				vm.urlField.text = '';
+				if(firstScrape){
+					vm.urlField.placeholder = 'Paste your next item URL here'
+					firstScrape = false
+				}
+			});
 		}
 	};
 	
@@ -312,7 +328,73 @@ mod.controller('deliveryController', ['data','$location', function(data, $locati
 	}
 
 	vm.next = function(){
+		$location.path('confirm');
+	}
+
+}]);
+
+mod.controller('confirmController', ['data','utility','$location', function(data, utility, $location){
+	var vm = this;
+	vm.items        = data.items;
+	vm.itemCount    = data.items.length;
+	vm.getPlurality = utility.getPlurality;
+
+	vm.back = function(){
+		$location.path('delivery');
+	}
+
+	vm.confirmAndPay = function(){
 		$location.path('payment');
+	}
+
+	vm.modify = function(){
+		$location.path('modify');
+	}
+
+}]);
+
+mod.controller('modifyController', ['data','utility','$location', function(data, utility, $location){
+	var vm = this;
+	vm.urlField = {'text': '', 'placeholder': 'Paste your next item URL here'};
+	vm.data = data;
+
+	var isValidURL = function(str) {
+		if (str.indexOf('amazon.com') != -1) {
+			return true;
+		} else if (str.indexOf('forever21.com') != -1) {
+			return true;
+		};
+		return false;
+	}
+
+	vm.scrapeURL = function () {
+		// Check if input is valid url
+		if (isValidURL(vm.urlField.text)) { 
+
+			// try scrape from import.io
+			utility.scrapeF21(vm.urlField.text).then(function(){
+				vm.urlField.text = '';	
+			});
+			
+		}
+	};
+	
+
+	vm.removeItem = function(itemNumber) {
+		index = vm.data.items.length - itemNumber;
+		vm.data.items.splice(index, 1);
+	}
+
+	vm.selectColorForItem = function(color, item) {
+		item.color = color;
+	}
+
+	vm.selectSizeForItem = function(size, item) {
+		item.size = size;
+	}
+
+	vm.save = function(){
+		$location.path('confirm');
 	}
 
 }]);
