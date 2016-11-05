@@ -45,7 +45,7 @@ mod.service('data', function() {
 		addressLine2: 'D618',
 		postalCode: '119618',
 		contact: '+65 1234 1234',
-		email: 'a@loot.sg',
+		email: 'will@loot.sg',
 		keepMeUpdated: true
 	};
 });
@@ -177,6 +177,10 @@ function routeConfig($routeProvider) {
 		controller: 'modifyController',
 		controllerAs: 'modify',
 		templateUrl: 'modify.html'
+	}).when('/done', {
+		controller: 'doneController',
+		controllerAs: 'done',
+		templateUrl: 'done.html'
 	})
 }
 mod.config(routeConfig);
@@ -372,3 +376,13 @@ mod.controller('modifyController', ['data','utility','$location', function(data,
 	}
 
 }]);
+
+mod.controller('doneController', ['$window', function($window){
+	var vm = this;
+	
+	vm.restart = function(){
+		$window.location.href = "./";
+	}
+
+}]);
+
