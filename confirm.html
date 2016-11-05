@@ -1,3 +1,4 @@
+<div class="orderForm">
 <div class="header">
     <div id="header-graphic"></div>
     <div id="header-circle">
@@ -5,10 +6,58 @@
         <p>Confirm Your Order</p>
     </div>
 </div>
-<div class="form-body">
-    <div class="personal-message">You have a total of {{confirm.itemCount}} item{{confirm.getPlurality(confirm.itemCount)}} in your cart.</div>
 
-    <div class="items-table">
+    <div class="put-bom-wrapper">
+        <div class="personal-message">You have a total of {{confirm.itemCount}} item{{confirm.getPlurality(confirm.itemCount)}} in your cart.</div>
+
+        <div class="pb-item" ng-repeat="item in confirm.items">
+            <div class="pb-pic-col">
+                <img src="{{item.imageUrl}}" />
+            </div>
+            <div class="pb-middle-col">
+                <div class="middle-col-row row1">
+                    <div class="">{{item.name}}</div>
+                    <div class="item-url"><a href="{{item.url}}">{{item.url}}</a></div>
+                </div>
+                <div class="middle-col-row row2">
+                    <div class="item-colors">
+                        <div class="key">Color</div>
+                        <div class="item-color confirmed-value">
+                            {{item.color}}
+                        </div>
+                    </div>
+                    <div class="item-qty">
+                        <div class="key">Quantity</div> 
+                        <span class="confirmed-value">
+                            {{item.quantity}}
+                        </span>
+                    </div>
+                </div>
+                <div class="middle-col-row row2">
+                    <div class="item-sizes">
+                        <div class="key">Size</div>
+                        <div class="item-size confirmed-value">
+                            {{item.size}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pb-price-col">
+                ${{item.listPrice}}<br/>
+                <div class="pb-X-col" ng-show="item.shouldShowDeleteBtn">
+                    <button ng-click="home.removeItem(item.number)">x</button>
+                </div>
+            </div>
+
+            <!-- Item separator line -->
+            <hr ng-hide="item == confirm.items[confirm.items.length - 1]">
+
+        </div>
+    </div>
+
+<div class="form-body">
+
+    <!-- <div class="items-table">
         <div class="items-table-header">
             <div class="item-cell bold">#</div>
             <div class="item-cell bold">Name</div>
@@ -27,10 +76,11 @@
             <div class="item-cell">{{item.instructions}}</div>
             <div class="item-cell">{{item.proceedOrder | true_false}}</div>
         </div>
-    </div>
+    </div> -->
     <div class="button-row">
         <span><button class="button" type="button" ng-click="confirm.back()">Back</button></span>
         <span><button class="button" type="button" ng-click="confirm.modify()"><span class="bold">Edit</span></button></span>
         <span><button class="button" type="button" ng-click="confirm.confirmAndPay()"><span class="bold">Confirm and Pay</span></button></span>
     </div>
+</div>
 </div>

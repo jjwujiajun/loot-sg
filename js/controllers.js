@@ -22,8 +22,8 @@ mod.service('data', function() {
 
 
 	this.items    = [
-						{name: 'Loot.sg', number: 1, url: 'http://www.loot.sg', quantity: 3, size: 'M', color: 'Black', listPrice: '0', instructions: 'FRAGILE!', proceedOrder: true},
-						{name: 'Lootcommerce.com', number: 2, url: 'http://spree.loot.sg', quantity: 2, size: 'XL', listPrice: '10', color: 'Rainbow', instructions: 'NOT FRAGILE!', proceedOrder: true}
+						{name: 'Loot.sg', number: 1, url: 'http://www.loot.sg', quantity: 3, sizes: ['S','M','XL'], size: 'M', colors: ['Black','Blue'], color: 'Black', listPrice: '0', instructions: 'FRAGILE!', proceedOrder: true, imageUrl: 'test-img.jpg'},
+						{name: 'Lootcommerce.com', number: 2, url: 'http://spree.loot.sg', quantity: 2, sizes: ['S','M','XL'], size: 'XL', listPrice: '10', colors: ['Black','Blue'], color: 'Rainbow', instructions: 'NOT FRAGILE!', proceedOrder: true,  imageUrl: 'test-img.jpg'}
 					];
 
 	this.userInfo = {

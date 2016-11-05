@@ -45,7 +45,8 @@
                             <button ng-click="home.removeItem(item.number)">x</button>
                         </div>
                     </div>
-
+                    <!-- Item separator line -->
+                    <hr ng-hide="item == home.data.items[home.data.items.length - 1]">
                 </div>
                 <!-- Add to cart -->
                 <div class="cart-actions">

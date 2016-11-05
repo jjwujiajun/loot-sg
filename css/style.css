@@ -14,7 +14,7 @@
     font-family: 'Avenir';
     src: url('../fonts/Avenir-Medium.ttf');
     font-weight: 500;
-    font-style: normal
+    font-style: bold
 }
 @font-face {
     font-family: 'Circular';
@@ -192,7 +192,7 @@ img.menu-item {
     display: inline-block;
     padding: 0;
 
-    width: 40px;
+    width: 60px;
 
     line-height: 30px;
 }
@@ -254,7 +254,7 @@ img.menu-item {
     vertical-align: top;
 
     position: relative;
-    width: 15%;
+    width: 13%;
 
     text-align: right;
 }
@@ -554,4 +554,10 @@ td div {
     margin-top: 100px;
     margin-bottom: 20px;
 }
+/********  Confirm  ********/
+.confirmed-value {
+    font-family: 'Circular';
+    font-weight: bold;
+}
+
 /********  ••••••  ********/
