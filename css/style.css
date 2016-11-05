@@ -553,7 +553,10 @@ td div {
     clear: all;
     margin-top: 100px;
     margin-bottom: 20px;
+
+    text-align: center;
 }
+
 /********  Confirm  ********/
 .confirmed-value {
     font-family: 'Circular';

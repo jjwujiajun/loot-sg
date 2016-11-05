@@ -43,10 +43,7 @@
                 </div>
             </div>
             <div class="pb-price-col">
-                ${{item.listPrice}}<br/>
-                <div class="pb-X-col" ng-show="item.shouldShowDeleteBtn">
-                    <button ng-click="home.removeItem(item.number)">x</button>
-                </div>
+                $ <span class="confirmed-value">{{item.listPrice}}</span>
             </div>
 
             <!-- Item separator line -->
@@ -78,9 +75,9 @@
         </div>
     </div> -->
     <div class="button-row">
-        <span><button class="button" type="button" ng-click="confirm.back()">Back</button></span>
-        <span><button class="button" type="button" ng-click="confirm.modify()"><span class="bold">Edit</span></button></span>
-        <span><button class="button" type="button" ng-click="confirm.confirmAndPay()"><span class="bold">Confirm and Pay</span></button></span>
+        <span><button class="button btn" type="button" ng-click="confirm.back()">Back</button></span>
+        <span><button class="button btn" type="button" ng-click="confirm.modify()"><span class="bold">Edit</span></button></span>
+        <span><button class="button btn next" type="button" ng-click="confirm.confirmAndPay()"><span class="bold">Confirm and Pay</span></button></span>
     </div>
 </div>
 </div>
