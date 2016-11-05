@@ -25,7 +25,7 @@ mod.service('data', function() {
 						{name: 'Loot.sg', number: 1, url: 'http://www.loot.sg', quantity: 3, sizes: ['S','M','XL'], size: 'M', colors: ['Black','Blue'], color: 'Black', listPrice: '0', instructions: 'FRAGILE!', proceedOrder: true, imageUrl: 'test-img.jpg'},
 						{name: 'Lootcommerce.com', number: 2, url: 'http://spree.loot.sg', quantity: 2, sizes: ['S','M','XL'], size: 'XL', listPrice: '10', colors: ['Black','Blue'], color: 'Rainbow', instructions: 'NOT FRAGILE!', proceedOrder: true,  imageUrl: 'test-img.jpg'}
 					];
-
+/* DEBUG
 	this.userInfo = {
 		firstName: '',
 		lastName: '',
@@ -36,8 +36,8 @@ mod.service('data', function() {
 		email: '',
 		keepMeUpdated: true
 	};
+*/
 
-/* DEBUG
 	this.userInfo = {
 		firstName: 'Will',
 		lastName: 'Ho',
@@ -45,10 +45,10 @@ mod.service('data', function() {
 		addressLine2: 'D618',
 		postalCode: '119618',
 		contact: '+65 1234 1234',
-		email: 'will@loot.sg',
+		email: 'a@loot.sg',
 		keepMeUpdated: true
 	};
-*/
+
 	this.orderInfo = {
         coupon: '',
 		deliveryOption: 'none',
