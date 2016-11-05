@@ -25,7 +25,7 @@ mod.service('data', function() {
 						{name: 'Loot.sg', number: 1, url: 'http://www.loot.sg', quantity: 3, sizes: ['S','M','XL'], size: 'M', colors: ['Black','Blue'], color: 'Black', listPrice: '0', instructions: 'FRAGILE!', proceedOrder: true, imageUrl: 'test-img.jpg'},
 						{name: 'Lootcommerce.com', number: 2, url: 'http://spree.loot.sg', quantity: 2, sizes: ['S','M','XL'], size: 'XL', listPrice: '10', colors: ['Black','Blue'], color: 'Rainbow', instructions: 'NOT FRAGILE!', proceedOrder: true,  imageUrl: 'test-img.jpg'}
 					];
-
+/* DEBUG
 	this.userInfo = {
 		firstName: '',
 		lastName: '',
@@ -36,8 +36,8 @@ mod.service('data', function() {
 		email: '',
 		keepMeUpdated: true
 	};
+*/
 
-/* DEBUG
 	this.userInfo = {
 		firstName: 'Will',
 		lastName: 'Ho',
@@ -45,10 +45,10 @@ mod.service('data', function() {
 		addressLine2: 'D618',
 		postalCode: '119618',
 		contact: '+65 1234 1234',
-		email: 'will@loot.sg',
+		email: 'a@loot.sg',
 		keepMeUpdated: true
 	};
-*/
+
 	this.orderInfo = {
         coupon: '',
 		deliveryOption: 'none',
@@ -335,18 +335,64 @@ mod.controller('deliveryController', ['data','$location', function(data, $locati
 
 }]);
 
-mod.controller('confirmController', ['data','utility','$location', function(data, utility, $location){
+mod.controller('confirmController', ['data', 'utility', '$location', '$window', '$http', function(data, utility, $location, $window, $http){
 	var vm = this;
 	vm.items        = data.items;
 	vm.itemCount    = data.items.length;
 	vm.getPlurality = utility.getPlurality;
+	vm.total		= 0;
+
+	for (var i = 0; i < vm.items.length; i++) {
+		vm.total += vm.items[i].listPrice * vm.items[i].quantity;
+	}
+
+
+	// Configure Checkout.js
+	var handler = $window.StripeCheckout.configure({
+		key: 'pk_test_rlSGgE3saZE9iDvzNtKlc1Tb',
+		image: 'https://s3.amazonaws.com/stripe-uploads/acct_17kbl6LmG6293IlZmerchant-icon-1456937740742-Loot_logo_128px.png',
+		locale: 'auto',
+		email: data.userInfo.email,
+		name: 'Loot',
+		description: 'Order Info',
+		zipCode: false,
+		currency: 'USD',
+		token: function(token) {
+			var request = {
+				amount: vm.total * 100,
+				token: token.id
+			}
+
+			// Send POST request to server
+			$http({
+				method  : 'POST',
+				url     : './backend/stripe.php',
+	            data    : request,
+	            headers : {'Content-Type': 'application/json'}
+	        }).success(function(data){
+	            // console.log(data);
+	            if (data.success) { //success comes from the return json object
+	            	console.log('email-success');
+	            } else {
+	            	console.log('email-failure');
+	            	console.log(data.error);
+	            	console.log(data.errorBody);
+	            }
+	        });
+		
+		}
+	});
 
 	vm.back = function(){
 		$location.path('delivery');
 	}
 
 	vm.confirmAndPay = function(){
-		$location.path('payment');
+		handler.open({
+			amount: vm.total * 100
+		});
+
+		// TODO: Close checkout page on navigation
 	}
 
 	vm.modify = function(){
