@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="pb-price-col">
-                    ${{item.listPrice}}<br/>
+                    {{item.listPrice / 100 * item.quantity | currency : '$'}}<br/>
                     <div class="pb-X-col" ng-show="item.shouldShowDeleteBtn">
                         <button ng-click="modify.removeItem(item.number)">x</button>
                     </div>
