@@ -1,62 +1,62 @@
 <ng-include src="'./navbar-flow.html'"></ng-include>
 <div class="orderForm">
-<div class="header">
-    <div id="header-graphic"></div>
-    <div id="header-circle">
-        <div class="step-num">2</div>
-        <p>Delivery Details</p>
-    </div>
-</div>
-<div class="form-body form-group">
-    <form ng-submit="delivery.next()">
-        <div class="inputs">
-            <div class="inputs-row">
-                <div class="personal-message">Who should receive the delivery?</div>
-                <div class="col-sm-7">
-                    <p>First Name</p>
-                    <input class="form-control" type="text" ng-model="delivery.userInfo.firstName" placeholder="Mei Mei" required>
-                </div>
-
-                <div class="col-sm-5">
-                    <p>Last Name</p>
-                    <input class="form-control" type="text" ng-model="delivery.userInfo.lastName" placeholder="Tan" required>
-                </div>
-            </div>
-            <div class="inputs-row">
-
-                <div class="personal-message">Where should the delivery go?</div>
-
-                <div class="col-sm-12">
-                    <p>Address</p>
-                    <input class="form-control address" type="text" class="xl" ng-model="delivery.userInfo.addressLine1" placeholder="Street name"required>
-
-                    <input class="form-control address" type="text" class="xl" ng-model="delivery.userInfo.addressLine2" placeholder="Unit no."required>
-                    
-                    <div class="input-group">
-                        <span class="input-group-addon">Singapore</span>
-                        <input class="form-control address postal-code" type="text" maxlength="6" size="6" ng-model="delivery.userInfo.postalCode" placeholder="Postal Code" required>
-                    </div>
-                </div>
-
-            </div>
-            <div class="inputs-row">
-
-                <div class="personal-message">Call this number.</div>
-
-                <div class="col-sm-12">
-                    <p>Contact Number</p>
-                    <div class="input-group">
-                        <span class="input-group-addon">+65</span>
-                        <input class="form-control contact-number" type="text" ng-model="delivery.userInfo.contact" placeholder="91234567" required>
-                    </div>
-                </div>
-            </div>
+    <div class="header">
+        <div id="header-graphic"></div>
+        <div id="header-circle">
+            <div class="step-num">2</div>
+            <p>Delivery Details</p>
         </div>
+    </div>
+    <div class="form-body form-group">
+        <form ng-submit="delivery.next()">
+            <div class="inputs">
+                <div class="inputs-row">
+                    <div class="personal-message">Who should receive the delivery?</div>
+                    <div class="col-sm-7">
+                        <p>First Name</p>
+                        <input class="form-control" type="text" ng-model="delivery.userInfo.firstName" placeholder="Mei Mei" required>
+                    </div>
 
-        
-        <div class="button-row">
-            <span><button class="button btn" type="button" ng-click="delivery.back()">Back</button></span>
-            <span><button class="button btn next" ng-click="delivery.next()">Next: <span class="bold">Confirm Order</span></button></span></div>
-    </form>
-</div>
+                    <div class="col-sm-5">
+                        <p>Last Name</p>
+                        <input class="form-control" type="text" ng-model="delivery.userInfo.lastName" placeholder="Tan" required>
+                    </div>
+                </div>
+                <div class="inputs-row">
+
+                    <div class="personal-message">Where should the delivery go?</div>
+
+                    <div class="col-sm-12">
+                        <p>Address</p>
+                        <input class="form-control address" type="text" class="xl" ng-model="delivery.userInfo.addressLine1" placeholder="Street name"required>
+
+                        <input class="form-control address" type="text" class="xl" ng-model="delivery.userInfo.addressLine2" placeholder="Unit no."required>
+                        
+                        <div class="input-group">
+                            <span class="input-group-addon">Singapore</span>
+                            <input class="form-control address postal-code" type="text" maxlength="6" size="6" ng-model="delivery.userInfo.postalCode" placeholder="Postal Code" required>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="inputs-row">
+
+                    <div class="personal-message">Call this number.</div>
+
+                    <div class="col-sm-12">
+                        <p>Contact Number</p>
+                        <div class="input-group">
+                            <span class="input-group-addon">+65</span>
+                            <input class="form-control contact-number" type="text" ng-model="delivery.userInfo.contact" placeholder="91234567" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="button-row">
+                <span><button class="button btn" type="button" ng-click="delivery.back()">Back</button></span>
+                <span><button class="button btn next" ng-click="delivery.next()">Next: <span class="bold">Confirm Order</span></button></span></div>
+        </form>
+    </div>
 </div>
