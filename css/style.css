@@ -263,24 +263,6 @@ img.menu-item {
 .pb-X-col {
     margin-top: 30px;
 }
-.pb-remove-item-btn {
-    float: right;
-
-    background-color: transparent;
-    border-radius: 3px;
-    border: #37cde9 solid 1px;
-    width: 17px;
-    height: 17px;
-
-    font-family: 'Avenir';
-    text-align: center;
-    color: #37cde9;
-    line-height: 14.5px;
-}
-.pb-remove-item-btn.highlight {
-    color: white;
-    background-color: #37cde9;
-}
 
 .cart-actions {
     margin-top: 10px;
