@@ -2,8 +2,8 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container navbar-wrapper">
         <div class="menu-wrapper">
-            <div class="menu-item"  id="how-it-works-menu"><a href="">How it works</a></div>
-            <div class="menu-item"  id="why-loot-menu"><a href="">Why Loot?</a></div>
+            <div class="menu-item"  id="how-it-works-menu" ng-click="home.hidePutBom()"><a href="">How it works</a></div>
+            <div class="menu-item"  id="why-loot-menu" ng-click="home.hidePutBom()"><a href="">Why Loot?</a></div>
             <a href="./#/"><img class="menu-item" src="./images/loot-logo-blue.png" /></a>
             <div class="menu-item"><a href="">FAQ</a></div>
             <div class="menu-item"><a href="">Contact Us</a></div>
@@ -20,8 +20,8 @@
 
         <form name="putBom" class="form-group put-bom-wrapper">
 
-            <input class="form-control" id="putBomInput" type="text" name="itemURL" placeholder="{{home.urlField.placeholder}}" ng-model="home.urlField.text" ng-model-options='{ debounce: 100 }' ng-change="home.scrapeURL()"><br>
-            <div class="put-bom-output" ng-class="{'fade': home.data.items.length > 0}">
+            <input class="form-control" id="putBomInput" type="text" name="itemURL" placeholder="{{home.urlField.placeholder}}" ng-model="home.urlField.text" ng-model-options='{ debounce: 100 }' ng-change="home.scrapeURL()" ng-click="home.showPutBom()"><br>
+            <div class="put-bom-output" ng-class="{'fade': home.shouldShowPutBomOutput && home.data.items.length > 0}">
 
                 <div class="pb-item" ng-repeat="item in home.data.items">
                     <div class="pb-pic-col">
@@ -40,7 +40,7 @@
                                 </div>
                             </div>
                             <div class="item-qty">
-                                Quantity <input class="form-control" type="number" ng-model="item.quantity">
+                                Quantity <input class="form-control" type="number" ng-model="item.quantity" min="1">
                             </div>
                         </div>
                         <div class="middle-col-row row2">
@@ -75,25 +75,25 @@
         </form>
     </div>
 
-    <div class="ATF-deco" ng-class="{'fade': home.data.items.length > 0}">
+    <div class="ATF-deco" ng-class="{'fade': home.shouldShowPutBomOutput && home.data.items.length > 0}">
 
         <img src="./images/ATF_deco.png">
     </div>
 </div>
 
 <!-- Section 1 -->
-<div class="section section-1" ng-class="{'fade': home.data.items.length > 0}" id="how-it-works">
+<div class="section section-1" ng-class="{'fade': home.shouldShowPutBomOutput && home.data.items.length > 0}" id="how-it-works">
     <div class="container">
         <h2>HOW IT WORKS</h2>
         <div class="steps-wrapper">
-            <div class="step-wrapper col-sm-4">
+            <div class="step-wrapper">
                 <div class="step-image-wrapper"><img src="./images/Ic_Mouse.png"></div>
                 <div class="step-title">
                     <span style="white-space: nowrap;"><span class="step-number" id="1">1 </span>Shop online</span>
                 </div>
                 <div class="step-subtitle"  id="1">Shop at <a href="">www.amazon.com</a> or <a href="">www.forever21.com</a> and send us the item URL.</div>
             </div>
-            <div class="step-wrapper col-sm-4">
+            <div class="step-wrapper">
                 <img src="./images/Ic_Cart.png">
                 <div class="step-title">
                     <span style="white-space: nowrap;"><span class="step-number" id="2">2 </span>Check out </span>on Loot
@@ -101,7 +101,7 @@
 
                 <div class="step-subtitle" id="2">We accept debit, credit or Paypal.</div>
             </div>
-            <div class="step-wrapper col-sm-4">
+            <div class="step-wrapper">
                 <div class="step-image-wrapper"><img src="./images/Ic_Present.png"></div>
                 <div class="step-title">
                     <span style="white-space: nowrap;"><span class="step-number" id="3">3 </span>Delivered</span>
@@ -112,7 +112,7 @@
     </div>
 
 </div>
-<div class="section section-2" ng-class="{'fade': home.data.items.length > 0}" id="why-loot" >
+<div class="section section-2" ng-class="{'fade': home.shouldShowPutBomOutput && home.data.items.length > 0}" id="why-loot" >
     <table border="0" width="100%">
         <tr>
             <td><img src="./images/Pic_Freeshipping.png"></td>
@@ -140,14 +140,14 @@
     </table>
 </div>
 
-<div class="section section-4" ng-class="{'fade': home.data.items.length > 0}">
+<div class="section section-4" ng-class="{'fade': home.shouldShowPutBomOutput && home.data.items.length > 0}">
     <div class="container">
         <div class="final-content">
             <div class="final-message">
                 Online shopping +<br />
                 <span>Free international delivery</span>.
             </div>
-            <div><button type="button" class="btn btn-primary" id="backToTop">Try Loot now!</button></div>
+            <div><button type="button" class="btn btn-primary" id="backToTop" ng-click="home.showPutBom()">Try Loot now!</button></div>
         </div>
 
         <div class="social-media-wrapper">
