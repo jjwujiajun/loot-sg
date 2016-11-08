@@ -322,7 +322,7 @@
                         </div>
                     </div>
                     <div class="pb-price-col">
-                        US$ <span class="confirmed-value">' . number_format($item['listPrice'] / 100.00, 2, '.', ',') . '</span>
+                        US$ <span class="confirmed-value">' . number_format($item['listPrice'] * $item['quantity'] / 100.00, 2, '.', ',') . '</span>
                     </div>
 
                     <!-- Item separator line -->
