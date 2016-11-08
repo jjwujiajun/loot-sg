@@ -48,6 +48,10 @@ mod.service('data', function() {
 		email: 'will@loot.sg',
 		keepMeUpdated: true
 	};
+
+	this.orderInfo = {
+		total: 0
+	}
 });
 
 
@@ -218,6 +222,14 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 		}
 		return '';
 	};
+
+	this.updateTotal = function(data) {
+		sum = 0;
+		for (var i = 0; i < data.items.length; i++) {
+			sum += data.items[i].listPrice * data.items[i].quantity;
+		}
+		data.orderInfo.total = sum;
+	}
 }]);
 
 function routeConfig($routeProvider) {
@@ -323,6 +335,7 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 	}
 	
 	vm.checkOut = function(){
+		utility.updateTotal(data);
 		$location.path('login');
 	}
 
@@ -375,9 +388,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 	vm.getPlurality = utility.getPlurality;
 	vm.total		= 0;
 
-	for (var i = 0; i < vm.items.length; i++) {
-		vm.total += vm.items[i].listPrice * vm.items[i].quantity;
-	}
+	
 
 
 	// Configure Checkout.js
@@ -477,6 +488,7 @@ mod.controller('modifyController', ['data','utility','$location', function(data,
 	}
 
 	vm.save = function(){
+		utility.updateTotal(data);
 		$location.path('confirm');
 	}
 
