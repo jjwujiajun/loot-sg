@@ -18,13 +18,12 @@
 
     $mail = new PHPMailer();
 
-    $mail->IsSendmail();
-    $mail->addReplyTo($userInfo['email'], $userInfo['firstName'] + ' ' + $userInfo['lastName']); // Reply to User
+    $mail->isSendmail();
     $mail->setFrom('server@loot.sg', 'Loot');
     if($email_dev) {
-        $mail->AddAddress('will@loot.sg', 'Will');
+        $mail->addAddress('will@loot.sg', 'Will');
     } else {
-        $mail->AddAddress('orders@loot.sg', 'Orders');    
+        $mail->addAddress('orders@loot.sg', 'Orders');    
     }
 
     $mail->isHTML(true);                                  // Set email format to HTML
