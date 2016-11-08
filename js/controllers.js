@@ -187,7 +187,7 @@ mod.config(routeConfig);
 
 	
 
-mod.controller('homeController', ['data', 'utility','$location', function(data, utility, $location){
+mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll', function(data, utility, $location, $anchorScroll){
 	var vm  = this;
 	vm.urlField = {'text': '', 'placeholder': 'Just copy and paste your item URL here'};
 	vm.data = data;
@@ -257,6 +257,10 @@ mod.controller('homeController', ['data', 'utility','$location', function(data, 
 	
 	vm.checkOut = function(){
 		$location.path('login');
+	}
+
+	vm.scroll = function(anchor){
+		$anchorScroll(anchor);
 	}
 
 }]);
