@@ -79,8 +79,7 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 	        method : 'GET',
 	        url    : urlString
 	    }).then(function (result) {
-	    	return result.data;
-	    }).then(function (resultData) {
+	    	resultData = result.data;
 	    	// For multiple cart items. Remove this.
 	    	//data.items.shift();
 	    	/********/
