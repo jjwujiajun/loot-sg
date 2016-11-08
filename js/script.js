@@ -1,5 +1,5 @@
 $(document).ready(function(){ 
-	// $("#putBomInput").focus();
+	$("#putBomInput").focus();
 	
     $("#backToTop").on("click", function() {
     	$("body").animate({ scrollTop: '0'});

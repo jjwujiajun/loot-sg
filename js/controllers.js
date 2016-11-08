@@ -202,6 +202,16 @@ mod.controller('homeController', ['data', 'utility','$location', function(data, 
 		return false;
 	}
 
+	angular.element(document).ready(function () {
+		var pbInput = document.querySelector('input');
+		angular.element(pbInput).focus();
+
+		var backToTopButton = document.querySelector('#backToTop');
+		angular.element(backToTopButton).click(function () {
+			angular.element(pbInput).focus();
+		});
+	});
+
 	vm.scrapeURL = function () {
 		// Check if input is valid url
 		if (isValidURL(vm.urlField.text)) { 

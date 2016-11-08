@@ -7,7 +7,7 @@
 
         <form name="putBom" class="form-group put-bom-wrapper">
 
-            <input class="form-control" id="putBomInput" type="text" name="itemURL" placeholder="{{home.urlField.placeholder}}" ng-model="home.urlField.text" ng-model-options='{ debounce: 100 }' ng-change="home.scrapeURL()" autofocus><br>
+            <input class="form-control" id="putBomInput" type="text" name="itemURL" placeholder="{{home.urlField.placeholder}}" ng-model="home.urlField.text" ng-model-options='{ debounce: 100 }' ng-change="home.scrapeURL()"><br>
             <div class="put-bom-output" ng-class="{'fade': home.data.items.length > 0}">
 
                 <div class="pb-item" ng-repeat="item in home.data.items">
