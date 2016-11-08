@@ -139,6 +139,39 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 	        data.items[0].color = data.items[0].colors[0]
 	    });
 	};
+
+	this.sendOrderEmail = function(data) {
+		console.log(data.userInfo);
+        
+        // Replace blank fields with dashes
+        replaceWithDash(data.userInfo);
+        for(i = 0; i < data.items.length; i++) {
+            replaceWithDash(data.items[i]);
+        };
+
+        // Prepare Data
+		var formData = {
+			userInfo: data.userInfo,
+			items: data.items,
+		};
+
+        // Send POST request to email engine
+		$http({
+			method  : 'POST',
+			url     : './backend/send_order.php',
+            data    : formData,  //param method from jQuery
+            headers : {'Content-Type': 'application/json'}
+        }).success(function(data){
+            // console.log(data);
+            if (data.success) { //success comes from the return json object
+            	console.log('email-success');
+            } else {
+            	console.log('email-failure');
+            	console.log(data.error);
+            	console.log(data.errorBody);
+            }
+        });
+	};
     
     var replaceWithDash = function(obj){
         angular.forEach(obj, function(value, field){
