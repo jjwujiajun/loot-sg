@@ -50,8 +50,8 @@ mod.service('data', function() {
 	};
 
 	this.orderInfo = {
-		totalCents: 0
-	}
+		total: 0
+	};
 });
 
 
@@ -216,7 +216,7 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 		for (var i = 0; i < data.items.length; i++) {
 			sum += data.items[i].listPrice * data.items[i].quantity;
 		}
-		data.orderInfo.totalCents = sum;
+		data.orderInfo.total = sum;
 	}
 
 	this.preprocessData = function() {
@@ -225,8 +225,6 @@ mod.service('utility', ['$http', 'data', function($http, data) {
         for(i = 0; i < data.items.length; i++) {
             replaceWithDash(data.items[i]);
         }
-
-        data.orderInfo.totalUSD = $filter('currency')(data.orderInfo.totalCents, 'US$', 2);
 	}
 }]);
 
@@ -397,7 +395,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 		currency: 'USD',
 		token: function(token) {
 			var request = {
-				amount: data.orderInfo.totalCents,
+				amount: data.orderInfo.total,
 				token: token.id
 			}
 
@@ -430,7 +428,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 
 	vm.confirmAndPay = function(){
 		handler.open({
-			amount: data.items.totalCents;
+			amount: data.orderInfo.total;
 		});
 
 		// TODO: Close checkout page on navigation

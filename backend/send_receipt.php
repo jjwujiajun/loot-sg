@@ -79,11 +79,7 @@
     $formData     = json_decode($json, true);
     $userInfo     = $formData['userInfo'];
     $items        = $formData['items'];
-
-    $total_sum = 0;
-    foreach ($items as $item) {
-        $total_sum += $item['listPrice'] / 100.00;
-    }
+    $total        = $formData['orderInfo']['total'];
 
     // Load and Configure PHPMailer
     require_once("./phpmailer/PHPMailerAutoload.php");
@@ -405,12 +401,12 @@
                         <tr>
                             <td>Subtotal</td>
                             <td>US$</td>
-                            <td class="value">' . $total_sum . '</td>
+                            <td class="value">' . $total . '</td>
                         </tr>
                         <tr>
                             <td><b>Total</b></td>
                             <td>S$</td>
-                            <td class="value"><span class="final">' . $total_sum . '</span></td>
+                            <td class="value"><span class="final">' . $total . '</span></td>
                         </tr>
                     </table>
                 </div>  
