@@ -139,6 +139,37 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 	        data.items[0].color = data.items[0].colors[0]
 	    });
 	};
+
+	this.sendReceipt = function(data) {
+        // Replace blank fields with dashes
+        replaceWithDash(data.userInfo);
+        for(i = 0; i < data.items.length; i++) {
+            replaceWithDash(data.items[i]);
+        };
+
+        // Prepare Data
+		var formData = {
+			userInfo: data.userInfo,
+			items: data.items,
+		};
+
+        // Send POST request to email engine
+		$http({
+			method  : 'POST',
+			url     : './backend/send_receipt.php',
+            data    : formData,  //param method from jQuery
+            headers : {'Content-Type': 'application/json'}
+        }).then(function(response){
+            console.log(response);
+            if (response.success) { //success comes from the return json object
+            	console.log('client-receipt-success');
+            } else {
+            	console.log('client-receipt-failure');
+            	console.log(response.error);
+            	console.log(response.errorBody);
+            }
+        });
+	};
     
     var replaceWithDash = function(obj){
         angular.forEach(obj, function(value, field){
