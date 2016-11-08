@@ -145,14 +145,6 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 	};
 
 	this.sendOrderEmail = function() {
-		console.log(data.userInfo);
-        
-        // Replace blank fields with dashes
-        replaceWithDash(data.userInfo);
-        for(i = 0; i < data.items.length; i++) {
-            replaceWithDash(data.items[i]);
-        };
-
         // Prepare Data
 		var formData = {
 			userInfo: data.userInfo,
@@ -179,12 +171,6 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 	};
 
 	this.sendReceipt = function() {
-        // Replace blank fields with dashes
-        replaceWithDash(data.userInfo);
-        for(i = 0; i < data.items.length; i++) {
-            replaceWithDash(data.items[i]);
-        };
-
         // Prepare Data
 		var formData = {
 			userInfo: data.userInfo,
@@ -231,6 +217,16 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 			sum += data.items[i].listPrice * data.items[i].quantity;
 		}
 		data.orderInfo.total = sum;
+	}
+
+	this.preprocessData = function() {
+		// Replace blank fields with dashes
+        replaceWithDash(data.userInfo);
+        for(i = 0; i < data.items.length; i++) {
+            replaceWithDash(data.items[i]);
+        }
+
+
 	}
 }]);
 
@@ -419,6 +415,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 	            // console.log(response);
 	            if (response.success) { //success comes from the return json object
 	            	console.log('charge-success');
+	            	utility.preprocessData();
 	            	utility.sendOrderEmail();
 	            	utility.sendReceipt();
 	            	$location.path('done');
