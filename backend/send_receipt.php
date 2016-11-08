@@ -80,6 +80,7 @@
     $userInfo     = $formData['userInfo'];
     $items        = $formData['items'];
     $total        = $formData['orderInfo']['total'];
+    setlocale(LC_MONETARY, 'en_US');
 
     // Load and Configure PHPMailer
     require_once("./phpmailer/PHPMailerAutoload.php");
@@ -386,7 +387,7 @@
                         </div>
                     </div>
                     <div class="pb-price-col">
-                        $ <span class="confirmed-value">' . $item['listPrice'] / 100.00 . '</span>
+                        <span class="confirmed-value">' . money_format('%i', $item['listPrice'] / 100.00) . '</span>
                     </div>
 
                     <!-- Item separator line -->
@@ -401,12 +402,12 @@
                         <tr>
                             <td>Subtotal</td>
                             <td>US$</td>
-                            <td class="value">' . $total . '</td>
+                            <td class="value">' . number_format($total / 100.00, 2, '.', ',') . '</td>
                         </tr>
                         <tr>
                             <td><b>Total</b></td>
                             <td>S$</td>
-                            <td class="value"><span class="final">' . $total . '</span></td>
+                            <td class="value"><span class="final">' . number_format($total / 100.00, 2, '.', ',') . '</span></td>
                         </tr>
                     </table>
                 </div>  
