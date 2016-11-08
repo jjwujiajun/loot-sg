@@ -161,14 +161,14 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 			url     : './backend/send_order.php',
             data    : formData,  //param method from jQuery
             headers : {'Content-Type': 'application/json'}
-        }).success(function(data){
-            // console.log(data);
-            if (data.success) { //success comes from the return json object
+        }).then(function(response){
+            // console.log(response);
+            if (response.data.success) { //success comes from the return json object
             	console.log('email-success');
             } else {
             	console.log('email-failure');
-            	console.log(data.error);
-            	console.log(data.errorBody);
+            	console.log(response.data.error);
+            	console.log(response.data.errorBody);
             }
         });
 	};
