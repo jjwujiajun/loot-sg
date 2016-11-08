@@ -87,7 +87,7 @@
     }
 
     // Load and Configure PHPMailer
-    require_once("phpmailer/PHPMailerAutoload.php");
+    require_once("./phpmailer/PHPMailerAutoload.php");
 
     $mail = new PHPMailer();
 
