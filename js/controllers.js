@@ -161,12 +161,12 @@ mod.service('utility', ['$http', 'data', function($http, data) {
             headers : {'Content-Type': 'application/json'}
         }).then(function(response){
             console.log(response);
-            if (response.success) { //success comes from the return json object
+            if (response.data.success) { //success comes from the return json object
             	console.log('client-receipt-success');
             } else {
             	console.log('client-receipt-failure');
-            	console.log(response.error);
-            	console.log(response.errorBody);
+            	console.log(response.data.error);
+            	console.log(response.data.errorBody);
             }
         });
 	};
