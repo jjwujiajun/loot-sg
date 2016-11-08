@@ -108,12 +108,8 @@
            $result['success']   = 'Message has been sent';
 
         }
-
-        echo json_encode($result);
-    } else {
-        echo $json_encode(array());
-
     }
+    echo json_encode($result);
 
 
 
