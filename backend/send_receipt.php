@@ -90,18 +90,21 @@
     require_once("./phpmailer/PHPMailerAutoload.php");
 
     $mail = new PHPMailer();
+    $mail->isSendmail();
+    $mail->isHTML(true);                                  // Set email format to HTML
 
-    $mail->IsSendmail();
     // Prepare email HTML body
     // $emailBody = file_get_contents('./receipt_template.php');
 
     $mail->Body    = $emailBody;
+
+    // Set email parameters for client
     $mail->addReplyTo('help@loot.sg', 'Loot'); // Reply to Loot
     $mail->setFrom('help@loot.sg', 'Loot');
     if($email_dev) {
-        $mail->AddAddress('will@loot.sg', 'Will');
+        $mail->addAddress('will@loot.sg', $userInfo['firstName'] + ' ' + $userInfo['lastName']);
     } else {
-        $mail->AddAddress($userInfo['email'], $userInfo['firstName'] + ' ' + $userInfo['lastName']);    
+        $mail->addAddress($userInfo['email'], $userInfo['firstName'] + ' ' + $userInfo['lastName']);    
     }
     $mail->Subject = 'Your Loot Receipt';
     
