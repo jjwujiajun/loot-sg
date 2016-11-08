@@ -58,150 +58,150 @@ mod.service('data', function() {
 mod.service('utility', ['$http', 'data', function($http, data) {
 	var createEmptyItem = function() {
 		this.newItem = {
-	        number: data.items.length + 1,
-	        name: '',
-	        url: '',
-	        quantity: '1',
-	        size: '',
-	        color: '',
-	        instructions: '',
-	        proceedOrder: true,
-	        listPrice: '',
-	        imageUrl: '',
-	        sizes: [],
-	        colors: [],
-	        details: ''
-	    };
-	    data.items.unshift(this.newItem);
-	    console.log(this.newItem.number);
+			number: data.items.length + 1,
+			name: '',
+			url: '',
+			quantity: '1',
+			size: '',
+			color: '',
+			instructions: '',
+			proceedOrder: true,
+			listPrice: '',
+			imageUrl: '',
+			sizes: [],
+			colors: [],
+			details: ''
+		};
+		data.items.unshift(this.newItem);
+		console.log(this.newItem.number);
 	};
 
-    this.scrapeF21 = function(url) {
+	this.scrapeF21 = function(url) {
 		var urlString = "https://api.import.io/store/connector/7525a0ab-c857-4f60-8c23-73eb625083de/_query?input=webpage/url:" + encodeURIComponent(url) + "&&_apikey=b34ce8b353894e91b3ef33342f0c5ddb82cce3b3dd7be5b65977ed3fd532f3521d5f3c08c232bafdcc60a719fe799b1b03a95e181771f5bf511f85950dcb7c132b1575addd5fa8c5eeb70645857f693c";
-	    console.log('scrapeF21 GET: ' + urlString);
-	    return $http({
-	        method : 'GET',
-	        url    : urlString
-	    }).then(function (result) {
-	    	resultData = result.data;
-	    	// For multiple cart items. Remove this.
-	    	//data.items.shift();
-	    	/********/
+		console.log('scrapeF21 GET: ' + urlString);
+		return $http({
+			method : 'GET',
+			url    : urlString
+		}).then(function (result) {
+			resultData = result.data;
+			// For multiple cart items. Remove this.
+			//data.items.shift();
+			/********/
 
-	    	createEmptyItem();
+			createEmptyItem();
 
-	    	var result = resultData.results[0];
-	    	data.items[0].name = result.item_name;
-	    	data.items[0].url = url;
-	    	data.items[0].details = result.details;
+			var result = resultData.results[0];
+			data.items[0].name = result.item_name;
+			data.items[0].url = url;
+			data.items[0].details = result.details;
 
-	    	data.items[0].quantity = 1;
+			data.items[0].quantity = 1;
 
-	    	// Price
-	    	if(result.price_sale) {
-	            data.items[0].listPrice = result.price_sale * 100;
-	        } else if(result.price_normal) {
-	            data.items[0].listPrice = result.price_normal * 100;
-	        }
-	        
-	        console.log(result.price_sale);
-	        console.log(result.price_normal);
+			// Price
+			if(result.price_sale) {
+				data.items[0].listPrice = result.price_sale * 100;
+			} else if(result.price_normal) {
+				data.items[0].listPrice = result.price_normal * 100;
+			}
+			
+			console.log(result.price_sale);
+			console.log(result.price_normal);
 
-	        // Image
-	        if(result.image1) {
-	            data.items[0].imageUrl  = result.image1;
-	        } else if(result.image2) {
-	            data.items[0].imageUrl  = result.image2;
-	        } else if(result.image3) {
-	            data.items[0].imageUrl  = result.image3;
-	        }
+			// Image
+			if(result.image1) {
+				data.items[0].imageUrl  = result.image1;
+			} else if(result.image2) {
+				data.items[0].imageUrl  = result.image2;
+			} else if(result.image3) {
+				data.items[0].imageUrl  = result.image3;
+			}
 
-	        // Sizes
-	        if(!Array.isArray(result.sizes_available)) {
-	            data.items[0].sizes  = [result.sizes_available];
-	        } else {
-	            data.items[0].sizes = result.sizes_available;    
-	        }
-	        
-	        // Colors
-	        if(!Array.isArray(result["colors_available/_alt"])) {
-	            data.items[0].colors = [result["colors_available/_alt"]];
-	        } else {
-	            data.items[0].colors = result["colors_available/_alt"];    
-	        }
+			// Sizes
+			if(!Array.isArray(result.sizes_available)) {
+				data.items[0].sizes  = [result.sizes_available];
+			} else {
+				data.items[0].sizes = result.sizes_available;    
+			}
+			
+			// Colors
+			if(!Array.isArray(result["colors_available/_alt"])) {
+				data.items[0].colors = [result["colors_available/_alt"]];
+			} else {
+				data.items[0].colors = result["colors_available/_alt"];    
+			}
 
-	        if (isNaN(data.items[0].sizes[0])) {
-	        	data.items[0].useCircleForSizes = data.items[0].sizes[0].length <= 2;
-	        } else {
-	        	data.items[0].useCircleForSizes = data.items[0].sizes[0].toString().length <= 2;
-	        }
-	        console.log(data.items[0].useCircleForSizes);
+			if (isNaN(data.items[0].sizes[0])) {
+				data.items[0].useCircleForSizes = data.items[0].sizes[0].length <= 2;
+			} else {
+				data.items[0].useCircleForSizes = data.items[0].sizes[0].toString().length <= 2;
+			}
+			console.log(data.items[0].useCircleForSizes);
 
-	        // Select first size and color
-	        data.items[0].size = data.items[0].sizes[0]
-	        data.items[0].color = data.items[0].colors[0]
-	    });
+			// Select first size and color
+			data.items[0].size = data.items[0].sizes[0]
+			data.items[0].color = data.items[0].colors[0]
+		});
 	};
 
 	this.sendOrderEmail = function() {
-        // Prepare Data
+		// Prepare Data
 		var formData = {
 			userInfo: data.userInfo,
 			items: data.items,
 			orderInfo: data.orderInfo
 		};
 
-        // Send POST request to email engine
+		// Send POST request to email engine
 		$http({
 			method  : 'POST',
 			url     : './backend/send_order.php',
-            data    : formData,  //param method from jQuery
-            headers : {'Content-Type': 'application/json'}
-        }).then(function(response){
-            // console.log(response);
-            if (response.data.success) { //success comes from the return json object
-            	console.log('order-email-success');
-            } else {
-            	console.log('order-email-failure');
-            	console.log(response.data.error);
-            	console.log(response.data.errorBody);
-            }
-        });
+			data    : formData,  //param method from jQuery
+			headers : {'Content-Type': 'application/json'}
+		}).then(function(response){
+			// console.log(response);
+			if (response.data.success) { //success comes from the return json object
+				console.log('order-email-success');
+			} else {
+				console.log('order-email-failure');
+				console.log(response.data.error);
+				console.log(response.data.errorBody);
+			}
+		});
 	};
 
 	this.sendReceipt = function() {
-        // Prepare Data
+		// Prepare Data
 		var formData = {
 			userInfo: data.userInfo,
 			items: data.items,
 			orderInfo: data.orderInfo
 		};
 
-        // Send POST request to email engine
+		// Send POST request to email engine
 		$http({
 			method  : 'POST',
 			url     : './backend/send_receipt.php',
-            data    : formData,  //param method from jQuery
-            headers : {'Content-Type': 'application/json'}
-        }).then(function(response){
-            console.log(response);
-            if (response.data.success) { //success comes from the return json object
-            	console.log('client-receipt-success');
-            } else {
-            	console.log('client-receipt-failure');
-            	console.log(response.data.error);
-            	console.log(response.data.errorBody);
-            }
-        });
+			data    : formData,  //param method from jQuery
+			headers : {'Content-Type': 'application/json'}
+		}).then(function(response){
+			console.log(response);
+			if (response.data.success) { //success comes from the return json object
+				console.log('client-receipt-success');
+			} else {
+				console.log('client-receipt-failure');
+				console.log(response.data.error);
+				console.log(response.data.errorBody);
+			}
+		});
 	};
-    
-    var replaceWithDash = function(obj){
-        angular.forEach(obj, function(value, field){
-            if(value == '') {
-                obj[field] = '-';
-            } 
-        });
-    };
+	
+	var replaceWithDash = function(obj){
+		angular.forEach(obj, function(value, field){
+			if(value == '') {
+				obj[field] = '-';
+			} 
+		});
+	};
 
 	this.getPlurality = function(number) {
 		if(number != 1) {
@@ -220,10 +220,10 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 
 	this.preprocessData = function() {
 		// Replace blank fields with dashes
-        replaceWithDash(data.userInfo);
-        for(i = 0; i < data.items.length; i++) {
-            replaceWithDash(data.items[i]);
-        }
+		replaceWithDash(data.userInfo);
+		for(i = 0; i < data.items.length; i++) {
+			replaceWithDash(data.items[i]);
+		}
 	}
 }]);
 
@@ -402,21 +402,21 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 			$http({
 				method  : 'POST',
 				url     : './backend/stripe.php',
-	            data    : request,
-	            headers : {'Content-Type': 'application/json'}
-	        }).success(function(response){
-	            // console.log(response);
-	            if (response.success) { //success comes from the return json object
-	            	console.log('charge-success');
-	            	utility.preprocessData();
-	            	utility.sendOrderEmail();
-	            	utility.sendReceipt();
-	            	$location.path('done');
-	            } else {
-	            	console.log('charge-failure');
-	            	console.log(response.error);
-	            }
-	        });
+				data    : request,
+				headers : {'Content-Type': 'application/json'}
+			}).success(function(response){
+				// console.log(response);
+				if (response.success) { //success comes from the return json object
+					console.log('charge-success');
+					utility.preprocessData();
+					utility.sendOrderEmail();
+					utility.sendReceipt();
+					$location.path('done');
+				} else {
+					console.log('charge-failure');
+					console.log(response.error);
+				}
+			});
 		
 		}
 	});
