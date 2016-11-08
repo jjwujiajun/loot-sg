@@ -50,7 +50,7 @@ mod.service('data', function() {
 	};
 
 	this.orderInfo = {
-		total: 0
+		totalCents: 0
 	}
 });
 
@@ -216,7 +216,7 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 		for (var i = 0; i < data.items.length; i++) {
 			sum += data.items[i].listPrice * data.items[i].quantity;
 		}
-		data.orderInfo.total = sum;
+		data.orderInfo.totalCents = sum;
 	}
 
 	this.preprocessData = function() {
@@ -226,7 +226,7 @@ mod.service('utility', ['$http', 'data', function($http, data) {
             replaceWithDash(data.items[i]);
         }
 
-
+        data.orderInfo.totalUSD = $filter('currency')(data.orderInfo.totalCents, 'US$', 2);
 	}
 }]);
 
@@ -384,10 +384,6 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 	vm.items        = data.items;
 	vm.itemCount    = data.items.length;
 	vm.getPlurality = utility.getPlurality;
-	vm.total		= 0;
-
-	
-
 
 	// Configure Checkout.js
 	var handler = $window.StripeCheckout.configure({
@@ -401,7 +397,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 		currency: 'USD',
 		token: function(token) {
 			var request = {
-				amount: vm.total,
+				amount: data.orderInfo.totalCents,
 				token: token.id
 			}
 
@@ -434,7 +430,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 
 	vm.confirmAndPay = function(){
 		handler.open({
-			amount: vm.total
+			amount: data.items.totalCents;
 		});
 
 		// TODO: Close checkout page on navigation
