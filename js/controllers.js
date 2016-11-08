@@ -428,7 +428,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 
 	vm.confirmAndPay = function(){
 		handler.open({
-			amount: data.orderInfo.total;
+			amount: data.orderInfo.total
 		});
 
 		// TODO: Close checkout page on navigation
