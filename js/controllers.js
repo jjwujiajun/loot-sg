@@ -157,6 +157,7 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 		var formData = {
 			userInfo: data.userInfo,
 			items: data.items,
+			orderInfo: data.orderInfo
 		};
 
         // Send POST request to email engine
@@ -188,6 +189,7 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 		var formData = {
 			userInfo: data.userInfo,
 			items: data.items,
+			orderInfo: data.orderInfo
 		};
 
         // Send POST request to email engine
