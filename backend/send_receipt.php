@@ -76,11 +76,11 @@
       }
     }';
 
-    $formData   = json_decode($json, true);
+    $formData     = json_decode($json, true);
+    $userInfo     = $formData['userInfo'];
+    $items        = $formData['items'];
+    $orderInfo    = $formData['orderInfo'];
 
-    $userInfo   = $formData['userInfo'];
-    $items      = $formData['items'];
-    $orderInfo  = $formData['orderInfo'];
     $total_sum = 0;
     foreach ($items as $item) {
         $total_sum = $total_sum + $item['listPrice'];
@@ -93,12 +93,12 @@
 
     $mail->IsSendmail();
 
-    $mail->addReplyTo($userInfo['email'], $userInfo['firstName'] + ' ' + $userInfo['lastName']); // Reply to User
-    $mail->setFrom('server@loot.sg', 'loot.sg');
+    $mail->addReplyTo('help@loot.sg', 'Loot'); // Reply to Loot
+    $mail->setFrom('help@loot.sg', 'Loot');
     if($email_dev) {
         $mail->AddAddress('will@loot.sg', 'Will');
     } else {
-        $mail->AddAddress('orders@loot.sg', 'Orders');    
+        $mail->AddAddress($userInfo['email'], $userInfo['firstName'] + ' ' + $userInfo['lastName']);    
     }
 
     $mail->isHTML(true);                                  // Set email format to HTML
