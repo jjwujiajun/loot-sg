@@ -48,6 +48,10 @@ mod.service('data', function() {
 		email: 'will@loot.sg',
 		keepMeUpdated: true
 	};
+
+	this.orderInfo = {
+		total: 0
+	};
 });
 
 
@@ -138,6 +142,58 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 	        data.items[0].color = data.items[0].colors[0]
 	    });
 	};
+
+	this.sendOrderEmail = function() {
+        // Prepare Data
+		var formData = {
+			userInfo: data.userInfo,
+			items: data.items,
+			orderInfo: data.orderInfo
+		};
+
+        // Send POST request to email engine
+		$http({
+			method  : 'POST',
+			url     : './backend/send_order.php',
+            data    : formData,  //param method from jQuery
+            headers : {'Content-Type': 'application/json'}
+        }).then(function(response){
+            // console.log(response);
+            if (response.data.success) { //success comes from the return json object
+            	console.log('order-email-success');
+            } else {
+            	console.log('order-email-failure');
+            	console.log(response.data.error);
+            	console.log(response.data.errorBody);
+            }
+        });
+	};
+
+	this.sendReceipt = function() {
+        // Prepare Data
+		var formData = {
+			userInfo: data.userInfo,
+			items: data.items,
+			orderInfo: data.orderInfo
+		};
+
+        // Send POST request to email engine
+		$http({
+			method  : 'POST',
+			url     : './backend/send_receipt.php',
+            data    : formData,  //param method from jQuery
+            headers : {'Content-Type': 'application/json'}
+        }).then(function(response){
+            console.log(response);
+            if (response.data.success) { //success comes from the return json object
+            	console.log('client-receipt-success');
+            } else {
+            	console.log('client-receipt-failure');
+            	console.log(response.data.error);
+            	console.log(response.data.errorBody);
+            }
+        });
+	};
     
     var replaceWithDash = function(obj){
         angular.forEach(obj, function(value, field){
@@ -153,6 +209,22 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 		}
 		return '';
 	};
+
+	this.updateTotal = function() {
+		sum = 0;
+		for (var i = 0; i < data.items.length; i++) {
+			sum += data.items[i].listPrice * data.items[i].quantity;
+		}
+		data.orderInfo.total = sum;
+	}
+
+	this.preprocessData = function() {
+		// Replace blank fields with dashes
+        replaceWithDash(data.userInfo);
+        for(i = 0; i < data.items.length; i++) {
+            replaceWithDash(data.items[i]);
+        }
+	}
 }]);
 
 function routeConfig($routeProvider) {
@@ -258,6 +330,7 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 	}
 	
 	vm.checkOut = function(){
+		utility.updateTotal();
 		$location.path('login');
 	}
 
@@ -308,12 +381,6 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 	vm.items        = data.items;
 	vm.itemCount    = data.items.length;
 	vm.getPlurality = utility.getPlurality;
-	vm.total		= 0;
-
-	for (var i = 0; i < vm.items.length; i++) {
-		vm.total += vm.items[i].listPrice * vm.items[i].quantity;
-	}
-
 
 	// Configure Checkout.js
 	var handler = $window.StripeCheckout.configure({
@@ -327,7 +394,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 		currency: 'USD',
 		token: function(token) {
 			var request = {
-				amount: vm.total,
+				amount: data.orderInfo.total,
 				token: token.id
 			}
 
@@ -337,14 +404,17 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 				url     : './backend/stripe.php',
 	            data    : request,
 	            headers : {'Content-Type': 'application/json'}
-	        }).success(function(data){
-	            // console.log(data);
-	            if (data.success) { //success comes from the return json object
+	        }).success(function(response){
+	            // console.log(response);
+	            if (response.success) { //success comes from the return json object
 	            	console.log('charge-success');
+	            	utility.preprocessData();
+	            	utility.sendOrderEmail();
+	            	utility.sendReceipt();
 	            	$location.path('done');
 	            } else {
 	            	console.log('charge-failure');
-	            	console.log(data.error);
+	            	console.log(response.error);
 	            }
 	        });
 		
@@ -357,7 +427,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 
 	vm.confirmAndPay = function(){
 		handler.open({
-			amount: vm.total
+			amount: data.orderInfo.total
 		});
 
 		// TODO: Close checkout page on navigation
@@ -410,6 +480,7 @@ mod.controller('modifyController', ['data','utility','$location', function(data,
 	}
 
 	vm.save = function(){
+		utility.updateTotal();
 		$location.path('confirm');
 	}
 
