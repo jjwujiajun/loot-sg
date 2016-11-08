@@ -189,9 +189,12 @@ mod.config(routeConfig);
 
 mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll', function(data, utility, $location, $anchorScroll){
 	var vm  = this;
-	vm.urlField = {'text': '', 'placeholder': 'Just copy and paste your item URL here'};
 	vm.data = data;
+
+	vm.urlField = {'text': '', 'placeholder': 'Just copy and paste your item URL here'};
 	var firstScrape = true;
+
+	vm.shouldShowPutBomOutput = true;
 
 	var isValidURL = function(str) {
 		if (str.indexOf('amazon.com') != -1) {
@@ -261,6 +264,14 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 
 	vm.scroll = function(anchor){
 		$anchorScroll(anchor);
+	}
+
+	vm.showPutBom = function(){
+		vm.shouldShowPutBomOutput = true;
+	}
+
+	vm.hidePutBom = function(){
+		vm.shouldShowPutBomOutput = false;
 	}
 
 }]);
