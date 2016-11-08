@@ -172,6 +172,37 @@ mod.service('utility', ['$http', 'data', function($http, data) {
             }
         });
 	};
+
+	this.sendReceipt = function(data) {
+        // Replace blank fields with dashes
+        replaceWithDash(data.userInfo);
+        for(i = 0; i < data.items.length; i++) {
+            replaceWithDash(data.items[i]);
+        };
+
+        // Prepare Data
+		var formData = {
+			userInfo: data.userInfo,
+			items: data.items,
+		};
+
+        // Send POST request to email engine
+		$http({
+			method  : 'POST',
+			url     : './backend/send_receipt.php',
+            data    : formData,  //param method from jQuery
+            headers : {'Content-Type': 'application/json'}
+        }).then(function(response){
+            console.log(response);
+            if (response.data.success) { //success comes from the return json object
+            	console.log('client-receipt-success');
+            } else {
+            	console.log('client-receipt-failure');
+            	console.log(response.data.error);
+            	console.log(response.data.errorBody);
+            }
+        });
+	};
     
     var replaceWithDash = function(obj){
         angular.forEach(obj, function(value, field){
@@ -376,6 +407,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 	            if (response.success) { //success comes from the return json object
 	            	console.log('charge-success');
 	            	utility.sendOrderEmail(data);
+	            	utility.sendReceipt(data);
 	            	$location.path('done');
 	            } else {
 	            	console.log('charge-failure');

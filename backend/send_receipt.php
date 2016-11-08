@@ -9,201 +9,91 @@
 
 
     // Read POST data
-    // $json       = file_get_contents('php://input');
-    $json = '{
-      "userInfo": {
-        "firstName": "first",
-        "lastName": "last",
-        "addressLine1": "addr1",
-        "addressLine2": "#12-34",
-        "postalCode": "poster",
-        "contact": "91506620",
-        "email": "jjwu.jiajun@gmail.com",
-        "keepMeUpdated": "-"
-      },
-      "items": [
-        {
-          "number": 1,
-          "name": "Let It Snow Holiday Sweater",
-          "url": "http:\/\/www.forever21.com\/Product\/Product.aspx?BR=f21&Category=promo-holiday-shop-sweaters&ProductID=2000232287&VariantID=",
-          "quantity": 1,
-          "size": "S",
-          "color": "Red\/cream",
-          "instructions": "1stinstrsuction",
-          "proceedOrder": true,
-          "listPrice": 22.9,
-          "imageUrl": "http:\/\/www.forever21.com\/images\/default_750\/00232287-01.jpg",
-          "sizes": [
-            "S",
-            "M",
-            "L"
-          ],
-          "colors": [
-            "Red\/cream"
-          ],
-          "details": "A midweight knit sweater featuring a \"Let It Snow\" graphic on the chest, a mixed snowflake print along the front and sleeves, sequined snowflake appliques, a crew neckline, long sleeves, and ribbed trim.",
-          "$$hashKey": "object:4"
-        },
-        {
-          "number": 2,
-          "name": "Happy Face Plush PJ Jumpsuit",
-          "url": "http:\/\/www.forever21.com\/Product\/Product.aspx?BR=f21&Category=intimates_loungewear-sets&ProductID=2000230649&VariantID=",
-          "quantity": 2,
-          "size": "M",
-          "color": "Red\/white",
-          "instructions": "2instrcution",
-          "proceedOrder": true,
-          "listPrice": 24.9,
-          "imageUrl": "http:\/\/www.forever21.com\/images\/default_750\/00230649-03.jpg",
-          "sizes": [
-            "XS",
-            "S",
-            "M",
-            "L"
-          ],
-          "colors": [
-            "Red\/white",
-            "Black\/yellow"
-          ],
-          "details": "A plush PJ jumpsuit featuring an allover happy face print, a hoodie, zipper front, and a kangaroo pocket.",
-          "$$hashKey": "object:6"
-        }
-      ],
-      "orderInfo": {
-        "coupon": "-",
-        "deliveryOption": "Self Pickup",
-        "deliveryCost": "-"
-      }
-    }';
+    $json       = file_get_contents('php://input');
+    // $json = '{
+    //   "userInfo": {
+    //     "firstName": "first",
+    //     "lastName": "last",
+    //     "addressLine1": "addr1",
+    //     "addressLine2": "#12-34",
+    //     "postalCode": "poster",
+    //     "contact": "91506620",
+    //     "email": "jjwu.jiajun@gmail.com",
+    //     "keepMeUpdated": "-"
+    //   },
+    //   "items": [
+    //     {
+    //       "number": 1,
+    //       "name": "Let It Snow Holiday Sweater",
+    //       "url": "http:\/\/www.forever21.com\/Product\/Product.aspx?BR=f21&Category=promo-holiday-shop-sweaters&ProductID=2000232287&VariantID=",
+    //       "quantity": 1,
+    //       "size": "S",
+    //       "color": "Red\/cream",
+    //       "instructions": "1stinstrsuction",
+    //       "proceedOrder": true,
+    //       "listPrice": 22.9,
+    //       "imageUrl": "http:\/\/www.forever21.com\/images\/default_750\/00232287-01.jpg",
+    //       "sizes": [
+    //         "S",
+    //         "M",
+    //         "L"
+    //       ],
+    //       "colors": [
+    //         "Red\/cream"
+    //       ],
+    //       "details": "A midweight knit sweater featuring a \"Let It Snow\" graphic on the chest, a mixed snowflake print along the front and sleeves, sequined snowflake appliques, a crew neckline, long sleeves, and ribbed trim.",
+    //       "$$hashKey": "object:4"
+    //     },
+    //     {
+    //       "number": 2,
+    //       "name": "Happy Face Plush PJ Jumpsuit",
+    //       "url": "http:\/\/www.forever21.com\/Product\/Product.aspx?BR=f21&Category=intimates_loungewear-sets&ProductID=2000230649&VariantID=",
+    //       "quantity": 2,
+    //       "size": "M",
+    //       "color": "Red\/white",
+    //       "instructions": "2instrcution",
+    //       "proceedOrder": true,
+    //       "listPrice": 24.9,
+    //       "imageUrl": "http:\/\/www.forever21.com\/images\/default_750\/00230649-03.jpg",
+    //       "sizes": [
+    //         "XS",
+    //         "S",
+    //         "M",
+    //         "L"
+    //       ],
+    //       "colors": [
+    //         "Red\/white",
+    //         "Black\/yellow"
+    //       ],
+    //       "details": "A plush PJ jumpsuit featuring an allover happy face print, a hoodie, zipper front, and a kangaroo pocket.",
+    //       "$$hashKey": "object:6"
+    //     }
+    //   ],
+    //   "orderInfo": {
+    //     "coupon": "-",
+    //     "deliveryOption": "Self Pickup",
+    //     "deliveryCost": "-"
+    //   }
+    // }';
 
     $formData     = json_decode($json, true);
     $userInfo     = $formData['userInfo'];
     $items        = $formData['items'];
-    $orderInfo    = $formData['orderInfo'];
 
     $total_sum = 0;
     foreach ($items as $item) {
-        $total_sum = $total_sum + $item['listPrice'];
+        $total_sum += $item['listPrice'] / 100.00;
     }
 
     // Load and Configure PHPMailer
     require_once("./phpmailer/PHPMailerAutoload.php");
 
     $mail = new PHPMailer();
-
-    $mail->IsSendmail();
-
-    $mail->addReplyTo('help@loot.sg', 'Loot'); // Reply to Loot
-    $mail->setFrom('help@loot.sg', 'Loot');
-    if($email_dev) {
-        $mail->AddAddress('will@loot.sg', 'Will');
-    } else {
-        $mail->AddAddress($userInfo['email'], $userInfo['firstName'] + ' ' + $userInfo['lastName']);    
-    }
-
+    $mail->isSendmail();
     $mail->isHTML(true);                                  // Set email format to HTML
 
-    // prepare email body text
-    // $emailBody = '
-        // <head>
-        //     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        //     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-        //     <style type="text/css">
-        //         .header p {
-        //             font-family: "Avenir";
-        //             font-size: 23px;
-        //             margin: auto;
-        //         }
-        //         .header {
-        //           width: 100%;
-        //           display: table;
-        //           background: #39cde9;
-        //           text-align: center;
-        //           color: white;
-        //           margin-bottom: 60px;
-        //         }
-        //     </style>
-        // </head>
-    //     ';
-
-    //     $emailBody .= '	<body>
-
-    //                         <div class="header">
-    //                             <p>Incoming Order!</p>
-    //                         </div>
-
-    //                         <h1>Particulars</h1>
-    //                         <table class="table">';
-
-
-    // foreach ($userInfo as $field => $value) {
-
-    //     $emailBody .= '	<tr>
-    //                         <td>' . $field . '</td>' . '
-    //                         <td>' . $value . '</td>
-    //                     </tr>';
-    // }
-
-    // $emailBody .= '	</table>
-    //                 <h1>Orders</h1>';
-
-    // foreach ($items as $item) {
-    //     $emailBody .= '<h2>Order #' . $item['number'] . '</h2>'; 
-    //     $emailBody .= '<table class="table">';
-    //     foreach ($item as $key => $value) {
-    //         $keyInForm = ucfirst($key);
-    //         if ($key == 'proceedOrder') {
-    //             $keyInForm = 'Proceed orders if out of stock?';
-    //         }
-
-    //         $emailBody .= '
-    //                     <tr>
-    //                         <td>' . $keyInForm . '</td>
-    //                         <td>' . $value . '</td>
-    //                     </tr>
-    //                     ';
-    //     }
-    //     $emailBody .= '</table>';
-    // }
-
-    // $emailBody .= '<p>Coupon: ' . $orderInfo['coupon'] . '</p>';
-    // $emailBody .= '<p>Delivery Option: ' . $orderInfo['deliveryOption'] . '</p>';
-    // $emailBody .= '<p>Delivery Cost: $' . number_format((float)$orderInfo['deliveryCost'], 2) . '</p>';
-
-    // $emailBody .= "* Reply to this email to respond to the client.";
-    // $emailBody .= '</body></html>';
-
-    $mail->Subject = 'Your Loot Receipt';
-    $mail->Body    = $emailBody;
-
-    $result = array();
-
-    // if($email_on) {
-    //     if(!$mail->send()) {
-    //        $result['error']     = 'Message could not be sent.';
-    //        $result['errorBody'] = 'Mailer Error: ' . $mail->ErrorInfo;
-
-    //     } else {
-    //        $result['success']   = 'Message has been sent';
-
-    //     }
-
-    //     echo json_encode($result);
-    // } else {
-    //     echo $json_encode(array());
-
-    // }
-
-
-
-    /*
-    $Name = Trim(stripslashes($_POST['Name'])); 
-    $Tel = Trim(stripslashes($_POST['Tel'])); 
-    $Email = Trim(stripslashes($_POST['Email'])); 
-    $Message = Trim(stripslashes($_POST['Message'])); 
-    */
-?>
-<html>
+    // Prepare email HTML body
+    $emailBody = '
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -341,7 +231,7 @@
             }
             /*order form*/
             .orderForm {
-                font-family: 'Avenir';
+                font-family: "Avenir";
                 font-weight: 200;
             }
 
@@ -392,7 +282,7 @@
             }
 
             .personal-message {
-                font-family: 'Avenir';
+                font-family: "Avenir";
                 font-weight: 500;
                 color: #37cde9;
                 font-size: 17px;
@@ -427,10 +317,10 @@
                 font-size: 30px;
             }
         </style>
-    </head>
+    </head>';
 
+    $emailBody .= '
     <body>
-
         <div class="orderForm">
             <div class="header">
                 <div id="header-circle">
@@ -440,69 +330,74 @@
             </div>
             <hr>
 
-<!-- User -->
+    <!-- User -->
             <div class="put-bom-wrapper">
                 <div class="personal-message">Your orders will be delivered to</div>
-                <div class="delivery-info delivery-name"><?php echo $userInfo['firstName'] . ' ' . $userInfo['lastName'] ;?></div>
-                <div class="delivery-info">
-                    <?php echo $userInfo['addressLine1'] ;?><br />
-                    <?php echo $userInfo['addressLine2'] ;?><br />
-                    <?php echo $userInfo['postalCode'] ;?>
+                <div class="delivery-info delivery-name">' .
+                    $userInfo['firstName'] . ' ' . $userInfo['lastName'] . '
+                </div>
+                <div class="delivery-info">' .
+                    $userInfo['addressLine1'] . '<br />' .
+                    $userInfo['addressLine2'] . '<br />' .
+                    $userInfo['postalCode'] . '
                 </div>
                 <br />
                 <div class="delivery-info">
                     <div class="delivery-contact">
-                        <b>Contact</b> <?php echo $userInfo['contact'] ;?>
+                        <b>Contact </b>' . $userInfo['contact'] . '
                     </div>
                     <div class="delivery-contact">
-                        <b>Email</b> <?php echo $userInfo['email'] ;?>
+                        <b>Email </b>' . $userInfo['email'] . '
                     </div>
                 </div>
             </div>
-<!-- Items -->
+    <!-- Items -->
             <div class="put-bom-wrapper">
-                <div class="personal-message">Your orders</div>
+                <div class="personal-message">Your orders</div>';
 
-            <?php foreach ($items as $item) { ?>
+    foreach ($items as $item) {
+        $emailBody .= '
                 <div class="pb-item">
                     <div class="pb-pic-col">
-                        <img src="<?php echo $item['imageUrl']; ?>" />
+                        <img src="' . $item['imageUrl'] . '" />
                     </div>
                     <div class="pb-middle-col">
                         <div class="middle-col-row row1">
-                            <div class=""><?php echo $item['name']; ?></div>
-                            <div class="item-url"><a href="<?php echo $item['url'] ?>"><?php echo $item['url']; ?></a></div>
+                            <div class="">' . $item['name'] . '</div>
+                            <div class="item-url"><a href="' . $item['url'] . '">' . $item['url'] . '</a></div>
                         </div>
                         <div class="middle-col-row row2">
                             <div class="item-colors">
                                 <div class="key"><b>Color</b></div>
-                                <div class="item-color confirmed-value">
-                                    <?php echo $item['color']; ?>
+                                <div class="item-color confirmed-value">' .
+                                    $item['color'] . '
                                 </div>
                             </div>
                             <div class="item-qty">
                                 <div class="key"><b>Quantity</b></div> 
-                                <span class="confirmed-value">
-                                    <?php echo $item['quantity']; ?>
+                                <span class="confirmed-value">' .
+                                    $item['quantity'] . '
                                 </span>
                             </div>
                         </div>
                         <div class="middle-col-row row2">
                             <div class="item-sizes">
                                 <div class="key"><b>Size</b></div>
-                                <div class="item-size confirmed-value">
-                                    <?php echo $item['size']; ?>
+                                <div class="item-size confirmed-value">' .
+                                    $item['size'] . '
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="pb-price-col">
-                        $ <span class="confirmed-value"><?php echo $item['listPrice']; ?></span>
+                        $ <span class="confirmed-value">' . $item['listPrice'] / 100.00 . '</span>
                     </div>
 
                     <!-- Item separator line -->
-                    <hr>
-                 <?php }; ?>
+                    <hr>';
+    }
+
+    $emailBody .= '
                 </div>
 
                 <div class="final-price-calcs">
@@ -510,19 +405,56 @@
                         <tr>
                             <td>Subtotal</td>
                             <td>US$</td>
-                            <td class="value"><?php echo $total_sum; ?></td>
+                            <td class="value">' . $total_sum . '</td>
                         </tr>
                         <tr>
                             <td><b>Total</b></td>
                             <td>S$</td>
-                            <td class="value"><span class="final"><?php echo $total_sum; ?></span></td>
+                            <td class="value"><span class="final">' . $total_sum . '</span></td>
                         </tr>
                     </table>
-
-                </div>
-                
+                </div>  
             </div>
-        </div>
-            
-    </body>
-</html>
+        </div> 
+    </body>';
+
+    $mail->Body    = $emailBody;
+
+    // Set email parameters for client
+    $mail->addReplyTo('help@loot.sg', 'Loot'); // Reply to Loot
+    $mail->setFrom('help@loot.sg', 'Loot');
+    if($email_dev) {
+        $mail->addAddress('will@loot.sg', $userInfo['firstName'] + ' ' + $userInfo['lastName']);
+    } else {
+        $mail->addAddress($userInfo['email'], $userInfo['firstName'] + ' ' + $userInfo['lastName']);    
+    }
+    $mail->Subject = 'Your Loot Receipt';
+    
+
+    $result = array();
+
+    if($email_on) {
+        if(!$mail->send()) {
+           $result['error']     = 'Message could not be sent.';
+           $result['errorBody'] = 'Mailer Error: ' . $mail->ErrorInfo;
+
+        } else {
+           $result['success']   = 'Message has been sent';
+
+        }
+
+        echo json_encode($result);
+    } else {
+        echo $json_encode(array());
+
+    }
+
+
+
+    /*
+    $Name = Trim(stripslashes($_POST['Name'])); 
+    $Tel = Trim(stripslashes($_POST['Tel'])); 
+    $Email = Trim(stripslashes($_POST['Email'])); 
+    $Message = Trim(stripslashes($_POST['Message'])); 
+    */
+?>
