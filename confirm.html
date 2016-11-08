@@ -1,18 +1,19 @@
+<ng-include src="'./navbar-flow.html'"></ng-include>
 <div class="orderForm">
-<div class="header">
-    <div id="header-graphic"></div>
-    <div id="header-circle">
-        <div class="step-num">4</div>
-        <p>Confirm Your Order</p>
+    <div class="header">
+        <div id="header-graphic"></div>
+        <div id="header-circle">
+            <div class="step-num">3</div>
+            <p>Confirm Your Order</p>
+        </div>
     </div>
-</div>
 
     <div class="put-bom-wrapper">
         <div class="personal-message">You have a total of {{confirm.itemCount}} item{{confirm.getPlurality(confirm.itemCount)}} in your cart.</div>
 
         <div class="pb-item" ng-repeat="item in confirm.items">
             <div class="pb-pic-col">
-                <img src="{{item.imageUrl}}" />
+                <img ng-src="{{item.imageUrl}}" />
             </div>
             <div class="pb-middle-col">
                 <div class="middle-col-row row1">
@@ -43,7 +44,7 @@
                 </div>
             </div>
             <div class="pb-price-col">
-                $ <span class="confirmed-value">{{item.listPrice}}</span>
+                <span class="confirmed-value">{{item.listPrice / 100 * item.quantity | currency : '$'}}</span>
             </div>
 
             <!-- Item separator line -->
@@ -52,32 +53,32 @@
         </div>
     </div>
 
-<div class="form-body">
+    <div class="form-body">
 
-    <!-- <div class="items-table">
-        <div class="items-table-header">
-            <div class="item-cell bold">#</div>
-            <div class="item-cell bold">Name</div>
-            <div class="item-cell bold">Quantity</div>
-            <div class="item-cell bold">Size</div>
-            <div class="item-cell bold">Color</div>
-            <div class="item-cell bold">Instructions</div>
-            <div class="item-cell bold">Proceed if OOS</div>
+        <!-- <div class="items-table">
+            <div class="items-table-header">
+                <div class="item-cell bold">#</div>
+                <div class="item-cell bold">Name</div>
+                <div class="item-cell bold">Quantity</div>
+                <div class="item-cell bold">Size</div>
+                <div class="item-cell bold">Color</div>
+                <div class="item-cell bold">Instructions</div>
+                <div class="item-cell bold">Proceed if OOS</div>
+            </div>
+            <div class="item-row" ng-repeat="item in confirm.items">
+                <div class="item-cell">{{item.number}}</div>
+                <div class="item-cell"><a href="{{item.url}}">{{item.name}}</a></div>
+                <div class="item-cell">{{item.quantity}}</div>
+                <div class="item-cell">{{item.size}}</div>
+                <div class="item-cell">{{item.color}}</div>
+                <div class="item-cell">{{item.instructions}}</div>
+                <div class="item-cell">{{item.proceedOrder | true_false}}</div>
+            </div>
+        </div> -->
+        <div class="button-row">
+            <span><button class="button btn" type="button" ng-click="confirm.back()">Back</button></span>
+            <span><button class="button btn" type="button" ng-click="confirm.modify()"><span class="bold">Edit</span></button></span>
+            <span><button class="button btn next" type="button" ng-click="confirm.confirmAndPay()"><span class="bold">Confirm and Pay</span></button></span>
         </div>
-        <div class="item-row" ng-repeat="item in confirm.items">
-            <div class="item-cell">{{item.number}}</div>
-            <div class="item-cell"><a href="{{item.url}}">{{item.name}}</a></div>
-            <div class="item-cell">{{item.quantity}}</div>
-            <div class="item-cell">{{item.size}}</div>
-            <div class="item-cell">{{item.color}}</div>
-            <div class="item-cell">{{item.instructions}}</div>
-            <div class="item-cell">{{item.proceedOrder | true_false}}</div>
-        </div>
-    </div> -->
-    <div class="button-row">
-        <span><button class="button btn" type="button" ng-click="confirm.back()">Back</button></span>
-        <span><button class="button btn" type="button" ng-click="confirm.modify()"><span class="bold">Edit</span></button></span>
-        <span><button class="button btn next" type="button" ng-click="confirm.confirmAndPay()"><span class="bold">Confirm and Pay</span></button></span>
     </div>
-</div>
 </div>

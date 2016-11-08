@@ -1,3 +1,16 @@
+<!-- Navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container navbar-wrapper">
+        <div class="menu-wrapper">
+            <div class="menu-item"  id="how-it-works-menu"><a href="">How it works</a></div>
+            <div class="menu-item"  id="why-loot-menu"><a href="">Why Loot?</a></div>
+            <a href="./#/"><img class="menu-item" src="./images/loot-logo-blue.png" /></a>
+            <div class="menu-item"><a href="">FAQ</a></div>
+            <div class="menu-item"><a href="">Contact Us</a></div>
+        </div>
+    </div>
+</nav>
+
 <div class="ATF">
     <div class="container">
         <div class="hero-title">
@@ -12,7 +25,7 @@
 
                 <div class="pb-item" ng-repeat="item in home.data.items">
                     <div class="pb-pic-col">
-                        <img src="{{item.imageUrl}}" />
+                        <img ng-src="{{item.imageUrl}}" />
                     </div>
                     <div class="pb-middle-col">
                         <div class="middle-col-row row1">
@@ -27,7 +40,7 @@
                                 </div>
                             </div>
                             <div class="item-qty">
-                                Quantity <input class="form-control" type="number" value="{{item.quantity}}">
+                                Quantity <input class="form-control" type="number" ng-model="item.quantity">
                             </div>
                         </div>
                         <div class="middle-col-row row2">
@@ -40,9 +53,11 @@
                         </div>
                     </div>
                     <div class="pb-price-col">
-                        ${{item.listPrice}}<br/>
+                        {{item.listPrice / 100 * item.quantity | currency : '$'}}<br/>
                         <div class="pb-X-col">
-                            <div class="pb-remove-item-btn" ng-click="home.removeItem(item.number)" ng-mouseenter="item.shouldShowDeleteBtn = true;" ng-mouseleave="item.shouldShowDeleteBtn = false;" ng-class="{'highlight': item.shouldShowDeleteBtn }">x</div>
+                            <button type="button" ng-click="home.removeItem(item.number)" class="close">
+                                <span>&times;</span>
+                            </button>
                         </div>
                     </div>
                     <!-- Item separator line -->
@@ -67,7 +82,7 @@
 </div>
 
 <!-- Section 1 -->
-<div class="section section-1">
+<div class="section section-1" ng-class="{'fade': home.data.items.length > 0}" id="how-it-works">
     <div class="container">
         <h2>HOW IT WORKS</h2>
         <div class="steps-wrapper">
@@ -97,7 +112,7 @@
     </div>
 
 </div>
-<div class="section section-2">
+<div class="section section-2" ng-class="{'fade': home.data.items.length > 0}" id="why-loot" >
     <table border="0" width="100%">
         <tr>
             <td><img src="./images/Pic_Freeshipping.png"></td>
@@ -125,7 +140,7 @@
     </table>
 </div>
 
-<div class="section section-4">
+<div class="section section-4" ng-class="{'fade': home.data.items.length > 0}">
     <div class="container">
         <div class="final-content">
             <div class="final-message">

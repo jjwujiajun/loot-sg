@@ -23,9 +23,9 @@ mod.service('data', function() {
 
 	this.items    = [
 						{name: 'Loot.sg', number: 1, url: 'http://www.loot.sg', quantity: 3, sizes: ['S','M','XL'], size: 'M', colors: ['Black','Blue'], color: 'Black', listPrice: '0', instructions: 'FRAGILE!', proceedOrder: true, imageUrl: 'test-img.jpg'},
-						{name: 'Lootcommerce.com', number: 2, url: 'http://spree.loot.sg', quantity: 2, sizes: ['S','M','XL'], size: 'XL', listPrice: '10', colors: ['Black','Blue'], color: 'Rainbow', instructions: 'NOT FRAGILE!', proceedOrder: true,  imageUrl: 'test-img.jpg'}
+						{name: 'Lootcommerce.com', number: 2, url: 'http://spree.loot.sg', quantity: 2, sizes: ['S','M','XL'], size: 'XL', listPrice: '1990', colors: ['Black','Blue'], color: 'Rainbow', instructions: 'NOT FRAGILE!', proceedOrder: true,  imageUrl: 'test-img.jpg'}
 					];
-
+/* DEBUG
 	this.userInfo = {
 		firstName: '',
 		lastName: '',
@@ -36,8 +36,8 @@ mod.service('data', function() {
 		email: '',
 		keepMeUpdated: true
 	};
+*/
 
-/* DEBUG
 	this.userInfo = {
 		firstName: 'Will',
 		lastName: 'Ho',
@@ -48,14 +48,6 @@ mod.service('data', function() {
 		email: 'will@loot.sg',
 		keepMeUpdated: true
 	};
-*/
-	this.orderInfo = {
-        coupon: '',
-		deliveryOption: 'none',
-		deliveryCost: 0,
-	};
-
-	this.orderId = '';
 });
 
 
@@ -100,11 +92,13 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 	    	data.items[0].url = url;
 	    	data.items[0].details = result.details;
 
+	    	data.items[0].quantity = 1;
+
 	    	// Price
 	    	if(result.price_sale) {
-	            data.items[0].listPrice = result.price_sale;
+	            data.items[0].listPrice = result.price_sale * 100;
 	        } else if(result.price_normal) {
-	            data.items[0].listPrice = result.price_normal;
+	            data.items[0].listPrice = result.price_normal * 100;
 	        }
 	        
 	        console.log(result.price_sale);
@@ -139,67 +133,11 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 	        	data.items[0].useCircleForSizes = data.items[0].sizes[0].toString().length <= 2;
 	        }
 	        console.log(data.items[0].useCircleForSizes);
+
+	        // Select first size and color
+	        data.items[0].size = data.items[0].sizes[0]
+	        data.items[0].color = data.items[0].colors[0]
 	    });
-	};
-
-	this.sendOrderEmail = function(data) {
-		//console.log(data.userInfo);
-        
-        // Replace blank fields with dashes
-        replaceWithDash(data.userInfo);
-        replaceWithDash(data.orderInfo);
-        for(i = 0; i < data.items.length; i++) {
-            replaceWithDash(data.items[i]);
-        };
-
-        // Prepare Data
-		var formData = {
-			userInfo: data.userInfo,
-			items: data.items,
-			orderInfo: data.orderInfo
-		};
-
-        // Send POST request to email engine
-		$http({
-			method  : 'POST',
-			url     : 'emailengine.php',
-            data    : formData,  //param method from jQuery
-            headers : {'Content-Type': 'application/json'}
-        }).success(function(data){
-            // console.log(data);
-            if (data.success) { //success comes from the return json object
-            	console.log('email-success');
-            } else {
-            	console.log('email-failure');
-            	console.log(data.error);
-            	console.log(data.errorBody);
-            }
-        });
-	};
-
-	this.sendOrderDB = function(data) {
-		// Prepare Data
-		var formData = {
-			userInfo: data.userInfo,
-			items: data.items,
-			orderInfo: data.orderInfo
-		};
-
-		// Send POST request to DB return a promise
-		return $http({
-			method  : 'POST',
-			url     : 'save.php',
-            data    : formData,  //param method from jQuery
-            headers : {'Content-Type': 'application/json'}
-        }).success(function(data){
-            // console.log(data);
-            if (data.orders_id) { //success comes from the return json object
-            	console.log('db-success');
-            	return data.orders_id;
-            } else {
-            	console.log('db-failure');
-            }
-        });
 	};
     
     var replaceWithDash = function(obj){
@@ -216,16 +154,6 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 		}
 		return '';
 	};
-
-	this.registerNavConfirm = function() {
-		window.onbeforeunload = function() {
-			return "You are not done looting!";
-		}
-	}
-
-	this.deregisterNavConfirm = function() {
-		window.onbeforeunload = function() {}
-	}
 }]);
 
 function routeConfig($routeProvider) {
@@ -249,13 +177,17 @@ function routeConfig($routeProvider) {
 		controller: 'modifyController',
 		controllerAs: 'modify',
 		templateUrl: 'modify.html'
+	}).when('/done', {
+		controller: 'doneController',
+		controllerAs: 'done',
+		templateUrl: 'done.html'
 	})
 }
 mod.config(routeConfig);
 
 	
 
-mod.controller('homeController', ['data', 'utility','$location', function(data, utility, $location){
+mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll', function(data, utility, $location, $anchorScroll){
 	var vm  = this;
 	vm.urlField = {'text': '', 'placeholder': 'Just copy and paste your item URL here'};
 	vm.data = data;
@@ -269,6 +201,30 @@ mod.controller('homeController', ['data', 'utility','$location', function(data, 
 		};
 		return false;
 	}
+
+	// jQuery/jqLite DOM Manipulation
+	angular.element(document).ready(function () {
+		var pbInput = document.querySelector('input');
+		angular.element(pbInput).focus();
+
+		var howItWorksMenu = document.querySelector('#how-it-works-menu');
+		angular.element(howItWorksMenu).click(function () {
+			var howItWorksAnchor = angular.element('#how-it-works');
+			angular.element("body").animate({ scrollTop: howItWorksAnchor.offset().top - 80});
+		});		
+
+		var whyLootMenu = document.querySelector('#why-loot-menu');
+		angular.element(whyLootMenu).click(function () {
+			var whyLootAnchor = angular.element('#why-loot');
+			angular.element("body").animate({ scrollTop: whyLootAnchor.offset().top - 80});
+		});	
+
+		var backToTopButton = document.querySelector('#backToTop');
+		angular.element(backToTopButton).click(function () {
+			angular.element("body").animate({ scrollTop: '0'});
+			angular.element(pbInput).focus();
+		});
+	});
 
 	vm.scrapeURL = function () {
 		// Check if input is valid url
@@ -303,6 +259,10 @@ mod.controller('homeController', ['data', 'utility','$location', function(data, 
 		$location.path('login');
 	}
 
+	vm.scroll = function(anchor){
+		$anchorScroll(anchor);
+	}
+
 }]);
 
 mod.controller('loginController', ['data','$location', function(data, $location){
@@ -333,18 +293,64 @@ mod.controller('deliveryController', ['data','$location', function(data, $locati
 
 }]);
 
-mod.controller('confirmController', ['data','utility','$location', function(data, utility, $location){
+mod.controller('confirmController', ['data', 'utility', '$location', '$window', '$http', function(data, utility, $location, $window, $http){
 	var vm = this;
 	vm.items        = data.items;
 	vm.itemCount    = data.items.length;
 	vm.getPlurality = utility.getPlurality;
+	vm.total		= 0;
+
+	for (var i = 0; i < vm.items.length; i++) {
+		vm.total += vm.items[i].listPrice * vm.items[i].quantity;
+	}
+
+
+	// Configure Checkout.js
+	var handler = $window.StripeCheckout.configure({
+		key: 'pk_test_rlSGgE3saZE9iDvzNtKlc1Tb',
+		image: 'https://s3.amazonaws.com/stripe-uploads/acct_17kbl6LmG6293IlZmerchant-icon-1456937740742-Loot_logo_128px.png',
+		locale: 'auto',
+		email: data.userInfo.email,
+		name: 'Loot',
+		description: 'Order Info',
+		zipCode: false,
+		currency: 'USD',
+		token: function(token) {
+			var request = {
+				amount: vm.total,
+				token: token.id
+			}
+
+			// Send POST request to server
+			$http({
+				method  : 'POST',
+				url     : './backend/stripe.php',
+	            data    : request,
+	            headers : {'Content-Type': 'application/json'}
+	        }).success(function(data){
+	            // console.log(data);
+	            if (data.success) { //success comes from the return json object
+	            	console.log('charge-success');
+	            	$location.path('done');
+	            } else {
+	            	console.log('charge-failure');
+	            	console.log(data.error);
+	            }
+	        });
+		
+		}
+	});
 
 	vm.back = function(){
 		$location.path('delivery');
 	}
 
 	vm.confirmAndPay = function(){
-		$location.path('payment');
+		handler.open({
+			amount: vm.total
+		});
+
+		// TODO: Close checkout page on navigation
 	}
 
 	vm.modify = function(){
@@ -398,3 +404,13 @@ mod.controller('modifyController', ['data','utility','$location', function(data,
 	}
 
 }]);
+
+mod.controller('doneController', ['$window', function($window){
+	var vm = this;
+	
+	vm.restart = function(){
+		$window.location.href = "./";
+	}
+
+}]);
+
