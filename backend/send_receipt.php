@@ -92,7 +92,10 @@
     $mail = new PHPMailer();
 
     $mail->IsSendmail();
+    // Prepare email HTML body
+    // $emailBody = file_get_contents('./receipt_template.php');
 
+    $mail->Body    = $emailBody;
     $mail->addReplyTo('help@loot.sg', 'Loot'); // Reply to Loot
     $mail->setFrom('help@loot.sg', 'Loot');
     if($email_dev) {
@@ -100,81 +103,8 @@
     } else {
         $mail->AddAddress($userInfo['email'], $userInfo['firstName'] + ' ' + $userInfo['lastName']);    
     }
-
-    $mail->isHTML(true);                                  // Set email format to HTML
-
-    // prepare email body text
-    // $emailBody = '
-        // <head>
-        //     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        //     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-        //     <style type="text/css">
-        //         .header p {
-        //             font-family: "Avenir";
-        //             font-size: 23px;
-        //             margin: auto;
-        //         }
-        //         .header {
-        //           width: 100%;
-        //           display: table;
-        //           background: #39cde9;
-        //           text-align: center;
-        //           color: white;
-        //           margin-bottom: 60px;
-        //         }
-        //     </style>
-        // </head>
-    //     ';
-
-    //     $emailBody .= '	<body>
-
-    //                         <div class="header">
-    //                             <p>Incoming Order!</p>
-    //                         </div>
-
-    //                         <h1>Particulars</h1>
-    //                         <table class="table">';
-
-
-    // foreach ($userInfo as $field => $value) {
-
-    //     $emailBody .= '	<tr>
-    //                         <td>' . $field . '</td>' . '
-    //                         <td>' . $value . '</td>
-    //                     </tr>';
-    // }
-
-    // $emailBody .= '	</table>
-    //                 <h1>Orders</h1>';
-
-    // foreach ($items as $item) {
-    //     $emailBody .= '<h2>Order #' . $item['number'] . '</h2>'; 
-    //     $emailBody .= '<table class="table">';
-    //     foreach ($item as $key => $value) {
-    //         $keyInForm = ucfirst($key);
-    //         if ($key == 'proceedOrder') {
-    //             $keyInForm = 'Proceed orders if out of stock?';
-    //         }
-
-    //         $emailBody .= '
-    //                     <tr>
-    //                         <td>' . $keyInForm . '</td>
-    //                         <td>' . $value . '</td>
-    //                     </tr>
-    //                     ';
-    //     }
-    //     $emailBody .= '</table>';
-    // }
-
-    // $emailBody .= '<p>Coupon: ' . $orderInfo['coupon'] . '</p>';
-    // $emailBody .= '<p>Delivery Option: ' . $orderInfo['deliveryOption'] . '</p>';
-    // $emailBody .= '<p>Delivery Cost: $' . number_format((float)$orderInfo['deliveryCost'], 2) . '</p>';
-
-    // $emailBody .= "* Reply to this email to respond to the client.";
-    // $emailBody .= '</body></html>';
-
     $mail->Subject = 'Your Loot Receipt';
-    $mail->Body    = $emailBody;
+    
 
     $result = array();
 
