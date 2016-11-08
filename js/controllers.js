@@ -202,12 +202,26 @@ mod.controller('homeController', ['data', 'utility','$location', function(data, 
 		return false;
 	}
 
+	// jQuery/jqLite DOM Manipulation
 	angular.element(document).ready(function () {
 		var pbInput = document.querySelector('input');
 		angular.element(pbInput).focus();
 
+		var howItWorksMenu = document.querySelector('#how-it-works-menu');
+		angular.element(howItWorksMenu).click(function () {
+			var howItWorksAnchor = angular.element('#how-it-works');
+			angular.element("body").animate({ scrollTop: howItWorksAnchor.offset().top - 80});
+		});		
+
+		var whyLootMenu = document.querySelector('#why-loot-menu');
+		angular.element(whyLootMenu).click(function () {
+			var whyLootAnchor = angular.element('#why-loot');
+			angular.element("body").animate({ scrollTop: whyLootAnchor.offset().top - 80});
+		});	
+
 		var backToTopButton = document.querySelector('#backToTop');
 		angular.element(backToTopButton).click(function () {
+			angular.element("body").animate({ scrollTop: '0'});
 			angular.element(pbInput).focus();
 		});
 	});
