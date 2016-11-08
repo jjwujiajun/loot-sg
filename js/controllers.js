@@ -161,9 +161,9 @@ mod.service('utility', ['$http', 'data', function($http, data) {
         }).then(function(response){
             // console.log(response);
             if (response.data.success) { //success comes from the return json object
-            	console.log('email-success');
+            	console.log('order-email-success');
             } else {
-            	console.log('email-failure');
+            	console.log('order-email-failure');
             	console.log(response.data.error);
             	console.log(response.data.errorBody);
             }
