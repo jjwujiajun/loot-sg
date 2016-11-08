@@ -144,7 +144,7 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 	    });
 	};
 
-	this.sendOrderEmail = function(data) {
+	this.sendOrderEmail = function() {
 		console.log(data.userInfo);
         
         // Replace blank fields with dashes
@@ -177,7 +177,7 @@ mod.service('utility', ['$http', 'data', function($http, data) {
         });
 	};
 
-	this.sendReceipt = function(data) {
+	this.sendReceipt = function() {
         // Replace blank fields with dashes
         replaceWithDash(data.userInfo);
         for(i = 0; i < data.items.length; i++) {
@@ -223,7 +223,7 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 		return '';
 	};
 
-	this.updateTotal = function(data) {
+	this.updateTotal = function() {
 		sum = 0;
 		for (var i = 0; i < data.items.length; i++) {
 			sum += data.items[i].listPrice * data.items[i].quantity;
@@ -335,7 +335,7 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 	}
 	
 	vm.checkOut = function(){
-		utility.updateTotal(data);
+		utility.updateTotal();
 		$location.path('login');
 	}
 
@@ -417,8 +417,8 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 	            // console.log(response);
 	            if (response.success) { //success comes from the return json object
 	            	console.log('charge-success');
-	            	utility.sendOrderEmail(data);
-	            	utility.sendReceipt(data);
+	            	utility.sendOrderEmail();
+	            	utility.sendReceipt();
 	            	$location.path('done');
 	            } else {
 	            	console.log('charge-failure');
@@ -488,7 +488,7 @@ mod.controller('modifyController', ['data','utility','$location', function(data,
 	}
 
 	vm.save = function(){
-		utility.updateTotal(data);
+		utility.updateTotal();
 		$location.path('confirm');
 	}
 
