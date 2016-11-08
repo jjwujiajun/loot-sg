@@ -371,14 +371,15 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 				url     : './backend/stripe.php',
 	            data    : request,
 	            headers : {'Content-Type': 'application/json'}
-	        }).success(function(data){
-	            // console.log(data);
-	            if (data.success) { //success comes from the return json object
+	        }).success(function(response){
+	            // console.log(response);
+	            if (response.success) { //success comes from the return json object
 	            	console.log('charge-success');
+	            	utility.sendOrderEmail(data);
 	            	$location.path('done');
 	            } else {
 	            	console.log('charge-failure');
-	            	console.log(data.error);
+	            	console.log(response.error);
 	            }
 	        });
 		
