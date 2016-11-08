@@ -91,24 +91,16 @@
 
     $mail = new PHPMailer();
 
-    $mail->IsSMTP();
-    $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
-    $mail->SMTPAuth   = true;                  // enable SMTP authentication
-    $mail->Username   = "spam2me2u@gmail.com"; // GMAIL username
-    $mail->Password   = "!q2w3e4r%t";          // GMAIL password
-    $mail->SMTPSecure = "tls";                 // sets the prefix to the servier
-    $mail->Port       = 587;                   // set the SMTP port for the GMAIL server
+    $mail->IsSendmail();
 
-    $mail->addReplyTo($userInfo['email'], 'User'); // Reply to User
-    $mail->setFrom('spree.server@loot.sg', 'spree@Loot.sg');
+    $mail->addReplyTo($userInfo['email'], $userInfo['firstName'] + ' ' + $userInfo['lastName']); // Reply to User
+    $mail->setFrom('server@loot.sg', 'loot.sg');
     if($email_dev) {
         $mail->AddAddress('will@loot.sg', 'Will');
     } else {
         $mail->AddAddress('orders@loot.sg', 'Orders');    
     }
 
-    $mail->SMTPDebug   = 0; // Change to 0 for production
-    $mail->Debugoutput = 'html';
     $mail->isHTML(true);                                  // Set email format to HTML
 
     // prepare email body text
