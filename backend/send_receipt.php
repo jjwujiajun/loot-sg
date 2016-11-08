@@ -22,7 +22,7 @@
 
     $mail = new PHPMailer();
     $mail->isSendmail();
-    $mail->isHTML(true);                                  // Set email format to HTML
+    $mail->isHTML(true); // Set email format to HTML
 
     // Prepare email HTML body
     $emailBody = '
@@ -350,7 +350,7 @@
         </div> 
     </body>';
 
-    $mail->Body    = $emailBody;
+    $mail->Body = $emailBody;
 
     // Set email parameters for client
     $mail->addReplyTo('help@loot.sg', 'Loot'); // Reply to Loot
@@ -358,7 +358,7 @@
     if($email_dev) {
         $mail->addAddress('will@loot.sg', $userInfo['firstName'] + ' ' + $userInfo['lastName']);
     } else {
-        $mail->addAddress($userInfo['email'], $userInfo['firstName'] + ' ' + $userInfo['lastName']);    
+        $mail->addAddress($userInfo['email'], $userInfo['firstName'] + ' ' + $userInfo['lastName']);
     }
     $mail->Subject = 'Your Loot Receipt';
     
@@ -367,21 +367,41 @@
 
     if($email_on) {
         if(!$mail->send()) {
-           $result['error']     = 'Message could not be sent.';
-           $result['errorBody'] = 'Mailer Error: ' . $mail->ErrorInfo;
+           $result['error']     = '(C)Message could not be sent.';
+           $result['errorBody'] = '(C)Mailer Error: ' . $mail->ErrorInfo;
 
         } else {
-           $result['success']   = 'Message has been sent';
-
+           $result['success']   = '(C)Message has been sent';
         }
-
-        echo json_encode($result);
-    } else {
-        echo $json_encode(array());
-
     }
 
+    // Initialize new mailer
+    $mail = new PHPMailer();
+    $mail->isSendmail();
+    $mail->isHTML(true);   // Set email format to HTML
+    $mail->Body = $emailBody;
 
+    // Set email parameters for team
+    $mail->addReplyTo($userInfo['email'], $userInfo['firstName'] + ' ' + $userInfo['lastName']); // Reply to client
+    $mail->setFrom('server@loot.sg', 'Loot');
+    if($email_dev) {
+        $mail->addAddress('will@loot.sg');
+    } else {
+        $mail->addAddress('help@loot.sg', 'Receipts');
+    }
+    $mail->Subject = 'Loot Receipt #';
+
+    if($email_on) {
+        if(!$mail->send()) {
+           $result['error']     .= ' (T)Message could not be sent.';
+           $result['errorBody'] .= ' (T)Mailer Error: ' . $mail->ErrorInfo;
+
+        } else {
+           $result['success']   = ' (T)Message has been sent';
+        }
+    }
+
+    echo json_encode($result);
 
     /*
     $Name = Trim(stripslashes($_POST['Name'])); 
