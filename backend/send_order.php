@@ -12,7 +12,6 @@
 
     $userInfo   = $formData['userInfo'];
     $items      = $formData['items'];
-    $orderInfo  = $formData['orderInfo'];
 
     // Load and Configure PHPMailer
     require_once("./phpmailer/PHPMailerAutoload.php");
