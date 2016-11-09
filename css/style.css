@@ -586,10 +586,14 @@ td div {
 /********  ••••••  ********/
 
 /*
- * --- FAQ ---
+ * --- Others ---
+ *  FAQ
+ *  Contacts
  */
 
-.faq h1 {
+.faq h1,
+.contacts h1
+{
     text-align: left;
 
     margin-top: 80pt;
@@ -598,9 +602,12 @@ td div {
     font-size: 42pt;
 }
 
-.faq h1 span {
+.faq h1 span, 
+.contacts h1 span {
     color: #23b5e9;
 }
+
+/********  FAQ  ********/
 
 .faq .section {
     margin-bottom: 10pt;
@@ -628,4 +635,13 @@ td div {
 .faq .item-content {
     margin-left: 40pt;
 }
-/********  ••••••  ********/
+/********  Contacts  ********/
+.contact-key {
+    padding-right: 10px;
+
+    color: #23b5e9;
+    text-align: left;
+}
+.contact-value {
+    text-align: left;
+}
