@@ -1,10 +1,10 @@
 <?php
     // DB Constants
     if($db_dev) {
-        $db_name  = 'loot_spree_dev';
-        $hostname = '52.36.171.235';
-        $username = 'loot_dev';
-        $password = '0gwqV30rI84kzQlX';
+        $db_name  = 'loot-sg_dev';
+        $hostname = 'ec2-52-34-201-146.us-west-2.compute.amazonaws.com';
+        $username = 'loot-sg_dev';
+        $password = '0EaX4SgkSAS0ZHng';
         
     } else {
         $db_name  = 'loot-sg';
