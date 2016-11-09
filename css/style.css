@@ -618,7 +618,10 @@ td div {
 }
 
 .faq .section-content {
-    margin-top: 20pt;
+    overflow: hidden;
+
+    display: none;
+
     margin-bottom: 40pt;
 }
 
