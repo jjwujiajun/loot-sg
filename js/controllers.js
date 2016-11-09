@@ -52,6 +52,8 @@ mod.service('data', function() {
 	this.orderInfo = {
 		total: 0
 	};
+
+	this.shouldShowPutBomOutput = true;
 });
 
 
@@ -273,7 +275,7 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 	vm.urlField = {'text': '', 'placeholder': 'Just copy and paste your item URL here'};
 	var firstScrape = true;
 
-	vm.shouldShowPutBomOutput = true;
+	vm.shouldShowPutBomOutput = vm.data.shouldShowPutBomOutput;
 
 	var isValidURL = function(str) {
 		if (str.indexOf('amazon.com') != -1) {
@@ -503,7 +505,7 @@ mod.controller('doneController', ['$window', function($window){
 
 }]);
 
-mod.controller('faqController', ['$sce', function($sce) {
+mod.controller('faqController', ['data', '$location', '$timeout', '$anchorScroll', '$sce', function(data, $location, $timeout, $anchorScroll, $sce) {
 	var vm = this;
 	vm.questions = [
 	{
@@ -599,13 +601,34 @@ mod.controller('faqController', ['$sce', function($sce) {
 
 	vm.renderHtml = $sce.trustAsHtml;
 
+	vm.goPageAndAnchorScroll = function(page, anchor) {
+		$location.path(page);
+		console.log('hi');
+		data.shouldShowPutBomOutput = false;
+
+		$timeout(function () {
+			$anchorScroll(anchor);
+		});
+
+	}
+
 	vm.expandSection = function (section) {
 		section.isOpen = !section.isOpen;
 	}
 }]);
 
-mod.controller('contactsController', ['$scope', function($scope){
+mod.controller('contactsController', ['data', '$location', '$anchorScroll', '$timeout', function(data, $location, $anchorScroll, $timeout) {
 	var vm = this;
 
-	vm.hello = 'hi';
+	vm.goPageAndAnchorScroll = function(page, anchor) {
+		$location.path(page);
+		console.log('up');
+		data.shouldShowPutBomOutput = false;
+		console.log('out');
+		$timeout(function () {
+			$anchorScroll(anchor);
+			console.log('in');
+		});
+
+	}
 }]);
