@@ -252,6 +252,10 @@ function routeConfig($routeProvider) {
 		controller: 'doneController',
 		controllerAs: 'done',
 		templateUrl: 'done.html'
+	}).when('/contacts', {
+		controller: 'contactsController',
+		controllerAs: 'contacts',
+		templateUrl: 'contacts.html'
 	})
 }
 mod.config(routeConfig);
@@ -495,3 +499,8 @@ mod.controller('doneController', ['$window', function($window){
 
 }]);
 
+mod.controller('contactsController', ['$scope', function($scope){
+	var vm = this;
+
+	vm.hello = 'hi';
+}]);
