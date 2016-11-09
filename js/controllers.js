@@ -52,8 +52,6 @@ mod.service('data', function() {
 	this.orderInfo = {
 		total: 0
 	};
-
-	this.shouldShowPutBomOutput = true;
 });
 
 
@@ -77,6 +75,8 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 		data.items.unshift(this.newItem);
 		console.log(this.newItem.number);
 	};
+
+	this.shouldShowPutBomOutput = true;
 
 	this.scrapeF21 = function(url) {
 		var urlString = "https://api.import.io/store/connector/7525a0ab-c857-4f60-8c23-73eb625083de/_query?input=webpage/url:" + encodeURIComponent(url) + "&&_apikey=b34ce8b353894e91b3ef33342f0c5ddb82cce3b3dd7be5b65977ed3fd532f3521d5f3c08c232bafdcc60a719fe799b1b03a95e181771f5bf511f85950dcb7c132b1575addd5fa8c5eeb70645857f693c";
@@ -505,7 +505,7 @@ mod.controller('doneController', ['$window', function($window){
 
 }]);
 
-mod.controller('faqController', ['data', '$location', '$timeout', '$anchorScroll', '$sce', function(data, $location, $timeout, $anchorScroll, $sce) {
+mod.controller('faqController', ['utility', '$location', '$timeout', '$anchorScroll', '$sce', function(utility, $location, $timeout, $anchorScroll, $sce) {
 	var vm = this;
 	vm.questions = [
 	{
@@ -603,8 +603,8 @@ mod.controller('faqController', ['data', '$location', '$timeout', '$anchorScroll
 
 	vm.goPageAndAnchorScroll = function(page, anchor) {
 		$location.path(page);
-		console.log('hi');
-		data.shouldShowPutBomOutput = false;
+
+		utility.shouldShowPutBomOutput = false;
 
 		$timeout(function () {
 			$anchorScroll(anchor);
@@ -617,17 +617,17 @@ mod.controller('faqController', ['data', '$location', '$timeout', '$anchorScroll
 	}
 }]);
 
-mod.controller('contactsController', ['data', '$location', '$anchorScroll', '$timeout', function(data, $location, $anchorScroll, $timeout) {
+mod.controller('contactsController', ['utility', '$location', '$anchorScroll', '$timeout', function(utility, $location, $anchorScroll, $timeout) {
 	var vm = this;
 
 	vm.goPageAndAnchorScroll = function(page, anchor) {
 		$location.path(page);
-		console.log('up');
-		data.shouldShowPutBomOutput = false;
-		console.log('out');
+
+		utility.shouldShowPutBomOutput = false;
+
 		$timeout(function () {
 			$anchorScroll(anchor);
-			console.log('in');
+
 		});
 
 	}
