@@ -22,7 +22,7 @@
 			<div class="section-content" ng-show="section.isOpen">
 				<div class="item" ng-repeat="item in section.items">
 					<h3 class="item-header">{{item.question}}</h3>
-					<div class="item-content">{{item.answer}}</div>
+					<div class="item-content" ng-bind-html="faq.renderHtml(item.answer)"></div>
 				</div>
 			</div>
 		</div>
