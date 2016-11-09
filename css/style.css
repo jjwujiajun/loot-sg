@@ -206,7 +206,9 @@ img.menu-item {
     display: inline-block;
 
     margin: 0 3px;
-    padding: 0;
+    padding: 0 10px;
+
+    border: none;
 
     min-width: 60px;
 
@@ -307,21 +309,32 @@ img.menu-item {
     min-height: 667px;
 }
 
+.container {
+    width: 100%
+}
+
 .section-1 h2 {
-    margin-top: 140px;
+    margin-top: 140pt;
     font-size: 13px;
 
     text-align: center;
 }
 
 .steps-wrapper {
+    /*border: 1px solid black;*/
     margin-top: 40px;
     text-align: center;
 }
 .step-wrapper {
-    max-width: 300px;
+    /*border: 1px solid orange;*/
+
+    /*max-width: 300px;*/
+    max-width: 33%;
+    min-width: 500px;
 
     display: inline-block;
+    vertical-align: top;
+
     padding: 0 60px;
     text-align: center;
 }
@@ -331,7 +344,8 @@ img.menu-item {
     display: inline-block;
 
     text-align: left;
-    font-size: 25px;
+    /*font-size: 25px;*/
+    font-size: 42pt;
 }
 .step-title #1 {
     width: 180px;
@@ -351,7 +365,7 @@ img.menu-item {
     margin-top: 8px;
 
     text-align: left;
-    font-size: 11px;
+    font-size: 20pt;
 }
 .step-subtitle #3 {
     width: 150px;
@@ -398,13 +412,13 @@ td div {
     text-align: left;
 }
 .final-message span {
-    color: #37CDE9;
+    color: #23b5e9;
 }
 
 .btn-primary{
     margin-top: 60pt;
     border: none;
-    background-color: #37CDE9;
+    background-color: #23b5e9;
 
     padding: 10px 30px;
 
@@ -413,7 +427,7 @@ td div {
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
     border: none;
-    background-color: #37CDE9;
+    background-color: #23b5e9;
 
     padding: 10px 30px;
 
