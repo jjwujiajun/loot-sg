@@ -592,11 +592,15 @@ mod.controller('faqController', ['$sce', function($sce) {
 		]
 	}
 	]
-
+	
 	vm.renderHtml = $sce.trustAsHtml;
 
 	vm.expandSection = function (section) {
 		section.isOpen = !section.isOpen;
+
+		var sectionContent = angular.element('#' + section.header);
+		sectionContent.slideToggle();
+
 	}
 }]);
 
