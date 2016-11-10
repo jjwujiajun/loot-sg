@@ -209,16 +209,16 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 		return $http({
 			method  : 'POST',
 			url     : './backend/login.php',
-            data    : request,  //param method from jQuery
-            headers : {'Content-Type': 'application/json'}
-        }).then(function(response){
-        	if (response.data.userId) { //success comes from the return json object
-            	console.log('db-login-success');
-            	return response.data;
-            } else {
-            	console.log('db-login-failure');
-            	return false;
-            }
+			data    : request,  //param method from jQuery
+			headers : {'Content-Type': 'application/json'}
+		}).then(function(response){
+			if (response.data.userId) { //success comes from the return json object
+				console.log('db-login-success');
+				return response.data;
+			} else {
+				console.log('db-login-failure');
+				return false;
+			}
 		});
 	};
 
