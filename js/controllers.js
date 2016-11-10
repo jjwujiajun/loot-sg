@@ -55,7 +55,7 @@ mod.service('data', function() {
 });
 
 
-mod.service('utility', ['$http', 'data', function($http, data) {
+mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll', function(data, $http, $location, $timeout, $anchorScroll) {
 	var createEmptyItem = function() {
 		this.newItem = {
 			number: data.items.length + 1,
@@ -75,6 +75,8 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 		data.items.unshift(this.newItem);
 		console.log(this.newItem.number);
 	};
+
+	this.shouldShowPutBomOutput = true;
 
 	this.scrapeF21 = function(url) {
 		var urlString = "https://api.import.io/store/connector/7525a0ab-c857-4f60-8c23-73eb625083de/_query?input=webpage/url:" + encodeURIComponent(url) + "&&_apikey=b34ce8b353894e91b3ef33342f0c5ddb82cce3b3dd7be5b65977ed3fd532f3521d5f3c08c232bafdcc60a719fe799b1b03a95e181771f5bf511f85950dcb7c132b1575addd5fa8c5eeb70645857f693c";
@@ -225,6 +227,18 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 			replaceWithDash(data.items[i]);
 		}
 	}
+
+	this.goPageAndAnchorScroll = function(page, anchor) {
+		$location.path(page);
+
+		this.shouldShowPutBomOutput = false;
+
+		$timeout(function () {
+			$anchorScroll(anchor);
+
+		});
+
+	}
 }]);
 
 function routeConfig($routeProvider) {
@@ -273,7 +287,7 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 	vm.urlField = {'text': '', 'placeholder': 'Just copy and paste your item URL here'};
 	var firstScrape = true;
 
-	vm.shouldShowPutBomOutput = true;
+	vm.shouldShowPutBomOutput = vm.data.shouldShowPutBomOutput;
 
 	var isValidURL = function(str) {
 		if (str.indexOf('amazon.com') != -1) {
@@ -503,7 +517,7 @@ mod.controller('doneController', ['$window', function($window){
 
 }]);
 
-mod.controller('faqController', ['$sce', function($sce) {
+mod.controller('faqController', ['utility', '$sce', function(utility, $sce) {
 	var vm = this;
 	vm.questions = [
 	{
@@ -599,6 +613,8 @@ mod.controller('faqController', ['$sce', function($sce) {
 	
 	vm.renderHtml = $sce.trustAsHtml;
 
+	vm.goPageAndAnchorScroll = utility.goPageAndAnchorScroll;
+
 	vm.expandSection = function (section) {
 		section.isOpen = !section.isOpen;
 
@@ -608,7 +624,8 @@ mod.controller('faqController', ['$sce', function($sce) {
 	}
 }]);
 
-mod.controller('contactsController', ['$scope', function($scope){
+mod.controller('contactsController', ['utility', function(utility) {
 	var vm = this;
 
+	vm.goPageAndAnchorScroll = utility.goPageAndAnchorScroll;
 }]);
