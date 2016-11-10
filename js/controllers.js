@@ -27,6 +27,7 @@ mod.service('data', function() {
 					];
 /* DEBUG
 	this.userInfo = {
+		userId: '', // DB variable
 		firstName: '',
 		lastName: '',
 		addressLine1: '',
