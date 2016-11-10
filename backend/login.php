@@ -7,10 +7,9 @@
     }
     
     // Read POST data
-    $json            = file_get_contents('php://input');
-    $data            = json_decode($json, true);
-    $email           = $data['email'];
-    
+    $json     = file_get_contents('php://input');
+    $data     = json_decode($json, true);
+    $email    = $data['email'];
     $response = array();
 
     // Logic block
@@ -18,14 +17,14 @@
         $user = getUser($email);
 
         if($user) {
-            $response['userId'] = $user['users_id'];
-            $response['firstName'] = $user['first_name'];
-            $response['lastName'] = $user['last_name'];
-            $response['addressLine1'] = $user['address_line_1'];
-            $response['addressLine2'] = $user['address_line_2'];
-            $response['postalCode'] = $user['postal_code'];
-            $response['contact'] = $user['contact'];
-            $response['email'] = $user['email'];
+            $response['userId']        = $user['users_id'];
+            $response['firstName']     = $user['first_name'];
+            $response['lastName']      = $user['last_name'];
+            $response['addressLine1']  = $user['address_line_1'];
+            $response['addressLine2']  = $user['address_line_2'];
+            $response['postalCode']    = $user['postal_code'];
+            $response['contact']       = $user['contact'];
+            $response['email']         = $user['email'];
             $response['keepMeUpdated'] = $user['keep_updated'];
         }
     }
