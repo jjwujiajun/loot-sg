@@ -35,22 +35,22 @@ mod.service('data', function() {
 		addressLine1: '',
 		addressLine2: '',
 		postalCode: '',
-		contact: '+65 ',
+		contact: '',
 		email: '',
 		keepMeUpdated: true
 	};
-*/
 
-	this.userInfo = {
-		firstName: 'Will',
-		lastName: 'Ho',
-		addressLine1: '20 Heng Mui Keng Terrace',
-		addressLine2: 'D618',
-		postalCode: '119618',
-		contact: '+65 1234 1234',
-		email: 'will@loot.sg',
-		keepMeUpdated: true
-	};
+
+	// this.userInfo = {
+	// 	firstName: 'Will',
+	// 	lastName: 'Ho',
+	// 	addressLine1: '20 Heng Mui Keng Terrace',
+	// 	addressLine2: 'D618',
+	// 	postalCode: '119618',
+	// 	contact: '+65 1234 1234',
+	// 	email: 'will@loot.sg',
+	// 	keepMeUpdated: true
+	// };
 
 	this.orderInfo = {
 		totalUsd: 0,
