@@ -95,6 +95,10 @@ img.menu-item {
  *  index.html
  */
 
+ .section {
+    /*padding: 8vw 0*/
+}
+
 /********  ATF  ********/
 
 .ATF {
@@ -102,7 +106,8 @@ img.menu-item {
 
     display: block;
 
-    height: 667px;
+    /*height: 667px;*/
+    height: 88vh;
 
     /*background-image: url('../images/ATF-background.jpg');
     background-size: cover;
@@ -111,7 +116,7 @@ img.menu-item {
 }
 
 .hero-title {
-    margin-top: 130px;
+    margin-top: 10vh;
     text-align: center;
 }
 
@@ -308,10 +313,6 @@ img.menu-item {
 }
 
 /********  Section 1  ********/
-
-.section {
-    /*padding: 8vw 0*/
-}
 
 .section-1 {
     min-height: 667px;
