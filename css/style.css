@@ -102,12 +102,16 @@ img.menu-item {
 /********  ATF  ********/
 
 .ATF {
+    /*border: 1px solid orange;*/
     position: relative;
+
+    margin-top: -80px;
 
     display: block;
 
     /*height: 667px;*/
-    height: 88vh;
+    height: 100vh;
+    min-height: 667px;
 
     /*background-image: url('../images/ATF-background.jpg');
     background-size: cover;
@@ -116,7 +120,7 @@ img.menu-item {
 }
 
 .hero-title {
-    margin-top: 10vh;
+    margin-top: 130px;
     text-align: center;
 }
 
