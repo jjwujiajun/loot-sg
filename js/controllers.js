@@ -196,6 +196,29 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 			}
 		});
 	};
+
+	this.login = function(data) {
+		// Prepare Data
+		var data = {
+			email: data.userInfo.email
+		};
+
+		// Send POST request to DB return a promise
+		return $http({
+			method  : 'POST',
+			url     : './backend/login.php',
+            data    : data,  //param method from jQuery
+            headers : {'Content-Type': 'application/json'}
+        }).then(function(response)){
+        	if (response.userId) { //success comes from the return json object
+            	console.log('db-login-success');
+            	return response;
+            } else {
+            	console.log('db-login-failure');
+            	return false;
+            }
+		}
+	};
 	
 	var replaceWithDash = function(obj){
 		angular.forEach(obj, function(value, field){
@@ -350,7 +373,7 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 
 }]);
 
-mod.controller('loginController', ['data','$location', function(data, $location){
+mod.controller('loginController', ['data', 'utility', '$location', function(data, utility, $location){
 	var vm = this;
 	vm.userInfo = data.userInfo;
 
@@ -359,7 +382,12 @@ mod.controller('loginController', ['data','$location', function(data, $location)
 	}
 
 	vm.next = function(){
-		$location.path('delivery');
+		utility.login().then(function(response){
+			if(response){
+				data.userInfo = response;
+			}
+			$location.path('delivery');
+		});
 	}
 
 }]);
