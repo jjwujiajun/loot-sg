@@ -13,7 +13,7 @@ mod.service('data', function() {
  //                        color: '',
  //                        instructions: '',
 	// 					proceedOrder: true,
- //                        listPrice: '',
+ //                        unitPrice: '',
  //                        imageUrl: '',
  //                        sizes: [],
  //                        colors: [],
@@ -22,8 +22,8 @@ mod.service('data', function() {
 
 
 	this.items    = [
-						{name: 'Loot.sg', number: 1, url: 'http://www.loot.sg', quantity: 3, sizes: ['S','M','XL'], size: 'M', colors: ['Black','Blue'], color: 'Black', listPrice: '0', instructions: 'FRAGILE!', proceedOrder: true, imageUrl: 'test-img.jpg'},
-						{name: 'Lootcommerce.com', number: 2, url: 'http://spree.loot.sg', quantity: 2, sizes: ['S','M','XL'], size: 'XL', listPrice: '1990', colors: ['Black','Blue'], color: 'Rainbow', instructions: 'NOT FRAGILE!', proceedOrder: true,  imageUrl: 'test-img.jpg'}
+						{name: 'Loot.sg', number: 1, url: 'http://www.loot.sg', quantity: 3, sizes: ['S','M','XL'], size: 'M', colors: ['Black','Blue'], color: 'Black', unitPrice: '0', instructions: 'FRAGILE!', proceedOrder: true, imageUrl: 'test-img.jpg'},
+						{name: 'Lootcommerce.com', number: 2, url: 'http://spree.loot.sg', quantity: 2, sizes: ['S','M','XL'], size: 'XL', unitPrice: '1990', colors: ['Black','Blue'], color: 'Rainbow', instructions: 'NOT FRAGILE!', proceedOrder: true,  imageUrl: 'test-img.jpg'}
 					];
 /* DEBUG
 	this.userInfo = {
@@ -68,7 +68,7 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 			color: '',
 			instructions: '',
 			proceedOrder: true,
-			listPrice: '',
+			unitPrice: '',
 			imageUrl: '',
 			sizes: [],
 			colors: [],
@@ -101,9 +101,9 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 
 			// Price
 			if(result.price_sale) {
-				data.items[0].listPrice = result.price_sale * 100;
+				data.items[0].unitPrice = result.price_sale * 100;
 			} else if(result.price_normal) {
-				data.items[0].listPrice = result.price_normal * 100;
+				data.items[0].unitPrice = result.price_normal * 100;
 			}
 			
 			console.log(result.price_sale);
@@ -215,7 +215,7 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 	this.updateTotal = function() {
 		sum = 0;
 		for (var i = 0; i < data.items.length; i++) {
-			sum += data.items[i].listPrice * data.items[i].quantity;
+			sum += data.items[i].unitPrice * data.items[i].quantity;
 		}
 		data.orderInfo.totalUsd = sum;
 	}
