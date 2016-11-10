@@ -2,7 +2,7 @@ var mod = angular.module('loot-sg', ['ngRoute']);
 
 
 mod.service('data', function() {
-	this.items    = [];
+	// this.items    = [];
 
 	// this.items = {
 	// 	number: 1,
@@ -21,10 +21,10 @@ mod.service('data', function() {
 	// }
 
 
-	// this.items    = [
-	// 					{name: 'Loot.sg', number: 1, url: 'http://www.loot.sg', quantity: 3, sizes: ['S','M','XL'], size: 'M', colors: ['Black','Blue'], color: 'Black', unitPrice: '0', instructions: 'FRAGILE!', proceedOrder: true, imageUrl: 'test-img.jpg'},
-	// 					{name: 'Lootcommerce.com', number: 2, url: 'http://spree.loot.sg', quantity: 2, sizes: ['S','M','XL'], size: 'XL', unitPrice: '1990', colors: ['Black','Blue'], color: 'Rainbow', instructions: 'NOT FRAGILE!', proceedOrder: true,  imageUrl: 'test-img.jpg'}
-	// 				];
+	this.items    = [
+						{name: 'Loot.sg', number: 1, url: 'http://www.loot.sg', quantity: 3, sizes: ['S','M','XL'], size: 'M', colors: ['Black','Blue'], color: 'Black', unitPrice: '0', instructions: 'FRAGILE!', proceedOrder: true, imageUrl: 'test-img.jpg'},
+						{name: 'Lootcommerce.com', number: 2, url: 'http://spree.loot.sg', quantity: 2, sizes: ['S','M','XL'], size: 'XL', unitPrice: '1990', colors: ['Black','Blue'], color: 'Rainbow', instructions: 'NOT FRAGILE!', proceedOrder: true,  imageUrl: 'test-img.jpg'}
+					];
 	// this.userInfo = {};
  
  	// DEBUG
@@ -362,7 +362,7 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 	vm.urlField = {'text': '', 'placeholder': 'Just copy and paste your item URL here'};
 	var firstScrape = true;
 
-	vm.shouldShowPutBomOutput = vm.data.shouldShowPutBomOutput;
+	vm.shouldShowPutBomOutput = utility.shouldShowPutBomOutput;
 
 	var isValidURL = function(str) {
 		if (str.indexOf('amazon.com') != -1) {
@@ -551,6 +551,7 @@ mod.controller('modifyController', ['data','utility','$location', function(data,
 	var vm = this;
 	vm.urlField = {'text': '', 'placeholder': 'Paste your next item URL here'};
 	vm.data = data;
+	vm.pbInputIsShown = false;
 
 	var isValidURL = function(str) {
 		if (str.indexOf('amazon.com') != -1) {
@@ -590,6 +591,10 @@ mod.controller('modifyController', ['data','utility','$location', function(data,
 	vm.save = function(){
 		utility.updateTotal();
 		$location.path('confirm');
+	}
+
+	vm.togglePBInput = function () {
+		vm.pbInputIsShown = !vm.pbInputIsShown;
 	}
 
 }]);

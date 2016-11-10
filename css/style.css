@@ -112,6 +112,8 @@ img.menu-item {
 
 .hero-title {
     margin-top: 130px;
+    margin-bottom: 60px;
+
     text-align: center;
 }
 
@@ -131,7 +133,6 @@ img.menu-item {
 .put-bom-wrapper {
     position: relative;
 
-    margin-top: 60px;
     margin-left: auto;
     margin-right: auto;
 
@@ -446,6 +447,7 @@ td div {
  *  login.html
  *  delivery.html
  *  confirm.html
+ *  modify.html
  *  done.html
  */
 
@@ -570,6 +572,31 @@ td div {
 .confirmed-value {
     font-family: 'Circular';
     font-weight: bold;
+}
+
+/********  Modify  ********/
+.modify.hero-title {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#putBomInput.hidePB {
+    visibility: hidden;
+}
+
+.modify .btn {
+    width: 50%;
+
+    height: 50px;
+
+    line-height: 35px;
+
+    font-size: 15px;
+    text-align: center;
+}
+
+.modify .add-items {
+    background-color: #EBEBEB;
 }
 
 /********  Done  ********/
