@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     <div class="pb-price-col">
-                        {{item.listPrice / 100 * item.quantity | currency : '$'}}<br/>
+                        {{item.unitPrice / 100 * item.quantity | currency : '$'}}<br/>
                         <div class="pb-X-col">
                             <button type="button" ng-click="home.removeItem(item.number)" class="close">
                                 <span>&times;</span>

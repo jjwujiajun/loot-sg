@@ -20,7 +20,7 @@
           "color": "Red\/cream",
           "instructions": "1stinstrsuction",
           "proceedOrder": true,
-          "listPrice": 2290,
+          "unitPrice": 2290,
           "imageUrl": "http:\/\/www.forever21.com\/images\/default_750\/00232287-01.jpg",
           "sizes": [
             "S",
@@ -42,7 +42,7 @@
           "color": "Red\/white",
           "instructions": "2instrcution",
           "proceedOrder": true,
-          "listPrice": 2490,
+          "unitPrice": 2490,
           "imageUrl": "http:\/\/www.forever21.com\/images\/default_750\/00230649-03.jpg",
           "sizes": [
             "XS",
@@ -365,7 +365,7 @@
                         </div>
                     </div>
                     <div class="pb-price-col">
-                        US$ <span class="confirmed-value">' . number_format($item['listPrice'] / 100.00, 2, '.', ',') . '</span>
+                        US$ <span class="confirmed-value">' . number_format($item['unitPrice'] / 100.00, 2, '.', ',') . '</span>
                     </div>
 
                     <!-- Item separator line -->
