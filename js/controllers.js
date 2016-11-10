@@ -607,5 +607,4 @@ mod.controller('faqController', ['$sce', function($sce) {
 mod.controller('contactsController', ['$scope', function($scope){
 	var vm = this;
 
-	vm.hello = 'hi';
 }]);
