@@ -11,12 +11,12 @@
     $data      = json_decode($json, true);
     
     $users_id  = $data['userInfo']['userId'];
-    $total_usd = $orderInfo['orderInfo']['totalUsd'];
-    $total_sgd = $orderInfo['orderInfo']['totalSgd'];
+    $total_usd = $data['orderInfo']['totalUsd'];
+    $total_sgd = $data['orderInfo']['totalSgd'];
     
     $items     = $data['items'];
     
-    $result    = array()
+    $result    = array();
 
     // Logic block
     if($db_on) {
