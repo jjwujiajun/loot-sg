@@ -241,6 +241,30 @@ mod.service('utility', ['$http', 'data', function($http, data) {
             }
 		}
 	};
+
+	this.submitOrder = function() {
+		// Prepare Data
+		var request = {
+			userInfo: data.userInfo,
+			items: data.items,
+			orderInfo: data.orderInfo
+		};
+
+		// Send POST request to DB return a promise
+		return $http({
+			method  : 'POST',
+			url     : './backend/submit_order.php',
+            data    : request,  //param method from jQuery
+            headers : {'Content-Type': 'application/json'}
+        }).then(function(response)){
+        	if (response.data.orderId) { //success comes from the return json object
+        		data.orderInfo.orderId = response.data.orderId;
+            	console.log('db-order-success');
+            } else {
+            	console.log('db-order-failure');
+            }
+		}
+	};
 	
 	var replaceWithDash = function(obj){
 		angular.forEach(obj, function(value, field){
@@ -458,17 +482,18 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 				url     : './backend/stripe.php',
 				data    : request,
 				headers : {'Content-Type': 'application/json'}
-			}).success(function(response){
+			}).then(function(response){
 				// console.log(response);
-				if (response.success) { //success comes from the return json object
+				if (response.data.success) { //success comes from the return json object
 					console.log('charge-success');
+					utility.submitOrder();
 					utility.preprocessData();
 					utility.sendOrderEmail();
 					utility.sendReceipt();
 					$location.path('done');
 				} else {
 					console.log('charge-failure');
-					console.log(response.error);
+					console.log(response.data.error);
 				}
 			});
 		
