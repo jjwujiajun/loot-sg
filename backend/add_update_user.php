@@ -36,7 +36,7 @@
         $keep_updated    = $userInfo['keepMeUpdated'];
 
         $query_string = "INSERT INTO $table_users (first_name, last_name, address_line_1, address_line_2, postal_code, contact, email, keep_updated) VALUES (:first_name, :last_name, :address_line_1, :address_line_2, :postal_code, :contact, :email, :keep_updated) 
-        ON DUPLICATE KEY UPDATE first_name = :first_name, last_name = :last_name, address_line_1 = :address_line_1, address_line_2 = :address_line_2, postal_code = :postal_code, contact = :contact, keep_updated = :keep_updated";
+        ON DUPLICATE KEY UPDATE users_id=LAST_INSERT_ID(users_id), first_name = :first_name, last_name = :last_name, address_line_1 = :address_line_1, address_line_2 = :address_line_2, postal_code = :postal_code, contact = :contact, keep_updated = :keep_updated";
         $query = $db->prepare($query_string);
         $query->bindParam(':first_name', $first_name, PDO::PARAM_STR);
         $query->bindParam(':last_name', $last_name, PDO::PARAM_STR);

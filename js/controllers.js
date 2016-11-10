@@ -234,8 +234,7 @@ mod.service('utility', ['$http', 'data', function($http, data) {
             headers : {'Content-Type': 'application/json'}
         }).then(function(response){
         	if (response.data.userId) { //success comes from the return json object
-        		if (data.userInfo.userId == -1) data.userInfo.userId = response.data.userId;
-            	console.log('db-login-success');
+            	console.log('db-user-success');
             } else {
             	console.log('db-login-failure');
             }
@@ -448,6 +447,9 @@ mod.controller('deliveryController', ['data', 'utility', '$location', function(d
 
 	vm.next = function(){
 		utility.addUpdateUser().then(function(response){
+			if (data.userInfo.userId == -1){
+				data.userInfo.userId = response.data.userId;	
+			} 
 			$location.path('confirm');	
 		});
 	}
