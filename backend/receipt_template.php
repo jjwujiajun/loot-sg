@@ -20,7 +20,7 @@
           "color": "Red\/cream",
           "instructions": "1stinstrsuction",
           "proceedOrder": true,
-          "listPrice": 2290,
+          "unitPrice": 2290,
           "imageUrl": "http:\/\/www.forever21.com\/images\/default_750\/00232287-01.jpg",
           "sizes": [
             "S",
@@ -42,7 +42,7 @@
           "color": "Red\/white",
           "instructions": "2instrcution",
           "proceedOrder": true,
-          "listPrice": 2490,
+          "unitPrice": 2490,
           "imageUrl": "http:\/\/www.forever21.com\/images\/default_750\/00230649-03.jpg",
           "sizes": [
             "XS",
@@ -59,14 +59,14 @@
         }
       ],
       "orderInfo": {
-        "total": "7270"
+        "totalUsd": "7270"
       }
     }';
 
     $formData     = json_decode($json, true);
     $userInfo     = $formData['userInfo'];
     $items        = $formData['items'];
-    $total        = $formData['orderInfo']['total'];
+    $total_usd    = $formData['orderInfo']['totalUsd'];
 
     $emailBody = '
     <head>
@@ -365,7 +365,7 @@
                         </div>
                     </div>
                     <div class="pb-price-col">
-                        US$ <span class="confirmed-value">' . number_format($item['listPrice'] / 100.00, 2, '.', ',') . '</span>
+                        US$ <span class="confirmed-value">' . number_format($item['unitPrice'] / 100.00, 2, '.', ',') . '</span>
                     </div>
 
                     <!-- Item separator line -->
@@ -380,12 +380,12 @@
                         <tr>
                             <td>Subtotal</td>
                             <td>US$</td>
-                            <td class="value">' . number_format($total / 100.00, 2, '.', ',') . '</td>
+                            <td class="value">' . number_format($total_usd / 100.00, 2, '.', ',') . '</td>
                         </tr>
                         <tr>
                             <td><b>Total</b></td>
                             <td>S$</td>
-                            <td class="value"><span class="final">' . number_format($total / 100.00, 2, '.', ',') . '</span></td>
+                            <td class="value"><span class="final">' . number_format($total_usd / 100.00, 2, '.', ',') . '</span></td>
                         </tr>
                     </table>
                 </div>  
