@@ -441,6 +441,8 @@ td div {
  * --- Order form ---
  *  login.html
  *  delivery.html
+ *  confirm.html
+ *  done.html
  */
 
 /********  Overall order form  ********/
@@ -581,4 +583,52 @@ td div {
     font-size:25px
 }
 
+/********  ••••••  ********/
+
+/*
+ * --- FAQ ---
+ */
+
+.faq h1 {
+    text-align: left;
+
+    margin-top: 80pt;
+    margin-bottom: 40pt;
+
+    font-size: 42pt;
+}
+
+.faq h1 span {
+    color: #23b5e9;
+}
+
+.faq .section {
+    margin-bottom: 10pt;
+}
+
+.faq .section-header {
+    margin-left: -22pt;
+
+    font-size: 24pt;
+}
+.faq .section-header div {
+    display: inline-block;
+
+    width: 20pt;
+}
+
+.faq .section-content {
+    overflow: hidden;
+
+    display: none;
+
+    margin-bottom: 40pt;
+}
+
+.faq .item-header {
+    margin-bottom: 10pt;
+}
+.faq .item-content {
+    margin-left: 40pt;
+}
 /********  ••••••  ********/

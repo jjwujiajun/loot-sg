@@ -1,0 +1,30 @@
+<!-- Navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container navbar-wrapper">
+        <div class="menu-wrapper">
+            <div class="menu-item"  id="how-it-works-menu" ng-click="home.hidePutBom()"><a href="">How it works</a></div>
+            <div class="menu-item"  id="why-loot-menu" ng-click="home.hidePutBom()"><a href="">Why Loot?</a></div>
+            <a href="./#/"><img class="menu-item" src="./images/loot-logo-blue.png" /></a>
+            <div class="menu-item"><a href="#/faq">FAQ</a></div>
+            <div class="menu-item"><a href="">Contact Us</a></div>
+        </div>
+    </div>
+</nav>
+
+<div class="faq">
+	<div class="container">
+		<h1>We're here to <span>help</span>.</h1>
+
+		<div class="section" ng-repeat="section in faq.questions">
+			<h2 class="section-header" ng-click="faq.expandSection(section.header)">
+				<div>{{section.isOpen ? '-' : '+'}}</div>{{section.header}}
+			</h2>
+			<div class="section-content" id="{{section.header}}" >
+				<div class="item" ng-repeat="item in section.items">
+					<h3 class="item-header">{{item.question}}</h3>
+					<div class="item-content" ng-bind-html="faq.renderHtml(item.answer)"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
