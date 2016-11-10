@@ -408,8 +408,7 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 	
 
 	vm.removeItem = function(itemNumber) {
-		index = vm.data.items.length - itemNumber;
-		vm.data.items.splice(index, 1);
+		vm.data.items.splice(itemNumber - 1, 1);
 	}
 
 	vm.selectColorForItem = function(color, item) {
@@ -570,8 +569,7 @@ mod.controller('modifyController', ['data','utility','$location', function(data,
 	
 
 	vm.removeItem = function(itemNumber) {
-		index = vm.data.items.length - itemNumber;
-		vm.data.items.splice(index, 1);
+		vm.data.items.splice(itemNumber - 1, 1);
 	}
 
 	vm.selectColorForItem = function(color, item) {
