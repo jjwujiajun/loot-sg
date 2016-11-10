@@ -252,6 +252,14 @@ function routeConfig($routeProvider) {
 		controller: 'doneController',
 		controllerAs: 'done',
 		templateUrl: 'done.html'
+	}).when('/faq', {
+		controller: 'faqController',
+		controllerAs: 'faq',
+		templateUrl: 'faq.html'
+	}).when('/contacts', {
+		controller: 'contactsController',
+		controllerAs: 'contacts',
+		templateUrl: 'contacts.html'
 	})
 }
 mod.config(routeConfig);
@@ -495,3 +503,112 @@ mod.controller('doneController', ['$window', function($window){
 
 }]);
 
+mod.controller('faqController', ['$sce', function($sce) {
+	var vm = this;
+	vm.questions = [
+	{
+		'header': 'Ordering',
+		'isOpen': false,
+		'items': [
+		{
+			'question': 'I have a question! How can I reach you?',
+			'answer': 'If you don’t find an answer below, the Loot team is ready to help! Reach out to us at <a href="mailto:orders@loot.sg">orders@loot.sg</a> - we typically reply within hours ;)'
+		},
+		{
+			'question': 'What stores are eligible for free shipping?',
+			'answer': 'Currently, we offer free shipping from Forever21.com (USA) and Amazon.com (USA).'
+		},
+		{
+			'question': 'How does ordering work?',
+			'answer': '<p>Ordering is simple with Loot.</p><p>On the home page, paste the website link to the item you want from Amazon or Forever21. Follow our prompts if you’d like to add more items, or to checkout. Provide us with your delivery and billing address, and make payment to complete your checkout!</p>'
+		},
+		{
+			'question': 'Are there any restrictions for items?',
+			'answer': '<p>There is no restriction for Forever21.</p><p>There is however some restriction items from Amazon.</p>a) Price: Individual item price must be between US$20 and US$150. <br />b) Weight: The item must weigh below 3 KG i.e. 6.6 lbs - this can be found on the item page in “Shipping Weight”.<p><em>Scenario A:</em> Tom wants to buy 2 pair of shoes on Amazon using Loot. One pair costs $18, the other costs $35. Both pairs weigh 5.5 lbs (2.5 KG) each. In this scenario, only the $35 pair of shoes can be ordered using Loot. Tom should consider getting other pairs of shoes above $20!</p><p><em>Scenario B:</em> Sally wants to buy a chair (20 lbs/ 9 KG) and a handbag (4.4 lbs / 2 KG). Both items cost US$100 on Amazon. In this scenario, the handbag can be ordered using Loot; unfortunately, the chair is too heavy for us to ship for free! Sally should consider adding other items under 3 KG - more handbags perhaps? :)</p>'
+		},
+		{
+			'question': 'How do you get free shipping?',
+			'answer': 'We work with merchants to deliver the best shopping experience to our shoppers. Part of this includes free shipping from US merchants to Singapore! Eventually, this will extend to other shoppers in the Asian region.'
+		},
+		{
+			'question': 'What if my items are out of stock, but I already paid for my order?',
+			'answer': 'During the checkout process, you can specify (a) whether you would like to continue with the rest of the order if any of your items are out of stock, or (b) if you prefer to cancel the entire order if any items are out of stock. Either way, we will issue a refund for the items that are out of stock, or refund you for the entire order if you prefer.'
+		}
+		]
+		
+	},
+	{
+		'header': 'Paying',
+		'isOpen': false,
+		'items': [
+		{
+			'question': 'What forex rate will I be charged?',
+			'answer': 'When shopping with Loot, you will only be charged the live mid-market rates that is found on Google (<a href="https://www.google.com/search?output=search&sclient=psy-ab&q=google+usd+sgd&btnG=&oq=&gs_l=&pbx=1#q=1+usd+to+sgd">click here for the latest rates</a>). Loot displays the forex rate (USD/SGD) upfront. What you see, is what you get :)'
+		},
+		{
+			'question': 'Are there any hidden fees?',
+			'answer': 'No! We don’t like to charge unnecessary handling fees, forex fees, nor GST. With Loot, prices are quoted upfront - overseas shopping, simplified!'
+		},
+		{
+			'question': 'Can I use a coupon code for Amazon or Forever21?',
+			'answer': '<p>Loot’s coupon ninjas automatically find the best prices available - we proactively refund you any savings to your credit card.</p><p>Additionally, we may be able to accommodate coupon codes! Leave a comment under “Additional instructions” when making your order. If your items are eligible for the coupon, expect to see a refund to your credit card within 7 business days :)</p>'
+		},
+		{
+			'question': 'Is your payment link secure?',
+			'answer': 'Yes! Our payments link is handled by <a href="www.stripe.com">Stripe</a>, a payments processor that also handles payments for large tech companies such as Uber and Airbnb. The payment link is https encrypted and payment information is never stored on Loot servers!'
+		},
+		{
+			'question': 'Can I pay via iBanking or Paypal?',
+			'answer': 'No. At this time we accept payments only via credit and debit cards. Payment via iBanking and Paypal will be offered soon.'
+		}
+		]
+	},
+	{
+		'header': 'Shipping',
+		'isOpen': false,
+		'items': [
+		{
+			'question': 'How soon will I get my items?',
+			'answer': 'Less than 2 weeks!'
+		},
+		{
+			'question': 'Can I expedite my order?',
+			'answer': 'Not at the moment.'
+		},
+		{
+			'question': 'Can I pickup my order instead?',
+			'answer': 'We offer free delivery to anywhere in Singapore. Email us (<a href="mailto:orders@loot.sg">orders@loot.sg</a>) if you’d like to arrange a pickup from our facility located near Serangoon Stadium.'
+		}
+		]
+	},
+	{
+		'header': 'Others',
+		'isOpen': false,
+		'items': [
+		{
+			'question': 'What is Loot?',
+			'answer': '<p>Loot helps shoppers save time and money. We make it easy to buy stuff from overseas! Using Loot, simply tell us what you want and we deliver it to you in Singapore for free (yes, free!).</p><p>Loot is a eCommerce startup funded by NUS Enterprise (www.loot.sg). We are currently offering free shipping to Singaporean shoppers ordering from Amazon.com (USA) and Forever21.com (USA). Loot is currently offered exclusively to Carousell and HWZ members.</p><p>With Loot, you’ll never have to worry about hidden charges such as handling or forex fees - prices are quoted upfront in SGD using the latest mid-market forex rates.</p>'
+		},
+		{
+			'question': 'How do you make money?',
+			'answer': '<p>Over the past year, our team has been working hard to source the best discounts for you. For the most part, getting stuff from overseas merchants has been a complex process involving freight forwarders or online "sprees" - hardly a simple process!</p><p>We simplify the process of ordering from overseas, and earn a small fee from merchants each time you place an order.</p>'
+		}
+		]
+	}
+	]
+	
+	vm.renderHtml = $sce.trustAsHtml;
+
+	vm.expandSection = function (section) {
+		section.isOpen = !section.isOpen;
+
+		var sectionContent = angular.element('#' + section);
+		sectionContent.slideToggle();
+
+	}
+}]);
+
+mod.controller('contactsController', ['$scope', function($scope){
+	var vm = this;
+
+}]);
