@@ -61,7 +61,7 @@ mod.service('data', function() {
 
 mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll', function(data, $http, $location, $timeout, $anchorScroll) {
 	var createEmptyItem = function() {
-		this.newItem = {
+		return {
 			number: data.items.length + 1,
 			name: '',
 			url: '',
@@ -76,8 +76,6 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 			colors: [],
 			details: ''
 		};
-		data.items.unshift(this.newItem);
-		console.log(this.newItem.number);
 	};
 
 	this.shouldShowPutBomOutput = true;
@@ -90,24 +88,20 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 			url    : urlString
 		}).then(function (result) {
 			resultData = result.data;
-			// For multiple cart items. Remove this.
-			//data.items.shift();
-			/********/
+			newItem    = createEmptyItem();
 
-			createEmptyItem();
+			result     = resultData.results[0];
+			newItem.name = result.item_name;
+			newItem.url = url;
+			newItem.details = result.details;
 
-			var result = resultData.results[0];
-			data.items[0].name = result.item_name;
-			data.items[0].url = url;
-			data.items[0].details = result.details;
-
-			data.items[0].quantity = 1;
+			newItem.quantity = 1;
 
 			// Price
 			if(result.price_sale) {
-				data.items[0].unitPrice = result.price_sale * 100;
+				newItem.unitPrice = result.price_sale * 100;
 			} else if(result.price_normal) {
-				data.items[0].unitPrice = result.price_normal * 100;
+				newItem.unitPrice = result.price_normal * 100;
 			}
 			
 			console.log(result.price_sale);
@@ -115,37 +109,39 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 
 			// Image
 			if(result.image1) {
-				data.items[0].imageUrl  = result.image1;
+				newItem.imageUrl  = result.image1;
 			} else if(result.image2) {
-				data.items[0].imageUrl  = result.image2;
+				newItem.imageUrl  = result.image2;
 			} else if(result.image3) {
-				data.items[0].imageUrl  = result.image3;
+				newItem.imageUrl  = result.image3;
 			}
 
 			// Sizes
 			if(!Array.isArray(result.sizes_available)) {
-				data.items[0].sizes  = [result.sizes_available];
+				newItem.sizes  = [result.sizes_available];
 			} else {
-				data.items[0].sizes = result.sizes_available;    
+				newItem.sizes = result.sizes_available;    
 			}
 			
 			// Colors
 			if(!Array.isArray(result["colors_available/_alt"])) {
-				data.items[0].colors = [result["colors_available/_alt"]];
+				newItem.colors = [result["colors_available/_alt"]];
 			} else {
-				data.items[0].colors = result["colors_available/_alt"];    
+				newItem.colors = result["colors_available/_alt"];    
 			}
 
-			if (isNaN(data.items[0].sizes[0])) {
-				data.items[0].useCircleForSizes = data.items[0].sizes[0].length <= 2;
+			if (isNaN(newItem.sizes[0])) {
+				newItem.useCircleForSizes = newItem.sizes[0].length <= 2;
 			} else {
-				data.items[0].useCircleForSizes = data.items[0].sizes[0].toString().length <= 2;
+				newItem.useCircleForSizes = newItem.sizes[0].toString().length <= 2;
 			}
-			console.log(data.items[0].useCircleForSizes);
+			console.log(newItem.useCircleForSizes);
 
 			// Select first size and color
-			data.items[0].size = data.items[0].sizes[0]
-			data.items[0].color = data.items[0].colors[0]
+			newItem.size = newItem.sizes[0]
+			newItem.color = newItem.colors[0]
+
+			data.items.push(newItem);
 		});
 	};
 
@@ -314,6 +310,18 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 		});
 
 	}
+
+	this.reverseItems = function() {
+		reversedItems = [];
+
+		for (var i = data.items.length - 1; i >= 0 ; i--) {
+			data.items[i].number = data.items.length - 1 - i + 1;
+			reversedItems.push(data.items[i]);
+		}
+
+		data.items = reversedItems;
+	}
+
 }]);
 
 function routeConfig($routeProvider) {
@@ -352,8 +360,6 @@ function routeConfig($routeProvider) {
 	})
 }
 mod.config(routeConfig);
-
-
 
 mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll', function(data, utility, $location, $anchorScroll){
 	var vm  = this;
@@ -414,8 +420,7 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 	
 
 	vm.removeItem = function(itemNumber) {
-		index = vm.data.items.length - itemNumber;
-		vm.data.items.splice(index, 1);
+		vm.data.items.splice(itemNumber - 1, 1);
 	}
 
 	vm.selectColorForItem = function(color, item) {
@@ -628,6 +633,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 				// console.log(response);
 				if (response.data.success) { //success comes from the return json object
 					console.log('charge-success');
+					utility.reverseItems();
 					utility.submitOrder();
 					utility.preprocessData();
 					utility.sendOrderEmail();
@@ -689,8 +695,7 @@ mod.controller('modifyController', ['data','utility','$location', function(data,
 	
 
 	vm.removeItem = function(itemNumber) {
-		index = vm.data.items.length - itemNumber;
-		vm.data.items.splice(index, 1);
+		vm.data.items.splice(itemNumber - 1, 1);
 	}
 
 	vm.selectColorForItem = function(color, item) {
