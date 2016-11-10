@@ -11,7 +11,7 @@
     <div class="put-bom-wrapper">
         <div class="personal-message">You have a total of {{confirm.itemCount}} item{{confirm.getPlurality(confirm.itemCount)}} in your cart.</div>
 
-        <div class="pb-item" ng-repeat="item in confirm.items">
+        <div class="pb-item" ng-repeat="item in confirm.items | orderBy : '-'">
             <div class="pb-pic-col">
                 <a href="{{item.url}}"><img ng-src="{{item.imageUrl}}" /></a>
             </div>
@@ -47,7 +47,7 @@
             </div>
 
             <!-- Item separator line -->
-            <hr ng-hide="item == confirm.items[confirm.items.length - 1]">
+            <hr ng-hide="item == confirm.items[0]">
 
         </div>
     </div>

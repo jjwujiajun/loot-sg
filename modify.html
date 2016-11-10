@@ -8,7 +8,7 @@
     <form name="putBom" class="form-group put-bom-wrapper">
         <div class="put-bom-output fade" >
 
-            <div class="pb-item" ng-repeat="item in modify.data.items">
+            <div class="pb-item" ng-repeat="item in modify.data.items | orderBy : '-'">
                 <div class="pb-pic-col">
                     <a href="{{item.url}}"><img ng-src="{{item.imageUrl}}" /></a>
                 </div>
@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <!-- Item separator line -->
-                <hr ng-hide="item == modify.data.items[modify.data.items.length - 1]">
+                <hr ng-hide="item == modify.data.items[0]">
 
             </div>
 
