@@ -185,6 +185,10 @@ img.menu-item {
 .middle-col-row {
     height: 33%;
 }
+.middle-col-row.row1 {
+    font-size: 18px;
+}
+
 .pb-item .item-url {
     margin-top: -3px;
     overflow: hidden;

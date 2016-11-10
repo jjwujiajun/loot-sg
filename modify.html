@@ -11,12 +11,11 @@
 
             <div class="pb-item" ng-repeat="item in modify.data.items">
                 <div class="pb-pic-col">
-                    <img ng-src="{{item.imageUrl}}" />
+                    <a href="{{item.url}}"><img ng-src="{{item.imageUrl}}" /></a>
                 </div>
                 <div class="pb-middle-col">
                     <div class="middle-col-row row1">
                         <div>{{item.name}}</div>
-                        <div class="item-url">{{item.url}}</div>
                     </div>
                     <div class="middle-col-row row2">
                         <div class="item-colors">
