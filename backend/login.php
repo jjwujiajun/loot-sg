@@ -23,7 +23,7 @@
             $response['lastName'] = $user['last_name'];
             $response['addressLine1'] = $user['address_line_1'];
             $response['addressLine2'] = $user['address_line_2'];
-            $response['postal_code'] = $user['postal_code'];
+            $response['postalCode'] = $user['postal_code'];
             $response['contact'] = $user['contact'];
             $response['email'] = $user['email'];
             $response['keepMeUpdated'] = $user['keep_updated'];
