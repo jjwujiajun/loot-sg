@@ -508,7 +508,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 			// Send POST request to server
 			$http({
 				method  : 'POST',
-				url     : './backend/stripe.php',
+				url     : './backend/charge.php',
 				data    : request,
 				headers : {'Content-Type': 'application/json'}
 			}).then(function(response){
