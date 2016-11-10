@@ -2,6 +2,7 @@
     include 'config.php';
     include 'db-config.php';
 
+    // Access gate condition
     if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         exit();
     }
