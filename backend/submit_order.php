@@ -33,8 +33,8 @@
         $query_string = "INSERT INTO $table_orders (users_id, total_usd, total_sgd) VALUES (:users_id, :total_usd, :total_sgd);";
         $query = $db->prepare($query_string);
         $query->bindParam(':users_id', $users_id, PDO::PARAM_INT);
-        $query->bindParam(':total_usd', $delivery_option, PDO::PARAM_INT);
-        $query->bindParam(':total_sgd', $delivery_cost, PDO::PARAM_INT);
+        $query->bindParam(':total_usd', $total_usd, PDO::PARAM_INT);
+        $query->bindParam(':total_sgd', $total_sgd, PDO::PARAM_INT);
         $query->execute();
 
         return $db->lastInsertId();
