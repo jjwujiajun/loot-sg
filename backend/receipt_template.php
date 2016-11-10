@@ -59,14 +59,14 @@
         }
       ],
       "orderInfo": {
-        "total": "7270"
+        "totalUsd": "7270"
       }
     }';
 
     $formData     = json_decode($json, true);
     $userInfo     = $formData['userInfo'];
     $items        = $formData['items'];
-    $total        = $formData['orderInfo']['total'];
+    $total_usd    = $formData['orderInfo']['totalUsd'];
 
     $emailBody = '
     <head>
@@ -380,12 +380,12 @@
                         <tr>
                             <td>Subtotal</td>
                             <td>US$</td>
-                            <td class="value">' . number_format($total / 100.00, 2, '.', ',') . '</td>
+                            <td class="value">' . number_format($total_usd / 100.00, 2, '.', ',') . '</td>
                         </tr>
                         <tr>
                             <td><b>Total</b></td>
                             <td>S$</td>
-                            <td class="value"><span class="final">' . number_format($total / 100.00, 2, '.', ',') . '</span></td>
+                            <td class="value"><span class="final">' . number_format($total_usd / 100.00, 2, '.', ',') . '</span></td>
                         </tr>
                     </table>
                 </div>  
