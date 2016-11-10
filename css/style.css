@@ -654,3 +654,6 @@ td div {
 .contact-value {
     text-align: left;
 }
+.contact-value a:link, .contact-value a:visited {
+    color: black;
+}
