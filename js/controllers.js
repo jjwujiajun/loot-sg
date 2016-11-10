@@ -238,10 +238,10 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 			headers : {'Content-Type': 'application/json'}
 		}).then(function(response){
 			if (response.data.userId) { //success comes from the return json object
-				console.log('db-user-success');
+				console.log('db-user-update-success');
 				return response.data;
 			} else {
-				console.log('db-user-failure');
+				console.log('db-user-update-failure');
 				return false;
 			}
 		});
@@ -475,7 +475,7 @@ mod.controller('deliveryController', ['data', 'utility', '$location', function(d
 	vm.next = function(){
 		utility.addUpdateUser().then(function(response){
 			if (data.userInfo.userId == -1){
-				data.userInfo.userId = response.userId;	
+				data.userInfo.userId = response.userId;
 			} 
 			$location.path('confirm');	
 		});
