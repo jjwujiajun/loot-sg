@@ -210,9 +210,9 @@ mod.service('utility', ['$http', 'data', function($http, data) {
             data    : request,  //param method from jQuery
             headers : {'Content-Type': 'application/json'}
         }).then(function(response)){
-        	if (response.userId) { //success comes from the return json object
+        	if (response.data.userId) { //success comes from the return json object
             	console.log('db-login-success');
-            	return response;
+            	return response.data;
             } else {
             	console.log('db-login-failure');
             	return false;
@@ -233,7 +233,7 @@ mod.service('utility', ['$http', 'data', function($http, data) {
             data    : request,  //param method from jQuery
             headers : {'Content-Type': 'application/json'}
         }).then(function(response)){
-        	if (response.userId) { //success comes from the return json object
+        	if (response.data.userId) { //success comes from the return json object
             	console.log('db-login-success');
             } else {
             	console.log('db-login-failure');
