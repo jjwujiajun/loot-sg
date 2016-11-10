@@ -234,6 +234,7 @@ mod.service('utility', ['$http', 'data', function($http, data) {
             headers : {'Content-Type': 'application/json'}
         }).then(function(response)){
         	if (response.data.userId) { //success comes from the return json object
+        		if (data.userInfo.userId == -1) data.userInfo.userId = response.data.userId;
             	console.log('db-login-success');
             } else {
             	console.log('db-login-failure');
