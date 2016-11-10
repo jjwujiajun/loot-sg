@@ -116,6 +116,8 @@ img.menu-item {
 }
 
 .hero-title h1 {
+    display: block;
+
     font-size: 62px;
 }
 .hero-title h1 span {
@@ -123,9 +125,11 @@ img.menu-item {
 }
 
 .hero-title .subtitle {
+    display: block;
+
     margin-top: 20px;
 
-    font-size: 16px;
+    font-size: 24px;
 }
 
 .put-bom-wrapper {
@@ -214,7 +218,9 @@ img.menu-item {
     display: inline-block;
 
     margin: 0 3px;
-    padding: 0;
+    padding: 0 10px;
+
+    border: none;
 
     min-width: 60px;
 
@@ -315,21 +321,34 @@ img.menu-item {
     min-height: 667px;
 }
 
+.section-1 .container {
+    width: 100%
+}
+
 .section-1 h2 {
     margin-top: 140px;
-    font-size: 13px;
+    font-size: 20px;
 
     text-align: center;
 }
 
 .steps-wrapper {
+    /*border: 1px solid black;*/
+
     margin-top: 40px;
     text-align: center;
 }
 .step-wrapper {
-    max-width: 300px;
+    /*border: 1px solid orange;*/
+    margin-bottom: 50px;
+
+    /*max-width: 300px;*/
+    max-width: 30%;
+    min-width: 350px;
 
     display: inline-block;
+    vertical-align: top;
+
     padding: 0 60px;
     text-align: center;
 }
@@ -339,7 +358,8 @@ img.menu-item {
     display: inline-block;
 
     text-align: left;
-    font-size: 25px;
+    /*font-size: 25px;*/
+    font-size: 42px;
 }
 .step-title #1 {
     width: 180px;
@@ -359,7 +379,7 @@ img.menu-item {
     margin-top: 8px;
 
     text-align: left;
-    font-size: 11px;
+    font-size: 20px;
 }
 .step-subtitle #3 {
     width: 150px;
@@ -367,6 +387,8 @@ img.menu-item {
 .step-subtitle a {
     color: #37CDE9;
 }
+
+/********  Section 2  ********/
 
 table tr td {
     text-align: center;
@@ -376,14 +398,29 @@ td img {
 }
 td div {
     vertical-align: center;
+}
+.section-2 .title {
+    /*border: 1px solid orange;*/
 
-    height: 70px;
+    margin-bottom: 20px;
+
+    font-size: 42px;
 }
-.why-title {
-    font-size: 25px;
+.section-2 .subtitle {
+    /*border: 1px solid black;*/
+
+    font-size: 20px;
 }
-.why-subtitle {
-    font-size: 11px;
+
+@media only screen and (max-width: 800px) {
+    .section-2 .title {
+        margin-bottom: 0;
+
+        font-size: 5vw;
+    }
+    .section-2 .subtitle {
+        font-size: 2vw;
+    }
 }
 
 /********  Section 4  ********/
@@ -406,13 +443,13 @@ td div {
     text-align: left;
 }
 .final-message span {
-    color: #37CDE9;
+    color: #23b5e9;
 }
 
 .btn-primary{
     margin-top: 60pt;
     border: none;
-    background-color: #37CDE9;
+    background-color: #23b5e9;
 
     padding: 10px 30px;
 
@@ -421,7 +458,7 @@ td div {
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
     border: none;
-    background-color: #37CDE9;
+    background-color: #23b5e9;
 
     padding: 10px 30px;
 
@@ -436,8 +473,8 @@ td div {
 }
 .social-media-wrapper div {
     display: inline-block;
-    margin: 0 10pt;
-    width: 40pt;
+    margin: 0 10px;
+    width: 40px;
 }
 .social-media-wrapper div img {
     width: 100%;
