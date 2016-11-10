@@ -33,7 +33,6 @@
         $postal_code    = $userInfo['postalCode'];
         $contact        = $userInfo['contact'];
         $email          = $userInfo['email'];
-        $keep_updated   = $userInfo['keepMeUpdated'];
 
 
         /***************************************************************************
@@ -50,12 +49,12 @@
         ****************************************************************************/
         $update_string = "
         UPDATE $table_users 
-            SET first_name = :first_name, last_name = :last_name, address_line_1 = :address_line_1, address_line_2 = :address_line_2, postal_code = :postal_code, contact = :contact, keep_updated = :keep_updated
+            SET first_name = :first_name, last_name = :last_name, address_line_1 = :address_line_1, address_line_2 = :address_line_2, postal_code = :postal_code, contact = :contact
             WHERE email = :email;";
 
         $insert_string = "
-        INSERT INTO $table_users (first_name, last_name, address_line_1, address_line_2, postal_code, contact, email, keep_updated) 
-            SELECT :first_name, :last_name, :address_line_1, :address_line_2, :postal_code, :contact, :email, :keep_updated FROM dual
+        INSERT INTO $table_users (first_name, last_name, address_line_1, address_line_2, postal_code, contact, email) 
+            SELECT :first_name, :last_name, :address_line_1, :address_line_2, :postal_code, :contact, :email FROM dual
                 WHERE NOT EXISTS (
                     SELECT * FROM $table_users WHERE email = :email
                 );"; 
@@ -72,7 +71,6 @@
         $update->bindParam(':postal_code', $postal_code, PDO::PARAM_INT);
         $update->bindParam(':contact', $contact, PDO::PARAM_STR);
         $update->bindParam(':email', $email, PDO::PARAM_STR);
-        $update->bindParam(':keep_updated', $keep_updated, PDO::PARAM_BOOL);
         $update->execute();
 
         $insert->bindParam(':first_name', $first_name, PDO::PARAM_STR);
@@ -82,7 +80,6 @@
         $insert->bindParam(':postal_code', $postal_code, PDO::PARAM_INT);
         $insert->bindParam(':contact', $contact, PDO::PARAM_STR);
         $insert->bindParam(':email', $email, PDO::PARAM_STR);
-        $insert->bindParam(':keep_updated', $keep_updated, PDO::PARAM_BOOL);
         $insert->execute();
 
         $db->commit();

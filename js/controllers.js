@@ -38,8 +38,7 @@ mod.service('data', function() {
 		addressLine2: '',
 		postalCode: '',
 		contact: '',
-		email: '',
-		keepMeUpdated: true
+		email: ''
 	};
 
 
@@ -50,8 +49,7 @@ mod.service('data', function() {
 	// 	addressLine2: 'D618',
 	// 	postalCode: '119618',
 	// 	contact: '+65 1234 1234',
-	// 	email: 'will@loot.sg',
-	// 	keepMeUpdated: true
+	// 	email: 'will@loot.sg'
 	// };
 
 	this.orderInfo = {

@@ -26,7 +26,6 @@
             $response['postalCode']    = $user['postal_code'];
             $response['contact']       = $user['contact'];
             $response['email']         = $user['email'];
-            $response['keepMeUpdated'] = $user['keep_updated'];
         }
     }
 
