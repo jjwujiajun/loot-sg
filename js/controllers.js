@@ -235,8 +235,10 @@ mod.service('utility', ['$http', 'data', function($http, data) {
         }).then(function(response){
         	if (response.data.userId) { //success comes from the return json object
             	console.log('db-user-success');
+ 				return response.data;
             } else {
-            	console.log('db-login-failure');
+            	console.log('db-user-failure');
+            	return false;
             }
 		});
 	};
@@ -448,7 +450,7 @@ mod.controller('deliveryController', ['data', 'utility', '$location', function(d
 	vm.next = function(){
 		utility.addUpdateUser().then(function(response){
 			if (data.userInfo.userId == -1){
-				data.userInfo.userId = response.data.userId;	
+				data.userInfo.userId = response.userId;	
 			} 
 			$location.path('confirm');	
 		});
