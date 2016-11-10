@@ -152,10 +152,14 @@ img.menu-item {
     white-space: nowrap;
 
     opacity: 0;
+
+    visibility: hidden;
 }
 .put-bom-output.fade{
     opacity: 1;
     transition: all linear 0.4s;
+
+    visibility: visible;
 }
 .pb-pic-col {
     display: inline-block;
