@@ -2,30 +2,32 @@ var mod = angular.module('loot-sg', ['ngRoute']);
 
 
 mod.service('data', function() {
-	// this.items    = [];
+	this.items    = [];
 
-	// {
-	// 					number: 1,
- //                        name: '',
- //                        url: '',
- //                        quantity: '',
- //                        size: '',
- //                        color: '',
- //                        instructions: '',
-	// 					proceedOrder: true,
- //                        unitPrice: '',
- //                        imageUrl: '',
- //                        sizes: [],
- //                        colors: [],
- //                        details: ''
-	// 				}
+	// this.items = {
+	// 	number: 1,
+	// 	name: '',
+	// 	url: '',
+	// 	quantity: '',
+	// 	size: '',
+	// 	color: '',
+	// 	instructions: '',
+	// 	proceedOrder: true,
+	// 	unitPrice: '',
+	// 	imageUrl: '',
+	// 	sizes: [],
+	// 	colors: [],
+	// 	details: ''
+	// }
 
 
-	this.items    = [
-						{name: 'Loot.sg', number: 1, url: 'http://www.loot.sg', quantity: 3, sizes: ['S','M','XL'], size: 'M', colors: ['Black','Blue'], color: 'Black', unitPrice: '0', instructions: 'FRAGILE!', proceedOrder: true, imageUrl: 'test-img.jpg'},
-						{name: 'Lootcommerce.com', number: 2, url: 'http://spree.loot.sg', quantity: 2, sizes: ['S','M','XL'], size: 'XL', unitPrice: '1990', colors: ['Black','Blue'], color: 'Rainbow', instructions: 'NOT FRAGILE!', proceedOrder: true,  imageUrl: 'test-img.jpg'}
-					];
-/* DEBUG
+	// this.items    = [
+	// 					{name: 'Loot.sg', number: 1, url: 'http://www.loot.sg', quantity: 3, sizes: ['S','M','XL'], size: 'M', colors: ['Black','Blue'], color: 'Black', unitPrice: '0', instructions: 'FRAGILE!', proceedOrder: true, imageUrl: 'test-img.jpg'},
+	// 					{name: 'Lootcommerce.com', number: 2, url: 'http://spree.loot.sg', quantity: 2, sizes: ['S','M','XL'], size: 'XL', unitPrice: '1990', colors: ['Black','Blue'], color: 'Rainbow', instructions: 'NOT FRAGILE!', proceedOrder: true,  imageUrl: 'test-img.jpg'}
+	// 				];
+	// this.userInfo = {};
+ 
+ 	// DEBUG
 	this.userInfo = {
 		userId: -1, // DB variable
 		firstName: '',
