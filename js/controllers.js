@@ -197,9 +197,9 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 		});
 	};
 
-	this.login = function(data) {
+	this.login = function() {
 		// Prepare Data
-		var data = {
+		var request = {
 			email: data.userInfo.email
 		};
 
@@ -207,7 +207,7 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 		return $http({
 			method  : 'POST',
 			url     : './backend/login.php',
-            data    : data,  //param method from jQuery
+            data    : request,  //param method from jQuery
             headers : {'Content-Type': 'application/json'}
         }).then(function(response)){
         	if (response.userId) { //success comes from the return json object
@@ -216,6 +216,27 @@ mod.service('utility', ['$http', 'data', function($http, data) {
             } else {
             	console.log('db-login-failure');
             	return false;
+            }
+		}
+	};
+
+	this.addUpdateUser = function() {
+		// Prepare Data
+		var request = {
+			userInfo: data.userInfo
+		};
+
+		// Send POST request to DB return a promise
+		return $http({
+			method  : 'POST',
+			url     : './backend/add_update_user.php',
+            data    : request,  //param method from jQuery
+            headers : {'Content-Type': 'application/json'}
+        }).then(function(response)){
+        	if (response.userId) { //success comes from the return json object
+            	console.log('db-login-success');
+            } else {
+            	console.log('db-login-failure');
             }
 		}
 	};
@@ -392,7 +413,7 @@ mod.controller('loginController', ['data', 'utility', '$location', function(data
 
 }]);
 
-mod.controller('deliveryController', ['data','$location', function(data, $location){
+mod.controller('deliveryController', ['data', 'utility', '$location', function(data, utility, $location){
 	var vm = this;
 	vm.userInfo = data.userInfo;
 
@@ -401,7 +422,9 @@ mod.controller('deliveryController', ['data','$location', function(data, $locati
 	}
 
 	vm.next = function(){
-		$location.path('confirm');
+		utility.addUpdateUser().then(function(response){
+			$location.path('confirm');	
+		});
 	}
 
 }]);
