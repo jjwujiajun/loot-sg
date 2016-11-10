@@ -11,18 +11,6 @@
         <div class="form-group">
             <label for="email">Email Address</label>
             <input class="xl" ng-model="login.userInfo.email" type="email" id="email" required>
-            
-            <div class="personal-message">Are you a returning customer?</div>
-            <div class="radio">
-                <label>
-                    <input type="radio" name="returningUser" value="No">No
-                </label>
-            </div>
-            <div class="radio">
-                <label>
-                    <input type="radio" name="returningUser" value="Yes">Yes
-                </label>
-            </div>
         </div>
         <button class="button btn" type="button" ng-click="login.back()">Back</button></span>
         <button class="button btn next" type="button" ng-click="login.next()">Next: <span class="bold">Address Info</span></button>
