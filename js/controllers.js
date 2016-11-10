@@ -55,7 +55,7 @@ mod.service('data', function() {
 });
 
 
-mod.service('utility', ['$http', 'data', function($http, data) {
+mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll', function(data, $http, $location, $timeout, $anchorScroll) {
 	var createEmptyItem = function() {
 		this.newItem = {
 			number: data.items.length + 1,
@@ -226,6 +226,18 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 		for(i = 0; i < data.items.length; i++) {
 			replaceWithDash(data.items[i]);
 		}
+	}
+
+	this.goPageAndAnchorScroll = function(page, anchor) {
+		$location.path(page);
+
+		this.shouldShowPutBomOutput = false;
+
+		$timeout(function () {
+			$anchorScroll(anchor);
+
+		});
+
 	}
 }]);
 
@@ -505,7 +517,7 @@ mod.controller('doneController', ['$window', function($window){
 
 }]);
 
-mod.controller('faqController', ['utility', '$location', '$timeout', '$anchorScroll', '$sce', function(utility, $location, $timeout, $anchorScroll, $sce) {
+mod.controller('faqController', ['utility', '$sce', function(utility, $sce) {
 	var vm = this;
 	vm.questions = [
 	{
@@ -601,34 +613,15 @@ mod.controller('faqController', ['utility', '$location', '$timeout', '$anchorScr
 
 	vm.renderHtml = $sce.trustAsHtml;
 
-	vm.goPageAndAnchorScroll = function(page, anchor) {
-		$location.path(page);
-
-		utility.shouldShowPutBomOutput = false;
-
-		$timeout(function () {
-			$anchorScroll(anchor);
-		});
-
-	}
+	vm.goPageAndAnchorScroll = utility.goPageAndAnchorScroll;
 
 	vm.expandSection = function (section) {
 		section.isOpen = !section.isOpen;
 	}
 }]);
 
-mod.controller('contactsController', ['utility', '$location', '$anchorScroll', '$timeout', function(utility, $location, $anchorScroll, $timeout) {
+mod.controller('contactsController', ['utility', function(utility) {
 	var vm = this;
 
-	vm.goPageAndAnchorScroll = function(page, anchor) {
-		$location.path(page);
-
-		utility.shouldShowPutBomOutput = false;
-
-		$timeout(function () {
-			$anchorScroll(anchor);
-
-		});
-
-	}
+	vm.goPageAndAnchorScroll = utility.goPageAndAnchorScroll;
 }]);
