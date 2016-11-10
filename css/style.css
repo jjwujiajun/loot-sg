@@ -614,6 +614,8 @@ td div {
 }
 
 .faq .section-header {
+    cursor: pointer;
+        
     margin-left: -22pt;
 
     font-size: 24pt;
