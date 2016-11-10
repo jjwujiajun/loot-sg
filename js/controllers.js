@@ -256,6 +256,10 @@ function routeConfig($routeProvider) {
 		controller: 'faqController',
 		controllerAs: 'faq',
 		templateUrl: 'faq.html'
+	}).when('/contacts', {
+		controller: 'contactsController',
+		controllerAs: 'contacts',
+		templateUrl: 'contacts.html'
 	})
 }
 mod.config(routeConfig);
@@ -604,3 +608,7 @@ mod.controller('faqController', ['$sce', function($sce) {
 	}
 }]);
 
+mod.controller('contactsController', ['$scope', function($scope){
+	var vm = this;
+
+}]);

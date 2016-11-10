@@ -11,20 +11,23 @@
     </div>
 </nav>
 
-<div class="faq">
+<div class="contacts">
 	<div class="container">
-		<h1>We're here to <span>help</span>.</h1>
+		<h1>Want to <span>speak</span> to us?</h1>
 
-		<div class="section" ng-repeat="section in faq.questions">
-			<h2 class="section-header" ng-click="faq.expandSection(section.header)">
-				<div>{{section.isOpen ? '-' : '+'}}</div>{{section.header}}
-			</h2>
-			<div class="section-content" id="{{section.header}}" >
-				<div class="item" ng-repeat="item in section.items">
-					<h3 class="item-header">{{item.question}}</h3>
-					<div class="item-content" ng-bind-html="faq.renderHtml(item.answer)"></div>
-				</div>
-			</div>
-		</div>
+		Hit us up with any questions regarding your order at:
+		<table>
+			<tr>
+				<td class="contact-key">Chat</td><td class="contact-value">www.facebook.com/lootsingapore</td>
+			</tr>
+				<td class="contact-key">Email</td><td class="contact-value">help@loot.sg</td>
+			<tr>
+			</tr>
+		</table>
+		
+		<div class="social-media-wrapper">
+            <div><img src="./images/share_fb.png"></div>
+            <div><img src="./images/share_email.png"></div>
+        </div>
 	</div>
 </div>
