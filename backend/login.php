@@ -34,7 +34,7 @@
     
     function getUser($email) {
         global $db, $table_users;
-        $query_string = "SELECT users_id FROM $table_users WHERE email = :email;";
+        $query_string = "SELECT * FROM $table_users WHERE email = :email;";
         $query = $db->prepare($query_string);
         $query->bindParam(':email', $email, PDO::PARAM_STR);
         $query->execute();
