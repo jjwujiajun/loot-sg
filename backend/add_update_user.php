@@ -16,7 +16,7 @@
 
     // Logic block
     if($db_on) {
-        $return_id = addUser($userInfo);
+        $return_id = addUpdateUser($userInfo);
 
         $response['userId'] = $return_id;
     }
