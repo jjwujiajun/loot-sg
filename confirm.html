@@ -13,12 +13,11 @@
 
         <div class="pb-item" ng-repeat="item in confirm.items">
             <div class="pb-pic-col">
-                <img ng-src="{{item.imageUrl}}" />
+                <a href="{{item.url}}"><img ng-src="{{item.imageUrl}}" /></a>
             </div>
             <div class="pb-middle-col">
                 <div class="middle-col-row row1">
                     <div class="">{{item.name}}</div>
-                    <div class="item-url"><a href="{{item.url}}">{{item.url}}</a></div>
                 </div>
                 <div class="middle-col-row row2">
                     <div class="item-colors">
