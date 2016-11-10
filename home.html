@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     <div class="pb-price-col">
-                        {{item.listPrice / 100 * item.quantity | currency : '$'}}<br/>
+                        {{item.unitPrice / 100 * item.quantity | currency : '$'}}<br/>
                         <div class="pb-X-col">
                             <button type="button" ng-click="home.removeItem(item.number)" class="close">
                                 <span>&times;</span>
@@ -149,8 +149,9 @@
         </div>
 
         <div class="social-media-wrapper">
-            <div><img src="./images/share_fb.png"></div>
-            <div><img src="./images/share_email.png"></div>
+            <!-- need proper share button from FB SDK -->
+            <div><a href=""><img src="./images/share_fb.png"></a></div>
+            <div><a href="mailto:?subject=Check out Loot!"><img src="./images/share_email.png"></a></div>
         </div>
     </div>
 </div>

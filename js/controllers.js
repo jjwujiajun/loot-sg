@@ -2,60 +2,66 @@ var mod = angular.module('loot-sg', ['ngRoute']);
 
 
 mod.service('data', function() {
-	// this.items    = [];
 
-	// {
-	// 					number: 1,
- //                        name: '',
- //                        url: '',
- //                        quantity: '',
- //                        size: '',
- //                        color: '',
- //                        instructions: '',
-	// 					proceedOrder: true,
- //                        listPrice: '',
- //                        imageUrl: '',
- //                        sizes: [],
- //                        colors: [],
- //                        details: ''
-	// 				}
+	this.items    = [];
+
+	// this.items = {
+	// 	number: 1,
+	// 	name: '',
+	// 	url: '',
+	// 	quantity: '',
+	// 	size: '',
+	// 	color: '',
+	// 	instructions: '',
+	// 	proceedOrder: true,
+	// 	unitPrice: '',
+	// 	imageUrl: '',
+	// 	sizes: [],
+	// 	colors: [],
+	// 	details: ''
+	// }
 
 
 	this.items    = [
-						// {name: 'Loot.sg', number: 1, url: 'http://www.loot.sg', quantity: 3, sizes: ['S','M','XL'], size: 'M', colors: ['Black','Medium denim'], color: 'Black', listPrice: '0', instructions: 'FRAGILE!', proceedOrder: true, imageUrl: 'test-img.jpg'},
-						// {name: 'Lootcommerce.com', number: 2, url: 'http://spree.loot.sg', quantity: 2, sizes: ['S','M','XL'], size: 'XL', listPrice: '1990', colors: ['Black','Blue'], color: 'Rainbow', instructions: 'NOT FRAGILE!', proceedOrder: true,  imageUrl: 'test-img.jpg'}
+						{name: 'Loot.sg', number: 1, url: 'http://www.loot.sg', quantity: 3, sizes: ['S','M','XL'], size: 'M', colors: ['Black','Blue'], color: 'Black', unitPrice: '0', instructions: 'FRAGILE!', proceedOrder: true, imageUrl: 'test-img.jpg'},
+						{name: 'Lootcommerce.com', number: 2, url: 'http://spree.loot.sg', quantity: 2, sizes: ['S','M','XL'], size: 'XL', unitPrice: '1990', colors: ['Black','Blue'], color: 'Rainbow', instructions: 'NOT FRAGILE!', proceedOrder: true,  imageUrl: 'test-img.jpg'}
 					];
-/* DEBUG
+	this.userInfo = {};
+ 
+ 	// DEBUG
+
 	this.userInfo = {
+		userId: -1, // DB variable
 		firstName: '',
 		lastName: '',
 		addressLine1: '',
 		addressLine2: '',
 		postalCode: '',
-		contact: '+65 ',
+		contact: '',
 		email: '',
 		keepMeUpdated: true
 	};
-*/
 
-	this.userInfo = {
-		firstName: 'Will',
-		lastName: 'Ho',
-		addressLine1: '20 Heng Mui Keng Terrace',
-		addressLine2: 'D618',
-		postalCode: '119618',
-		contact: '+65 1234 1234',
-		email: 'will@loot.sg',
-		keepMeUpdated: true
-	};
+
+	// this.userInfo = {
+	// 	firstName: 'Will',
+	// 	lastName: 'Ho',
+	// 	addressLine1: '20 Heng Mui Keng Terrace',
+	// 	addressLine2: 'D618',
+	// 	postalCode: '119618',
+	// 	contact: '+65 1234 1234',
+	// 	email: 'will@loot.sg',
+	// 	keepMeUpdated: true
+	// };
 
 	this.orderInfo = {
-		total: 0
+		totalUsd: 0,
+		totalSgd: 0
 	};
 });
 
 
-mod.service('utility', ['$http', 'data', function($http, data) {
+mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll', function(data, $http, $location, $timeout, $anchorScroll) {
 	var createEmptyItem = function() {
 		this.newItem = {
 			number: data.items.length + 1,
@@ -66,7 +72,7 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 			color: '',
 			instructions: '',
 			proceedOrder: true,
-			listPrice: '',
+			unitPrice: '',
 			imageUrl: '',
 			sizes: [],
 			colors: [],
@@ -75,6 +81,8 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 		data.items.unshift(this.newItem);
 		console.log(this.newItem.number);
 	};
+
+	this.shouldShowPutBomOutput = true;
 
 	this.scrapeF21 = function(url) {
 		var urlString = "https://api.import.io/store/connector/7525a0ab-c857-4f60-8c23-73eb625083de/_query?input=webpage/url:" + encodeURIComponent(url) + "&&_apikey=b34ce8b353894e91b3ef33342f0c5ddb82cce3b3dd7be5b65977ed3fd532f3521d5f3c08c232bafdcc60a719fe799b1b03a95e181771f5bf511f85950dcb7c132b1575addd5fa8c5eeb70645857f693c";
@@ -99,9 +107,9 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 
 			// Price
 			if(result.price_sale) {
-				data.items[0].listPrice = result.price_sale * 100;
+				data.items[0].unitPrice = result.price_sale * 100;
 			} else if(result.price_normal) {
-				data.items[0].listPrice = result.price_normal * 100;
+				data.items[0].unitPrice = result.price_normal * 100;
 			}
 			
 			console.log(result.price_sale);
@@ -194,6 +202,77 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 			}
 		});
 	};
+
+	this.login = function() {
+		// Prepare Data
+		var request = {
+			email: data.userInfo.email
+		};
+
+		// Send POST request to DB return a promise
+		return $http({
+			method  : 'POST',
+			url     : './backend/login.php',
+			data    : request,  //param method from jQuery
+			headers : {'Content-Type': 'application/json'}
+		}).then(function(response){
+			if (response.data.userId) { //success comes from the return json object
+				console.log('db-login-success');
+				return response.data;
+			} else {
+				console.log('db-login-failure');
+				return false;
+			}
+		});
+	};
+
+	this.addUpdateUser = function() {
+		// Prepare Data
+		var request = {
+			userInfo: data.userInfo
+		};
+
+		// Send POST request to DB return a promise
+		return $http({
+			method  : 'POST',
+			url     : './backend/add_update_user.php',
+			data    : request,  //param method from jQuery
+			headers : {'Content-Type': 'application/json'}
+		}).then(function(response){
+			if (response.data.userId) { //success comes from the return json object
+				console.log('db-user-success');
+				return response.data;
+			} else {
+				console.log('db-user-failure');
+				return false;
+			}
+		});
+	};
+
+	this.submitOrder = function() {
+		// Prepare Data
+		var request = {
+			userInfo: data.userInfo,
+			items: data.items,
+			orderInfo: data.orderInfo
+		};
+
+		// Send POST request to DB return a promise
+		return $http({
+			method  : 'POST',
+			url     : './backend/submit_order.php',
+			data    : request,  //param method from jQuery
+			headers : {'Content-Type': 'application/json'}
+		}).then(function(response){
+			console.log(response);
+			if (response.data.orderId) { //success comes from the return json object
+				data.orderInfo.orderId = response.data.orderId;
+				console.log('db-order-success');
+			} else {
+				console.log('db-order-failure');
+			}
+		});
+	};
 	
 	var replaceWithDash = function(obj){
 		angular.forEach(obj, function(value, field){
@@ -213,9 +292,9 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 	this.updateTotal = function() {
 		sum = 0;
 		for (var i = 0; i < data.items.length; i++) {
-			sum += data.items[i].listPrice * data.items[i].quantity;
+			sum += data.items[i].unitPrice * data.items[i].quantity;
 		}
-		data.orderInfo.total = sum;
+		data.orderInfo.totalUsd = sum;
 	}
 
 	this.preprocessData = function() {
@@ -224,6 +303,18 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 		for(i = 0; i < data.items.length; i++) {
 			replaceWithDash(data.items[i]);
 		}
+	}
+
+	this.goPageAndAnchorScroll = function(page, anchor) {
+		$location.path(page);
+
+		this.shouldShowPutBomOutput = false;
+
+		$timeout(function () {
+			$anchorScroll(anchor);
+
+		});
+
 	}
 }]);
 
@@ -273,7 +364,7 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 	vm.urlField = {'text': '', 'placeholder': 'Just copy and paste your item URL here'};
 	var firstScrape = true;
 
-	vm.shouldShowPutBomOutput = true;
+	vm.shouldShowPutBomOutput = vm.data.shouldShowPutBomOutput;
 
 	var isValidURL = function(str) {
 		if (str.indexOf('amazon.com') != -1) {
@@ -356,7 +447,7 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 
 }]);
 
-mod.controller('loginController', ['data','$location', function(data, $location){
+mod.controller('loginController', ['data', 'utility', '$location', function(data, utility, $location){
 	var vm = this;
 	vm.userInfo = data.userInfo;
 
@@ -365,12 +456,17 @@ mod.controller('loginController', ['data','$location', function(data, $location)
 	}
 
 	vm.next = function(){
-		$location.path('delivery');
+		utility.login().then(function(response){
+			if(response){
+				data.userInfo = response;
+			}
+			$location.path('delivery');
+		});
 	}
 
 }]);
 
-mod.controller('deliveryController', ['data','$location', function(data, $location){
+mod.controller('deliveryController', ['data', 'utility', '$location', function(data, utility, $location){
 	var vm = this;
 	vm.userInfo = data.userInfo;
 
@@ -379,7 +475,12 @@ mod.controller('deliveryController', ['data','$location', function(data, $locati
 	}
 
 	vm.next = function(){
-		$location.path('confirm');
+		utility.addUpdateUser().then(function(response){
+			if (data.userInfo.userId == -1){
+				data.userInfo.userId = response.userId;	
+			} 
+			$location.path('confirm');	
+		});
 	}
 
 }]);
@@ -402,7 +503,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 		currency: 'USD',
 		token: function(token) {
 			var request = {
-				amount: data.orderInfo.total,
+				amount: data.orderInfo.totalUsd,
 				token: token.id
 			}
 
@@ -412,17 +513,18 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 				url     : './backend/stripe.php',
 				data    : request,
 				headers : {'Content-Type': 'application/json'}
-			}).success(function(response){
+			}).then(function(response){
 				// console.log(response);
-				if (response.success) { //success comes from the return json object
+				if (response.data.success) { //success comes from the return json object
 					console.log('charge-success');
+					utility.submitOrder();
 					utility.preprocessData();
 					utility.sendOrderEmail();
 					utility.sendReceipt();
 					$location.path('done');
 				} else {
 					console.log('charge-failure');
-					console.log(response.error);
+					console.log(response.data.error);
 				}
 			});
 		
@@ -435,7 +537,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 
 	vm.confirmAndPay = function(){
 		handler.open({
-			amount: data.orderInfo.total
+			amount: data.orderInfo.totalUsd
 		});
 
 		// TODO: Close checkout page on navigation
@@ -503,7 +605,7 @@ mod.controller('doneController', ['$window', function($window){
 
 }]);
 
-mod.controller('faqController', ['$sce', function($sce) {
+mod.controller('faqController', ['utility', '$sce', function(utility, $sce) {
 	var vm = this;
 	vm.questions = [
 	{
@@ -599,6 +701,8 @@ mod.controller('faqController', ['$sce', function($sce) {
 	
 	vm.renderHtml = $sce.trustAsHtml;
 
+	vm.goPageAndAnchorScroll = utility.goPageAndAnchorScroll;
+
 	vm.expandSection = function (section) {
 		section.isOpen = !section.isOpen;
 
@@ -608,7 +712,8 @@ mod.controller('faqController', ['$sce', function($sce) {
 	}
 }]);
 
-mod.controller('contactsController', ['$scope', function($scope){
+mod.controller('contactsController', ['utility', function(utility) {
 	var vm = this;
 
+	vm.goPageAndAnchorScroll = utility.goPageAndAnchorScroll;
 }]);
