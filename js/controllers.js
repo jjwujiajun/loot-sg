@@ -209,7 +209,7 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 			url     : './backend/login.php',
             data    : request,  //param method from jQuery
             headers : {'Content-Type': 'application/json'}
-        }).then(function(response)){
+        }).then(function(response){
         	if (response.data.userId) { //success comes from the return json object
             	console.log('db-login-success');
             	return response.data;
@@ -217,7 +217,7 @@ mod.service('utility', ['$http', 'data', function($http, data) {
             	console.log('db-login-failure');
             	return false;
             }
-		}
+		});
 	};
 
 	this.addUpdateUser = function() {
@@ -232,14 +232,14 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 			url     : './backend/add_update_user.php',
             data    : request,  //param method from jQuery
             headers : {'Content-Type': 'application/json'}
-        }).then(function(response)){
+        }).then(function(response){
         	if (response.data.userId) { //success comes from the return json object
         		if (data.userInfo.userId == -1) data.userInfo.userId = response.data.userId;
             	console.log('db-login-success');
             } else {
             	console.log('db-login-failure');
             }
-		}
+		});
 	};
 
 	this.submitOrder = function() {
@@ -256,14 +256,14 @@ mod.service('utility', ['$http', 'data', function($http, data) {
 			url     : './backend/submit_order.php',
             data    : request,  //param method from jQuery
             headers : {'Content-Type': 'application/json'}
-        }).then(function(response)){
+        }).then(function(response){
         	if (response.data.orderId) { //success comes from the return json object
         		data.orderInfo.orderId = response.data.orderId;
             	console.log('db-order-success');
             } else {
             	console.log('db-order-failure');
             }
-		}
+		});
 	};
 	
 	var replaceWithDash = function(obj){
