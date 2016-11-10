@@ -310,6 +310,18 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 		});
 
 	}
+
+	this.reverseItems = function() {
+		reversedItems = [];
+
+		for (var i = data.items.length - 1; i >= 0 ; i--) {
+			data.items[i].number = data.items.length - 1 - i + 1;
+			reversedItems.push(data.items[i]);
+		}
+
+		data.items = reversedItems;
+	}
+
 }]);
 
 function routeConfig($routeProvider) {
@@ -508,6 +520,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 				// console.log(response);
 				if (response.data.success) { //success comes from the return json object
 					console.log('charge-success');
+					utility.reverseItems();
 					utility.submitOrder();
 					utility.preprocessData();
 					utility.sendOrderEmail();
