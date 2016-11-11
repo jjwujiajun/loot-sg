@@ -131,10 +131,12 @@ img.menu-item {
     margin: 0 auto;
     left: 0;
     right: 0;
+
+    z-index: 100;
 }
 
 .hero-title {
-    border: 1px solid orange;
+    /*border: 1px solid orange;*/
     
     /*margin-top: 130px;*/
 
@@ -177,7 +179,7 @@ img.menu-item {
     position: absolute;
     left: 0;
     right: 0;
-    z-index: 100;
+    z-index: 50;
 
     white-space: nowrap;
 
@@ -350,7 +352,7 @@ img.menu-item {
     }
         
     .section-1 .container {
-        border: 1px solid black;
+        /*border: 1px solid black;*/
         position: relative;
 
         width: 100%;
