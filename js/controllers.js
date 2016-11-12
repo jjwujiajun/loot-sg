@@ -54,7 +54,8 @@ mod.service('data', function() {
 
 	this.orderInfo = {
 		totalUsd: 0,
-		totalSgd: 0
+		totalSgd: 0,
+		usdSgd: 1
 	};
 });
 
@@ -269,6 +270,26 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 			}
 		});
 	};
+
+	// Should cache response if requests occur on multiple pages per user
+	this.getForexRates = function(){
+		// HTTPS from MAS
+		// var apiurl = 'https://eservices.mas.gov.sg/api/action/datastore/search.json?resource_id=95932927-c8bc-4e7a-b484-68a66a24edfe&limit=1&filters[end_of_day]=2016-11-11&fields=usd_sgd';
+		var apiurl = 'http://api.fixer.io/latest?base=USD&symbols=SGD';
+
+		return $http({
+			method : 'GET',
+			url    : apiurl,
+		}).then(function(response){
+			// MAS
+			// rate = response.data.result.records[0].usd_sgd;
+			// Fixer.io
+			var rate = response.data.rates.SGD;
+			console.log(rate);
+			return rate;
+		});
+		
+	}
 	
 	var replaceWithDash = function(obj){
 		angular.forEach(obj, function(value, field){
@@ -286,7 +307,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 	};
 
 	this.updateTotal = function() {
-		sum = 0;
+		var sum = 0;
 		for (var i = 0; i < data.items.length; i++) {
 			sum += data.items[i].unitPrice * data.items[i].quantity;
 		}
@@ -314,7 +335,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 	}
 
 	this.reverseItems = function() {
-		reversedItems = [];
+		var reversedItems = [];
 
 		for (var i = data.items.length - 1; i >= 0 ; i--) {
 			data.items[i].number = data.items.length - 1 - i + 1;
@@ -604,6 +625,12 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 	vm.items        = data.items;
 	vm.itemCount    = data.items.length;
 	vm.getPlurality = utility.getPlurality;
+	var chargeCurrency = 'sgd';
+
+	// Get past day exchange rate
+	utility.getForexRates().then(function(rate){
+		data.orderInfo.usdSgd = rate;
+	});
 
 	// Configure Checkout.js
 	var handler = $window.StripeCheckout.configure({
@@ -612,12 +639,13 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 		locale: 'auto',
 		email: data.userInfo.email,
 		name: 'Loot',
-		description: 'Order Info',
+		description: 'Your order',
 		zipCode: false,
-		currency: 'USD',
+		currency: chargeCurrency,
 		token: function(token) {
 			var request = {
 				amount: data.orderInfo.totalUsd,
+				currency: chargeCurrency,
 				token: token.id
 			}
 
