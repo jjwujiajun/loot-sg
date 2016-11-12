@@ -353,10 +353,6 @@ function routeConfig($routeProvider) {
 		controller: 'modifyController',
 		controllerAs: 'modify',
 		templateUrl: 'modify.html'
-	}).when('/done', {
-		controller: 'doneController',
-		controllerAs: 'done',
-		templateUrl: 'done.html'
 	})
 }
 mod.config(routeConfig);
@@ -713,15 +709,6 @@ mod.controller('modifyController', ['data','utility','$location', function(data,
 
 	vm.togglePBInput = function () {
 		vm.pbInputIsShown = !vm.pbInputIsShown;
-	}
-
-}]);
-
-mod.controller('doneController', ['$window', function($window){
-	var vm = this;
-	
-	vm.restart = function(){
-		$window.location.href = "./";
 	}
 
 }]);
