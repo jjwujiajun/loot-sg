@@ -14,7 +14,7 @@
 	try {
 		$charge = \Stripe\Charge::create(array(
 	    	"amount" => $request['amount'], // Amount in cents
-	    	"currency" => "usd",
+	    	"currency" => "sgd",
 	    	"source" => $request['token']
 	    ));
 		$response['success'] = true;
