@@ -457,7 +457,7 @@ mod.controller('faqController', ['utility', '$sce', function(utility, $sce) {
 		'items': [
 		{
 			'question': 'I have a question! How can I reach you?',
-			'answer': 'If you don’t find an answer below, the Loot team is ready to help! Reach out to us at <a href="mailto:orders@loot.sg">orders@loot.sg</a> - we typically reply within hours ;)'
+			'answer': 'If you don’t find an answer below, the Loot team is ready to help! Reach out to us at <a href="mailto:help@loot.sg">help@loot.sg</a> - we typically reply within hours ;)'
 		},
 		{
 			'question': 'What stores are eligible for free shipping?',
