@@ -11,10 +11,11 @@
     // Read POST data
     $json       = file_get_contents('php://input');
     
-    $formData     = json_decode($json, true);
-    $userInfo     = $formData['userInfo'];
-    $items        = $formData['items'];
-    $total        = $formData['orderInfo']['total'];
+    $formData   = json_decode($json, true);
+    $userInfo   = $formData['userInfo'];
+    $items      = $formData['items'];
+    $total_usd  = $formData['orderInfo']['totalUsd'];
+    $total_sgd  = $formData['orderInfo']['totalSgd'];
     setlocale(LC_MONETARY, 'en_US');
 
     // Load and Configure PHPMailer
@@ -322,7 +323,7 @@
                         </div>
                     </div>
                     <div class="pb-price-col">
-                        US$ <span class="confirmed-value">' . number_format($item['listPrice'] * $item['quantity'] / 100.00, 2, '.', ',') . '</span>
+                        US$ <span class="confirmed-value">' . number_format($item['unitPrice'] * $item['quantity'] / 100.00, 2, '.', ',') . '</span>
                     </div>
 
                     <!-- Item separator line -->
@@ -337,12 +338,12 @@
                         <tr>
                             <td>Subtotal</td>
                             <td>US$</td>
-                            <td class="value">' . number_format($total / 100.00, 2, '.', ',') . '</td>
+                            <td class="value">' . number_format($total_usd / 100.00, 2, '.', ',') . '</td>
                         </tr>
                         <tr>
                             <td><b>Total</b></td>
                             <td>S$</td>
-                            <td class="value"><span class="final">' . number_format($total / 100.00, 2, '.', ',') . '</span></td>
+                            <td class="value"><span class="final">' . number_format($total_sgd / 100.00, 2, '.', ',') . '</span></td>
                         </tr>
                     </table>
                 </div>  

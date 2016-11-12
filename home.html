@@ -5,8 +5,8 @@
             <div class="menu-item"  id="how-it-works-menu" ng-click="home.hidePutBom()"><a href="">How it works</a></div>
             <div class="menu-item"  id="why-loot-menu" ng-click="home.hidePutBom()"><a href="">Why Loot?</a></div>
             <a href="./#/"><img class="menu-item" src="./images/loot-logo-blue.png" /></a>
-            <div class="menu-item"><a href="">FAQ</a></div>
-            <div class="menu-item"><a href="">Contact Us</a></div>
+            <div class="menu-item"><a href="#/faq">FAQ</a></div>
+            <div class="menu-item"><a href="#/contacts">Contact Us</a></div>
         </div>
     </div>
 </nav>
@@ -23,14 +23,13 @@
             <input class="form-control" id="putBomInput" type="text" name="itemURL" placeholder="{{home.urlField.placeholder}}" ng-model="home.urlField.text" ng-model-options='{ debounce: 100 }' ng-change="home.scrapeURL()" ng-click="home.showPutBom()"><br>
             <div class="put-bom-output" ng-class="{'fade': home.shouldShowPutBomOutput && home.data.items.length > 0}">
 
-                <div class="pb-item" ng-repeat="item in home.data.items">
+                <div class="pb-item" ng-repeat="item in home.data.items | orderBy: '-'">
                     <div class="pb-pic-col">
-                        <img ng-src="{{item.imageUrl}}" />
+                        <a href="{{item.url}}"><img ng-src="{{item.imageUrl}}" /></a>
                     </div>
                     <div class="pb-middle-col">
                         <div class="middle-col-row row1">
                             <div>{{item.name}}</div>
-                            <div class="item-url"><a href="{{item.url}}">{{item.url}}</a></div>
                         </div>
                         <div class="middle-col-row row2">
                             <div class="item-colors">
@@ -53,7 +52,7 @@
                         </div>
                     </div>
                     <div class="pb-price-col">
-                        {{item.listPrice / 100 * item.quantity | currency : '$'}}<br/>
+                        {{item.unitPrice / 100 * item.quantity | currency : '$'}}<br/>
                         <div class="pb-X-col">
                             <button type="button" ng-click="home.removeItem(item.number)" class="close">
                                 <span>&times;</span>
@@ -61,7 +60,7 @@
                         </div>
                     </div>
                     <!-- Item separator line -->
-                    <hr ng-hide="item == home.data.items[home.data.items.length - 1]">
+                    <hr ng-hide="item == home.data.items[0]">
                 </div>
                 <!-- Add to cart -->
                 <div class="cart-actions">
@@ -117,24 +116,22 @@
         <tr>
             <td><img src="./images/Pic_Freeshipping.png"></td>
             <td>
-                <div>
-                    <span class="why-title">Free shipping</span><br />
-                    <span class="why-subtitle">Delivered from U.S. merchants to your Singapore address.</span>
-                </div>
+                <div class="title">Free shipping</div><br />
+                <div class="subtitle">Delivered from U.S. merchants to your Singapore address.</div>
             </td>
         </tr>
         <tr>
             <td>
-                <span class="why-title">Upfront pricing</span><br />
-                    <span class="why-subtitle">No hidden fees, forex markup, or GST. Pay what you see.</span>
+                <div class="title">Upfront pricing</div><br />
+                    <div class="subtitle">No hidden fees, forex markup, or GST. Pay what you see.</div>
             </td>
             <td><img src="./images/Pic_Upfrontpricing.png"></td>
         </tr>
         <tr>
             <td><img src="./images/Pic_Hasslefree.png"></td>
             <td>
-                <span class="why-title">Hassle-free</span><br />
-                <span class="why-subtitle">Save time on creating an account. Check out as guest.</span>
+                <div class="title">Hassle-free</div><br />
+                <div class="subtitle">Save time on creating an account. Check out as guest.</div>
             </td>
         </tr>
     </table>
@@ -149,10 +146,10 @@
             </div>
             <div><button type="button" class="btn btn-primary" id="backToTop" ng-click="home.showPutBom()">Try Loot now!</button></div>
         </div>
-
+<!-- Temporary turned off this feature
         <div class="social-media-wrapper">
-            <div><img src="./images/share_fb.png"></div>
-            <div><img src="./images/share_email.png"></div>
-        </div>
+            <div><a href=""><img src="./images/share_fb.png"></a></div>
+            <div><a href="mailto:?subject=Check out Loot!"><img src="./images/share_email.png"></a></div>
+        </div> -->
     </div>
 </div>
