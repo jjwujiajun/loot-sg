@@ -262,8 +262,10 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 			if (response.data.orderId) { //success comes from the return json object
 				data.orderInfo.orderId = response.data.orderId;
 				console.log('db-order-success');
+				return response.data;
 			} else {
 				console.log('db-order-failure');
+				return false;
 			}
 		});
 	};
@@ -291,7 +293,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 		data.orderInfo.totalUsd = sum;
 	}
 
-	this.preprocessData = function() {
+	this.preprocessForEmail = function() {
 		// Replace blank fields with dashes
 		replaceWithDash(data.userInfo);
 		for(i = 0; i < data.items.length; i++) {
@@ -353,10 +355,6 @@ function routeConfig($routeProvider) {
 		controller: 'modifyController',
 		controllerAs: 'modify',
 		templateUrl: 'modify.html'
-	}).when('/done', {
-		controller: 'doneController',
-		controllerAs: 'done',
-		templateUrl: 'done.html'
 	})
 }
 mod.config(routeConfig);
@@ -601,7 +599,7 @@ mod.controller('deliveryController', ['data', 'utility', '$location', function(d
 
 }]);
 
-mod.controller('confirmController', ['data', 'utility', '$location', '$window', '$http', function(data, utility, $location, $window, $http){
+mod.controller('confirmController', ['data', 'utility', '$location', '$window', '$http', '$scope', function(data, utility, $location, $window, $http, $scope){
 	var vm = this;
 	vm.items        = data.items;
 	vm.itemCount    = data.items.length;
@@ -634,11 +632,13 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 				if (response.data.success) { //success comes from the return json object
 					console.log('charge-success');
 					utility.reverseItems();
-					utility.submitOrder();
-					utility.preprocessData();
-					utility.sendOrderEmail();
-					utility.sendReceipt();
-					$location.path('done');
+					utility.submitOrder().then(function(response){
+						data.orderInfo.orderId = response.orderId;
+						utility.preprocessForEmail();
+						utility.sendOrderEmail();
+						utility.sendReceipt();
+						$window.location.href = 'done.html?orderId=' + data.orderInfo.orderId;
+					});
 				} else {
 					console.log('charge-failure');
 					console.log(response.data.error);
@@ -653,11 +653,12 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 	}
 
 	vm.confirmAndPay = function(){
+		utility.updateTotal(); // As a safety net, recalculate total again
 		handler.open({
 			amount: data.orderInfo.totalUsd
 		});
 
-		// TODO: Close checkout page on navigation
+		$scope.$on('$routeChangeStart', handler.close);
 	}
 
 	vm.modify = function(){
@@ -713,15 +714,6 @@ mod.controller('modifyController', ['data','utility','$location', function(data,
 
 	vm.togglePBInput = function () {
 		vm.pbInputIsShown = !vm.pbInputIsShown;
-	}
-
-}]);
-
-mod.controller('doneController', ['$window', function($window){
-	var vm = this;
-	
-	vm.restart = function(){
-		$window.location.href = "./";
 	}
 
 }]);
