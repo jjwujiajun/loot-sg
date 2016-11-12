@@ -549,7 +549,7 @@ mod.controller('faqController', ['utility', '$sce', function(utility, $sce) {
 	vm.expandSection = function (section) {
 		section.isOpen = !section.isOpen;
 
-		var sectionContent = angular.element('#' + section);
+		var sectionContent = angular.element('#' + section.header);
 		sectionContent.slideToggle();
 
 	}
