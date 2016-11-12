@@ -9,13 +9,14 @@
 
 
     // Read POST data
-    $json       = file_get_contents('php://input');
+    $json      = file_get_contents('php://input');
     
-    $formData   = json_decode($json, true);
-    $userInfo   = $formData['userInfo'];
-    $items      = $formData['items'];
-    $total_usd  = $formData['orderInfo']['totalUsd'];
-    $total_sgd  = $formData['orderInfo']['totalSgd'];
+    $data      = json_decode($json, true);
+    $userInfo  = $data['userInfo'];
+    $items     = $data['items'];
+    $total_usd = $data['orderInfo']['totalUsd'];
+    $total_sgd = $data['orderInfo']['totalSgd'];
+    $order_id  = $data['orderInfo']['orderId'];
     setlocale(LC_MONETARY, 'en_US');
 
     // Load and Configure PHPMailer
@@ -390,7 +391,7 @@
     } else {
         $mail->addAddress('help@loot.sg', 'Receipts');
     }
-    $mail->Subject = 'Loot Receipt #';
+    $mail->Subject = 'Loot Receipt #' . $order_id;
 
     if($email_on) {
         if(!$mail->send()) {
