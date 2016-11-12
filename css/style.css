@@ -112,10 +112,14 @@ img.menu-item {
 
 .hero-title {
     margin-top: 130px;
+    margin-bottom: 60px;
+
     text-align: center;
 }
 
 .hero-title h1 {
+    display: block;
+
     font-size: 62px;
 }
 .hero-title h1 span {
@@ -123,15 +127,16 @@ img.menu-item {
 }
 
 .hero-title .subtitle {
+    display: block;
+
     margin-top: 20px;
 
-    font-size: 16px;
+    font-size: 24px;
 }
 
 .put-bom-wrapper {
     position: relative;
 
-    margin-top: 60px;
     margin-left: auto;
     margin-right: auto;
 
@@ -152,10 +157,14 @@ img.menu-item {
     white-space: nowrap;
 
     opacity: 0;
+
+    visibility: hidden;
 }
 .put-bom-output.fade{
     opacity: 1;
     transition: all linear 0.4s;
+
+    visibility: visible;
 }
 .pb-pic-col {
     display: inline-block;
@@ -181,6 +190,10 @@ img.menu-item {
 .middle-col-row {
     height: 33%;
 }
+.middle-col-row.row1 {
+    font-size: 18px;
+}
+
 .pb-item .item-url {
     margin-top: -3px;
     overflow: hidden;
@@ -206,7 +219,9 @@ img.menu-item {
     display: inline-block;
 
     margin: 0 3px;
-    padding: 0;
+    padding: 0 10px;
+
+    border: none;
 
     min-width: 60px;
 
@@ -263,24 +278,6 @@ img.menu-item {
 .pb-X-col {
     margin-top: 30px;
 }
-.pb-remove-item-btn {
-    float: right;
-
-    background-color: transparent;
-    border-radius: 3px;
-    border: #37cde9 solid 1px;
-    width: 17px;
-    height: 17px;
-
-    font-family: 'Avenir';
-    text-align: center;
-    color: #37cde9;
-    line-height: 14.5px;
-}
-.pb-remove-item-btn.highlight {
-    color: white;
-    background-color: #37cde9;
-}
 
 .cart-actions {
     margin-top: 10px;
@@ -308,7 +305,7 @@ img.menu-item {
     position: absolute;
     bottom: 0px;
 }
-.ATF-deco.fade {
+.fade {
     opacity: 0.2;
 }
 .ATF-deco img {
@@ -325,21 +322,34 @@ img.menu-item {
     min-height: 667px;
 }
 
+.section-1 .container {
+    width: 100%
+}
+
 .section-1 h2 {
     margin-top: 140px;
-    font-size: 13px;
+    font-size: 20px;
 
     text-align: center;
 }
 
 .steps-wrapper {
+    /*border: 1px solid black;*/
+
     margin-top: 40px;
     text-align: center;
 }
 .step-wrapper {
-    max-width: 300px;
+    /*border: 1px solid orange;*/
+    margin-bottom: 50px;
+
+    /*max-width: 300px;*/
+    max-width: 30%;
+    min-width: 350px;
 
     display: inline-block;
+    vertical-align: top;
+
     padding: 0 60px;
     text-align: center;
 }
@@ -349,7 +359,8 @@ img.menu-item {
     display: inline-block;
 
     text-align: left;
-    font-size: 25px;
+    /*font-size: 25px;*/
+    font-size: 42px;
 }
 .step-title #1 {
     width: 180px;
@@ -369,7 +380,7 @@ img.menu-item {
     margin-top: 8px;
 
     text-align: left;
-    font-size: 11px;
+    font-size: 20px;
 }
 .step-subtitle #3 {
     width: 150px;
@@ -377,6 +388,8 @@ img.menu-item {
 .step-subtitle a {
     color: #37CDE9;
 }
+
+/********  Section 2  ********/
 
 table tr td {
     text-align: center;
@@ -386,14 +399,29 @@ td img {
 }
 td div {
     vertical-align: center;
+}
+.section-2 .title {
+    /*border: 1px solid orange;*/
 
-    height: 70px;
+    margin-bottom: 20px;
+
+    font-size: 42px;
 }
-.why-title {
-    font-size: 25px;
+.section-2 .subtitle {
+    /*border: 1px solid black;*/
+
+    font-size: 20px;
 }
-.why-subtitle {
-    font-size: 11px;
+
+@media only screen and (max-width: 800px) {
+    .section-2 .title {
+        margin-bottom: 0;
+
+        font-size: 5vw;
+    }
+    .section-2 .subtitle {
+        font-size: 2vw;
+    }
 }
 
 /********  Section 4  ********/
@@ -416,13 +444,13 @@ td div {
     text-align: left;
 }
 .final-message span {
-    color: #37CDE9;
+    color: #23b5e9;
 }
 
 .btn-primary{
     margin-top: 60pt;
     border: none;
-    background-color: #37CDE9;
+    background-color: #23b5e9;
 
     padding: 10px 30px;
 
@@ -431,7 +459,7 @@ td div {
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
     border: none;
-    background-color: #37CDE9;
+    background-color: #23b5e9;
 
     padding: 10px 30px;
 
@@ -446,8 +474,8 @@ td div {
 }
 .social-media-wrapper div {
     display: inline-block;
-    margin: 0 10pt;
-    width: 40pt;
+    margin: 0 10px;
+    width: 40px;
 }
 .social-media-wrapper div img {
     width: 100%;
@@ -459,6 +487,9 @@ td div {
  * --- Order form ---
  *  login.html
  *  delivery.html
+ *  confirm.html
+ *  modify.html
+ *  done.html
  */
 
 /********  Overall order form  ********/
@@ -584,6 +615,31 @@ td div {
     font-weight: bold;
 }
 
+/********  Modify  ********/
+.modify.hero-title {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#putBomInput.hidePB {
+    visibility: hidden;
+}
+
+.modify .btn {
+    width: 50%;
+
+    height: 50px;
+
+    line-height: 35px;
+
+    font-size: 15px;
+    text-align: center;
+}
+
+.modify .add-items {
+    background-color: #EBEBEB;
+}
+
 /********  Done  ********/
 #done {
     text-align: center;
@@ -600,3 +656,72 @@ td div {
 }
 
 /********  ••••••  ********/
+
+/*
+ * --- Others ---
+ *  FAQ
+ *  Contacts
+ */
+
+.faq h1,
+.contacts h1
+{
+    text-align: left;
+
+    margin-top: 80pt;
+    margin-bottom: 40pt;
+
+    font-size: 42pt;
+}
+
+.faq h1 span, 
+.contacts h1 span {
+    color: #23b5e9;
+}
+
+/********  FAQ  ********/
+
+.faq .section {
+    margin-bottom: 10pt;
+}
+
+.faq .section-header {
+    cursor: pointer;
+        
+    margin-left: -22pt;
+
+    font-size: 24pt;
+}
+.faq .section-header div {
+    display: inline-block;
+
+    width: 20pt;
+}
+
+.faq .section-content {
+    overflow: hidden;
+
+    display: none;
+
+    margin-bottom: 40pt;
+}
+
+.faq .item-header {
+    margin-bottom: 10pt;
+}
+.faq .item-content {
+    margin-left: 40pt;
+}
+/********  Contacts  ********/
+.contact-key {
+    padding-right: 10px;
+
+    color: #23b5e9;
+    text-align: left;
+}
+.contact-value {
+    text-align: left;
+}
+.contact-value a:link, .contact-value a:visited {
+    color: black;
+}
