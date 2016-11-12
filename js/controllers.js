@@ -653,6 +653,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 	}
 
 	vm.confirmAndPay = function(){
+		utility.updateTotal(); // As a safety net, recalculate total again
 		handler.open({
 			amount: data.orderInfo.totalUsd
 		});
