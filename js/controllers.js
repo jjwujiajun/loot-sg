@@ -262,8 +262,10 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 			if (response.data.orderId) { //success comes from the return json object
 				data.orderInfo.orderId = response.data.orderId;
 				console.log('db-order-success');
+				return response.data;
 			} else {
 				console.log('db-order-failure');
+				return false;
 			}
 		});
 	};
@@ -291,7 +293,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 		data.orderInfo.totalUsd = sum;
 	}
 
-	this.preprocessData = function() {
+	this.preprocessForEmail = function() {
 		// Replace blank fields with dashes
 		replaceWithDash(data.userInfo);
 		for(i = 0; i < data.items.length; i++) {
@@ -630,11 +632,13 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 				if (response.data.success) { //success comes from the return json object
 					console.log('charge-success');
 					utility.reverseItems();
-					utility.submitOrder();
-					utility.preprocessData();
-					utility.sendOrderEmail();
-					utility.sendReceipt();
-					$window.location.href = 'done.html';
+					utility.submitOrder().then(function(response){
+						data.orderInfo.orderId = response.orderId;
+						utility.preprocessForEmail();
+						utility.sendOrderEmail();
+						utility.sendReceipt();
+						$window.location.href = 'done.html?orderId=' + data.orderInfo.orderId;
+					});
 				} else {
 					console.log('charge-failure');
 					console.log(response.data.error);
