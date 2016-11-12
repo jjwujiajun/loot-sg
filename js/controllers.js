@@ -601,7 +601,7 @@ mod.controller('deliveryController', ['data', 'utility', '$location', function(d
 
 }]);
 
-mod.controller('confirmController', ['data', 'utility', '$location', '$window', '$http', function(data, utility, $location, $window, $http){
+mod.controller('confirmController', ['data', 'utility', '$location', '$window', '$http', '$scope', function(data, utility, $location, $window, $http, $scope){
 	var vm = this;
 	vm.items        = data.items;
 	vm.itemCount    = data.items.length;
@@ -658,7 +658,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 			amount: data.orderInfo.totalUsd
 		});
 
-		// TODO: Close checkout page on navigation
+		$scope.$on('$routeChangeStart', handler.close);
 	}
 
 	vm.modify = function(){
