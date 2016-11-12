@@ -24,9 +24,9 @@
                 <input class="form-control" id="putBomInput" type="text" name="itemURL" placeholder="{{home.urlField.placeholder}}" ng-model="home.urlField.text" ng-model-options='{ debounce: 100 }' ng-change="home.scrapeURL()" ng-click="home.showPutBom()"><br>
                 <div class="put-bom-output" ng-class="{'fade': home.shouldShowPutBomOutput && home.data.items.length > 0}">
 
-                    <div class="pb-item" ng-repeat="item in home.data.items">
+                    <div class="pb-item" ng-repeat="item in home.data.items | orderBy: '-'">
                         <div class="pb-pic-col">
-                            <img ng-src="{{item.imageUrl}}" />
+                            <a href="{{item.url}}"><img ng-src="{{item.imageUrl}}" /></a>
                         </div>
                         <div class="pb-middle-col">
                             <div class="middle-col-row row1">
@@ -61,9 +61,11 @@
                                 </button>
                             </div>
                         </div>
+
                         <!-- Item separator line -->
-                        <hr ng-hide="item == home.data.items[home.data.items.length - 1]">
+                        <hr ng-hide="item == home.data.items[0]">
                     </div>
+
                     <!-- Add to cart -->
                     <div class="cart-actions">
                         <div class="btn checkout" ng-click="home.checkOut()">

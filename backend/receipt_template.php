@@ -7,8 +7,7 @@
         "addressLine2": "#12-34",
         "postalCode": "poster",
         "contact": "91506620",
-        "email": "jjwu.jiajun@gmail.com",
-        "keepMeUpdated": "-"
+        "email": "jjwu.jiajun@gmail.com"
       },
       "items": [
         {

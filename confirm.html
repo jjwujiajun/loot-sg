@@ -11,14 +11,13 @@
     <div class="put-bom-wrapper">
         <div class="personal-message">You have a total of {{confirm.itemCount}} item{{confirm.getPlurality(confirm.itemCount)}} in your cart.</div>
 
-        <div class="pb-item" ng-repeat="item in confirm.items">
+        <div class="pb-item" ng-repeat="item in confirm.items | orderBy : '-'">
             <div class="pb-pic-col">
-                <img ng-src="{{item.imageUrl}}" />
+                <a href="{{item.url}}"><img ng-src="{{item.imageUrl}}" /></a>
             </div>
             <div class="pb-middle-col">
                 <div class="middle-col-row row1">
                     <div class="">{{item.name}}</div>
-                    <div class="item-url"><a href="{{item.url}}">{{item.url}}</a></div>
                 </div>
                 <div class="middle-col-row row2">
                     <div class="item-colors">
@@ -48,7 +47,7 @@
             </div>
 
             <!-- Item separator line -->
-            <hr ng-hide="item == confirm.items[confirm.items.length - 1]">
+            <hr ng-hide="item == confirm.items[0]">
 
         </div>
     </div>
