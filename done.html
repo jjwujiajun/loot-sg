@@ -1,11 +1,47 @@
-<div class="orderForm clearfix">
-    <div id="done">
-        <img src="images/bag-02.png"/>
-        <p>Your Order ID is {{done.orderId}}</p>
-        <p>Thank you for shopping with Loot.</p>
-    </div>
-    <div class="button-row">
-        <p>Please check your inbox for receipt.</p>
-        <button ng-click="done.restart()" class="button btn next">New Order</button>
-    </div>
-</div>
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Order Complete</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Styling -->
+    <link rel="stylesheet" href="./css/style.css" />
+    <link href="images/favicon.png" rel="icon" type="image/x-icon" />
+    
+    <!-- GOOGLE ANALYTICS -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-74748137-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+    <!-- Get Order ID from URL -->
+    <script>
+		function getOrderId(){
+			orderId = location.search.split('&')[0].split('=')[1];
+			document.getElementById('order_id').innerHTML = orderId;
+		}
+		window.onload = getOrderId;
+	</script>
+</head>
+<body>
+	<div class="orderForm clearfix">
+	    <div id="done">
+	        <img src="images/bag-02.png"/>
+	        <p>Your Order ID is <span id="order_id"></span></p>
+	        <p>Thank you for shopping with Loot.</p>
+	    </div>
+	    <div class="button-row">
+	        <p>Please check your inbox for receipt.</p>
+	        <a href="./index.html"><button class="button btn next">New Order</button></a>
+	    </div>
+	</div>
+</body>
+</html>

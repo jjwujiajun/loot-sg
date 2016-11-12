@@ -1,11 +1,11 @@
 <?php
     $json = '{
       "userInfo": {
-        "firstName": "first",
-        "lastName": "last",
-        "addressLine1": "addr1",
+        "firstName": "Jia Jie",
+        "lastName": "Lim",
+        "addressLine1": "Blk 555 Ang Mo Kio Avenue 10",
         "addressLine2": "#12-34",
-        "postalCode": "poster",
+        "postalCode": "560555",
         "contact": "91506620",
         "email": "jjwu.jiajun@gmail.com"
       },
