@@ -287,8 +287,22 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 			var rate = response.data.rates.SGD;
 			console.log(rate);
 			return rate;
-		});
-		
+		});	
+	}
+
+	this.configureMoneyJs = function(usd_sgd) {
+		fx.base = "USD";
+		fx.rates = {
+			SGD : usd_sgd
+		};
+		fx.settings = {
+			from : "USD",
+			to   : "SGD"
+		};
+	}
+
+	var convertAndRound = function(amount){
+		return parseInt(accounting.toFixed(fx.convert(amount), 0));
 	}
 	
 	var replaceWithDash = function(obj){
@@ -306,12 +320,16 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 		return '';
 	};
 
-	this.updateTotal = function() {
+	this.updateTotalUsd = function() {
 		var sum = 0;
 		for (var i = 0; i < data.items.length; i++) {
 			sum += data.items[i].unitPrice * data.items[i].quantity;
 		}
 		data.orderInfo.totalUsd = sum;
+	}
+
+	this.updateTotalSgd = function() {
+		data.orderInfo.totalSgd = convertAndRound(data.orderInfo.totalUsd);
 	}
 
 	this.preprocessForEmail = function() {
@@ -451,7 +469,7 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 	}
 	
 	vm.checkOut = function(){
-		utility.updateTotal();
+		utility.updateTotalUsd();
 		$location.path('login');
 	}
 
@@ -630,6 +648,9 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 	// Get past day exchange rate
 	utility.getForexRates().then(function(rate){
 		data.orderInfo.usdSgd = rate;
+		utility.configureMoneyJs(rate);
+		utility.updateTotalUsd();
+		utility.updateTotalSgd();
 	});
 
 	// Configure Checkout.js
@@ -644,7 +665,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 		currency: chargeCurrency,
 		token: function(token) {
 			var request = {
-				amount: data.orderInfo.totalUsd,
+				amount: data.orderInfo.totalSgd,
 				currency: chargeCurrency,
 				token: token.id
 			}
@@ -681,9 +702,11 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 	}
 
 	vm.confirmAndPay = function(){
-		utility.updateTotal(); // As a safety net, recalculate total again
+		// As a safety net, recalculate total again and convert
+		utility.updateTotalUsd();
+		utility.updateTotalUsd();
 		handler.open({
-			amount: data.orderInfo.totalUsd
+			amount: data.orderInfo.totalSgd
 		});
 
 		$scope.$on('$routeChangeStart', handler.close);
@@ -722,7 +745,6 @@ mod.controller('modifyController', ['data','utility','$location', function(data,
 		}
 	};
 	
-
 	vm.removeItem = function(itemNumber) {
 		vm.data.items.splice(itemNumber - 1, 1);
 	}
@@ -736,7 +758,7 @@ mod.controller('modifyController', ['data','utility','$location', function(data,
 	}
 
 	vm.save = function(){
-		utility.updateTotal();
+		utility.updateTotalUsd();
 		$location.path('confirm');
 	}
 
