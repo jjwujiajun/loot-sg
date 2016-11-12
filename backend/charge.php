@@ -15,8 +15,7 @@
 		$charge = \Stripe\Charge::create(array(
 	    	"amount" => $request['amount'], // Amount in cents
 	    	"currency" => "usd",
-	    	"source" => $request['token'],
-	    	"description" => "Example charge"
+	    	"source" => $request['token']
 	    ));
 		$response['success'] = true;
 	} catch(\Stripe\Error\Card $e) {
