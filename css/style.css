@@ -649,6 +649,10 @@ td div {
     width: 80%;
 }
 
+.additional-info {
+    margin-top: 10px;
+}
+
 /********  Modify  ********/
 .modify.hero-title {
     margin-top: 30px;

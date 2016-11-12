@@ -48,7 +48,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <input type="checkbox" class="item-OOS-checkbox item-OOS-checkbox-col" ng-click="">
+                                    <input type="checkbox" class="item-OOS-checkbox item-OOS-checkbox-col" ng-model="item.proceedOrder" checked>
                                 </td>
                                 <td>
                                     <div class="item-OOS-statement key-value-wrapper">
@@ -64,9 +64,9 @@
                     <span class="confirmed-value">{{item.unitPrice / 100 * item.quantity | currency : '$'}}</span>
                 </div>
 
-                <!-- <div>
-                    <textarea rows="1"></textarea>
-                </div> -->
+                <div class="additional-info">
+                    <textarea  class="form-control" placeholder="Add additional instructions for this item" ng-model="item.details"></textarea>
+                </div>
 
                 <!-- Item separator line -->
                 <hr ng-hide="item == confirm.items[0]">
