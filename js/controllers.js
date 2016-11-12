@@ -638,7 +638,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 					utility.preprocessData();
 					utility.sendOrderEmail();
 					utility.sendReceipt();
-					$location.path('done');
+					$window.location.href = 'done.html';
 				} else {
 					console.log('charge-failure');
 					console.log(response.data.error);
