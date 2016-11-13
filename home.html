@@ -32,13 +32,12 @@
                 <div class="put-bom-output" ng-class="{'fade': home.siteState.showPBOutput && home.data.items.length > 0}">
 
                     <div class="pb-item" ng-repeat="item in home.data.items | orderBy: '-'">
-                        <div class="pb-pic-col">
-                            <a href="{{item.url}}"><img ng-src="{{item.imageUrl}}" /></a>
+                        <div class="pb-pic-col" href="{{item.url}}">
+                            <img ng-src="{{item.imageUrl}}" />
                         </div>
                         <div class="pb-middle-col">
                             <div class="middle-col-row row1">
                                 <div>{{item.name}}</div>
-                                <div class="item-url"><a href="{{item.url}}">{{item.url}}</a></div>
                             </div>
                             <div class="middle-col-row row2">
                                 <div class="item-colors">
