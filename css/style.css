@@ -174,19 +174,15 @@ img.menu-item {
 .put-bom-input input[type=text] {
     height: 60px;
 }
-.put-bom-input input[type=text]:focus {
-    border-color: orange;
-    box-shadow: 0 0 5px rgb(249, 194, 154);
-}
 .put-bom-input-btn {
     min-width: 80px;
     height: 60px;
 
-    border-color: #EF6122;
-    background-color: #EF6122;
+    border-color: #23b5e9;
+    background-color: #23b5e9;
 
     text-align: center;
-    color: white;
+    color: #333333;
 }
 .put-bom-input-btn img {
     height: 100%;
