@@ -653,7 +653,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 		utility.configureMoneyJs(rate);
 		utility.updateTotalUsd();
 		utility.updateTotalSgd();
-		var fxEquation = $filter('currency')(data.orderInfo.totalUsd / 100.00, 'US$') + ' &times; ' + data.orderInfo.usdSgd + ' = ' + $filter('currency')(data.orderInfo.totalSgd / 100.00, 'S$');
+		var fxEquation = $filter('currency')(data.orderInfo.totalUsd / 100.00, 'US$') + ' &times; ' + '<span style="text-decoration: underline">' + data.orderInfo.usdSgd + '</span>' + ' = ' + $filter('currency')(data.orderInfo.totalSgd / 100.00, 'S$');
 		$('#total-sgd').popover({
 			title: 'Our exchange rate',
 			content: fxEquation,
