@@ -439,7 +439,13 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 		angular.element(whyLootMenu).click(function () {
 			var whyLootAnchor = angular.element('#why-loot');
 			angular.element("body").animate({ scrollTop: whyLootAnchor.offset().top - 80});
-		});	
+		});
+
+		var logoMenu = document.querySelector('#menu-logo');
+		angular.element(logoMenu).click(function () {
+			angular.element("body").animate({ scrollTop: '0'});
+			angular.element(pbInput).focus();
+		});
 
 		var backToTopButton = document.querySelector('#backToTop');
 		angular.element(backToTopButton).click(function () {
