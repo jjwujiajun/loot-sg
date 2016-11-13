@@ -15,7 +15,10 @@
 
             <div class="pb-item" ng-repeat="item in confirm.items | orderBy : '-'">
                 <div class="pb-pic-col">
-                    <a href="{{item.url}}"><img ng-src="{{item.imageUrl}}" /></a>
+                    <a href="{{item.url}}">
+                        <img ng-src="{{item.imageUrl}}" ng-show="item.imageUrl != '' "/>
+                        <img src="./images/no_image_avail.png" ng-show="item.imageUrl == '' ">
+                    </a>
                 </div>
                 <div class="pb-middle-col">
                     <div class="middle-col-row row1">
@@ -77,6 +80,7 @@
                 <hr>
 
             </div>
+
             <div class="total">
                 <div class="total-row">
                     <div class="total-header">
@@ -94,6 +98,10 @@
                         <a><span class="confirmed-value" id="total-sgd">{{confirm.orderInfo.totalSgd / 100.00 | currency : 'S$'}}</span></a>
                     </div>
                 </div>
+            </div>
+
+            <div class="note">
+                <b>* Note</b> Items will take roughly <b>14</b> days to be delivered to Singapore.
             </div>
         </div>
 

@@ -740,6 +740,7 @@ mod.controller('modifyController', ['data','utility','$location', function(data,
 	var vm = this;
 	vm.urlField = {'text': '', 'placeholder': 'Paste your next item URL here'};
 	vm.data = data;
+	vm.siteState = data.siteState;
 	vm.pbInputIsShown = false;
 
 	var isValidURL = function(str) {
