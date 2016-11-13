@@ -21,17 +21,26 @@
 
             <form name="putBom" class="form-group put-bom-wrapper">
 
-                <input class="form-control" id="putBomInput" type="text" name="itemURL" placeholder="{{home.urlField.placeholder}}" ng-model="home.urlField.text" ng-model-options='{ debounce: 100 }' ng-change="home.scrapeURL()" ng-click="home.showPutBom()"><br>
+                <div class="input-group put-bom-input">
+                    <input class="form-control" id="putBomInput" type="text" name="itemURL" placeholder="{{home.urlField.placeholder}}" ng-model="home.urlField.text" ng-model-options='{ debounce: 100 }' ng-change="home.scrapeURL()" ng-click="home.showPutBom()">
+                    <span class="input-group-addon put-bom-input-btn">
+                        <span ng-show="!home.siteState.isScrapping">Enter</span>
+                        <img src="./images/loading.gif" ng-show="home.siteState.isScrapping" />
+                    </span>
+                </div>
+
                 <div class="put-bom-output" ng-class="{'fade': home.siteState.showPBOutput && home.data.items.length > 0}">
 
                     <div class="pb-item" ng-repeat="item in home.data.items | orderBy: '-'">
                         <div class="pb-pic-col">
-                            <a href="{{item.url}}"><img ng-src="{{item.imageUrl}}" /></a>
+                            <a href="{{item.url}}">
+                                <img ng-src="{{item.imageUrl}}" ng-show="item.imageUrl != '' "/>
+                                <img src="./images/no_image_avail.png" ng-show="item.imageUrl == '' ">
+                            </a>
                         </div>
                         <div class="pb-middle-col">
                             <div class="middle-col-row row1">
-                                <div>{{item.name}}</div>
-                                <div class="item-url"><a href="{{item.url}}">{{item.url}}</a></div>
+                                <div><a href="{{item.url}}">{{item.name}}</a></div>
                             </div>
                             <div class="middle-col-row row2">
                                 <div class="item-colors">
@@ -80,8 +89,12 @@
     </div>
 
     <div class="ATF-deco" ng-class="{'fade': home.siteState.showPBOutput && home.data.items.length > 0}">
+        <img src="./images/ATF_deco_spacedout.png">
 
-        <img src="./images/ATF_deco.png">
+        <div>
+            <a href="https://www.amazon.com"><img src="./images/Logo_amazon.png" /></a>
+            <a href="http://www.forever21.com"><img src="./images/Logo_F21_2.png" /></a>
+        </div>
     </div>
 </div>
 
