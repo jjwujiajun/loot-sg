@@ -723,6 +723,10 @@ td div {
     text-align: right;
 }
 
+.confirmed #total-sgd {
+    cursor: pointer;
+}
+
 /********  Modify  ********/
 .modify.hero-title {
     margin-top: 30px;
