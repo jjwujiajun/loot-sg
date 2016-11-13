@@ -238,6 +238,9 @@ img.menu-item {
 .middle-col-row.row1 {
     font-size: 18px;
 }
+.middle-col-row.row1 a {
+    color: black
+}
 
 .pb-item .item-url {
     margin-top: -3px;
