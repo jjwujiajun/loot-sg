@@ -56,8 +56,8 @@
         <div class="input-group put-bom-input" id="putBomInput" ng-class="{hidePB: !modify.pbInputIsShown}">
             <input class="form-control" type="text" name="itemURL" placeholder="{{modify.urlField.placeholder}}" ng-model="modify.urlField.text" ng-model-options='{ debounce: 100 }' ng-change="modify.scrapeURL()">
             <span class="input-group-addon put-bom-input-btn">
-                <span ng-show="!modify.siteState.isScrapping">Enter</span>
-                <img src="./images/loading.gif" ng-show="modify.siteState.isScrapping" />
+                <span ng-show="!modify.siteState.isScraping">Enter</span>
+                <img src="./images/loading.gif" ng-show="modify.siteState.isScraping" />
             </span>
         </div>
 

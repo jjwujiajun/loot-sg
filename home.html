@@ -24,8 +24,8 @@
                 <div class="input-group put-bom-input">
                     <input class="form-control" id="putBomInput" type="text" name="itemURL" placeholder="{{home.urlField.placeholder}}" ng-model="home.urlField.text" ng-model-options='{ debounce: 100 }' ng-change="home.scrapeURL()" ng-click="home.showPutBom()">
                     <span class="input-group-addon put-bom-input-btn">
-                        <span ng-show="!home.siteState.isScrapping">Enter</span>
-                        <img src="./images/loading.gif" ng-show="home.siteState.isScrapping" />
+                        <span ng-show="!home.siteState.isScraping">Enter</span>
+                        <img src="./images/loading.gif" ng-show="home.siteState.isScraping" />
                     </span>
                 </div>
 
