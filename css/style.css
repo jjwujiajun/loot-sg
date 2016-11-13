@@ -123,11 +123,11 @@ img.menu-item {
 
     position: absolute;
 
-    top: 50%;
+    top: 40%;
 
     transform: translateY(-50%);
 
-    width: 600px;
+    min-width: 600px;
     margin: 0 auto;
     left: 0;
     right: 0;
@@ -775,7 +775,7 @@ td div {
 .faq .section-header {
     cursor: pointer;
         
-    margin-left: -22pt;
+    margin-left: -15px;
 
     font-size: 24pt;
 }

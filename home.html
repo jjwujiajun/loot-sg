@@ -2,8 +2,8 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container navbar-wrapper">
         <div class="menu-wrapper">
-            <div class="menu-item"  id="how-it-works-menu" ng-click="home.hidePutBom()"><a href="">How it works</a></div>
-            <div class="menu-item"  id="why-loot-menu" ng-click="home.hidePutBom()"><a href="">Why Loot?</a></div>
+            <div class="menu-item" id="how-it-works-menu" ng-click="home.hidePutBom()"><a>How it works</a></div>
+            <div class="menu-item" id="why-loot-menu" ng-click="home.hidePutBom()"><a>Why Loot?</a></div>
             <a href="./#/"><img class="menu-item" src="./images/loot-logo-blue.png" /></a>
             <div class="menu-item"><a href="#/faq">FAQ</a></div>
             <div class="menu-item"><a href="#/contacts">Contact Us</a></div>
@@ -22,7 +22,7 @@
             <form name="putBom" class="form-group put-bom-wrapper">
 
                 <input class="form-control" id="putBomInput" type="text" name="itemURL" placeholder="{{home.urlField.placeholder}}" ng-model="home.urlField.text" ng-model-options='{ debounce: 100 }' ng-change="home.scrapeURL()" ng-click="home.showPutBom()"><br>
-                <div class="put-bom-output" ng-class="{'fade': home.shouldShowPutBomOutput && home.data.items.length > 0}">
+                <div class="put-bom-output" ng-class="{'fade': home.siteState.showPBOutput && home.data.items.length > 0}">
 
                     <div class="pb-item" ng-repeat="item in home.data.items | orderBy: '-'">
                         <div class="pb-pic-col">
@@ -79,14 +79,14 @@
         </div>
     </div>
 
-    <div class="ATF-deco" ng-class="{'fade': home.shouldShowPutBomOutput && home.data.items.length > 0}">
+    <div class="ATF-deco" ng-class="{'fade': home.siteState.showPBOutput && home.data.items.length > 0}">
 
         <img src="./images/ATF_deco.png">
     </div>
 </div>
 
 <!-- Section 1 -->
-<div class="section section-1" ng-class="{'fade': home.shouldShowPutBomOutput && home.data.items.length > 0}" id="how-it-works">
+<div class="section section-1" ng-class="{'fade': home.siteState.showPBOutput && home.data.items.length > 0}" id="how-it-works">
     <div class="container">
         <div class="section-1-content">
             <h2>HOW IT WORKS</h2>
@@ -96,7 +96,7 @@
                     <div class="step-title">
                         <span style="white-space: nowrap;"><span class="step-number" id="1">1 </span>Shop online</span>
                     </div>
-                    <div class="step-subtitle"  id="1">Shop at <a href="">www.amazon.com</a> or <a href="">www.forever21.com</a> and send us the item URL.</div>
+                    <div class="step-subtitle" id="1">Shop at <a href="http://www.amazon.com/" target="_blank">www.amazon.com</a> or <a href="http://www.forever21.com/" target="_blank">www.forever21.com</a> and send us the item URL.</div>
                 </div>
                 <div class="step-wrapper">
                     <img src="./images/Ic_Cart.png">
@@ -118,7 +118,7 @@
     </div>
 
 </div>
-<div class="section section-2" ng-class="{'fade': home.shouldShowPutBomOutput && home.data.items.length > 0}" id="why-loot" >
+<div class="section section-2" ng-class="{'fade': home.siteState.showPBOutput && home.data.items.length > 0}" id="why-loot" >
     <table border="0" width="100%">
         <tr>
             <td><img src="./images/Pic_Freeshipping.png"></td>
@@ -144,7 +144,7 @@
     </table>
 </div>
 
-<div class="section section-4" ng-class="{'fade': home.shouldShowPutBomOutput && home.data.items.length > 0}">
+<div class="section section-4" ng-class="{'fade': home.siteState.showPBOutput && home.data.items.length > 0}">
     <div class="container">
         <div class="final-content">
             <div class="final-message">
