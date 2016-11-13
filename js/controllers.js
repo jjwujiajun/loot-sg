@@ -56,6 +56,10 @@ mod.service('data', function() {
 		totalUsd: 0,
 		totalSgd: 0
 	};
+
+	this.siteState = {
+		showPBOutput: false
+	};
 });
 
 
@@ -77,8 +81,6 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 			details: ''
 		};
 	};
-
-	this.shouldShowPutBomOutput = true;
 
 	this.scrapeF21 = function(url) {
 		var urlString = "https://api.import.io/store/connector/7525a0ab-c857-4f60-8c23-73eb625083de/_query?input=webpage/url:" + encodeURIComponent(url) + "&&_apikey=b34ce8b353894e91b3ef33342f0c5ddb82cce3b3dd7be5b65977ed3fd532f3521d5f3c08c232bafdcc60a719fe799b1b03a95e181771f5bf511f85950dcb7c132b1575addd5fa8c5eeb70645857f693c";
@@ -304,7 +306,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 	this.goPageAndAnchorScroll = function(page, anchor) {
 		$location.path(page);
 
-		this.shouldShowPutBomOutput = false;
+		data.siteState.showPBOutput = false;
 
 		$timeout(function () {
 			$anchorScroll(anchor);
@@ -362,11 +364,10 @@ mod.config(routeConfig);
 mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll', function(data, utility, $location, $anchorScroll){
 	var vm  = this;
 	vm.data = data;
+	vm.siteState = data.siteState;
 
 	vm.urlField = {'text': '', 'placeholder': 'Just copy and paste your item URL here'};
 	var firstScrape = true;
-
-	vm.shouldShowPutBomOutput = utility.shouldShowPutBomOutput;
 
 	var isValidURL = function(str) {
 		if (str.indexOf('amazon.com') != -1) {
@@ -439,11 +440,11 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 	}
 
 	vm.showPutBom = function(){
-		vm.shouldShowPutBomOutput = true;
+		vm.siteState.showPBOutput = true;
 	}
 
 	vm.hidePutBom = function(){
-		vm.shouldShowPutBomOutput = false;
+		vm.siteState.showPBOutput = false;
 	}
 
 }]);
