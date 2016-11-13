@@ -22,6 +22,7 @@
             <form name="putBom" class="form-group put-bom-wrapper">
 
                 <div class="input-group put-bom-input">
+                    <span ng-show="!home.siteState.showPBOutput && home.data.items.length > 0" class="badge progress-bar-danger" id="pb-cart-size">{{home.data.items.length}}</span>
                     <input class="form-control" id="putBomInput" type="text" name="itemURL" placeholder="{{home.urlField.placeholder}}" ng-model="home.urlField.text" ng-model-options='{ debounce: 100 }' ng-change="home.scrapeURL()" ng-click="home.showPutBom()">
                     <span class="input-group-addon put-bom-input-btn">
                         <span ng-show="!home.siteState.isScraping">Enter</span>

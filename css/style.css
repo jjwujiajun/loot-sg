@@ -192,6 +192,12 @@ img.menu-item {
 .put-bom-input-btn img {
     height: 100%;
 }
+#pb-cart-size {
+    position: absolute;
+    top: 20px;
+    right: 90px;
+    z-index: 3;
+}
 .put-bom-output {
     background: white;
 
