@@ -54,7 +54,8 @@ mod.service('data', function() {
 
 	this.orderInfo = {
 		totalUsd: 0,
-		totalSgd: 0
+		totalSgd: 0,
+		usdSgd: 1
 	};
 
 	this.siteState = {
@@ -271,6 +272,40 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 			}
 		});
 	};
+
+	// Should cache response if requests occur on multiple pages per user
+	this.getForexRates = function(){
+		// HTTPS from MAS
+		// var apiurl = 'https://eservices.mas.gov.sg/api/action/datastore/search.json?resource_id=95932927-c8bc-4e7a-b484-68a66a24edfe&limit=1&filters[end_of_day]=2016-11-11&fields=usd_sgd';
+		var apiurl = 'http://api.fixer.io/latest?base=USD&symbols=SGD';
+
+		return $http({
+			method : 'GET',
+			url    : apiurl,
+		}).then(function(response){
+			// MAS
+			// rate = response.data.result.records[0].usd_sgd;
+			// Fixer.io
+			var rate = response.data.rates.SGD;
+			console.log(rate);
+			return rate;
+		});	
+	}
+
+	this.configureMoneyJs = function(usd_sgd) {
+		fx.base = "USD";
+		fx.rates = {
+			SGD : usd_sgd
+		};
+		fx.settings = {
+			from : "USD",
+			to   : "SGD"
+		};
+	}
+
+	var convertAndRound = function(amount){
+		return parseInt(accounting.toFixed(fx.convert(amount), 0));
+	}
 	
 	var replaceWithDash = function(obj){
 		angular.forEach(obj, function(value, field){
@@ -287,12 +322,16 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 		return '';
 	};
 
-	this.updateTotal = function() {
-		sum = 0;
+	this.updateTotalUsd = function() {
+		var sum = 0;
 		for (var i = 0; i < data.items.length; i++) {
 			sum += data.items[i].unitPrice * data.items[i].quantity;
 		}
 		data.orderInfo.totalUsd = sum;
+	}
+
+	this.updateTotalSgd = function() {
+		data.orderInfo.totalSgd = convertAndRound(data.orderInfo.totalUsd);
 	}
 
 	this.preprocessForEmail = function() {
@@ -316,7 +355,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 	}
 
 	this.reverseItems = function() {
-		reversedItems = [];
+		var reversedItems = [];
 
 		for (var i = data.items.length - 1; i >= 0 ; i--) {
 			data.items[i].number = data.items.length - 1 - i + 1;
@@ -431,7 +470,7 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 	}
 	
 	vm.checkOut = function(){
-		utility.updateTotal();
+		utility.updateTotalUsd();
 		$location.path('login');
 	}
 
@@ -600,11 +639,30 @@ mod.controller('deliveryController', ['data', 'utility', '$location', function(d
 
 }]);
 
-mod.controller('confirmController', ['data', 'utility', '$location', '$window', '$http', '$scope', function(data, utility, $location, $window, $http, $scope){
+mod.controller('confirmController', ['data', 'utility', '$location', '$window', '$http', '$scope', '$filter', function(data, utility, $location, $window, $http, $scope, $filter){
 	var vm = this;
-	vm.items        = data.items;
-	vm.itemCount    = data.items.length;
-	vm.getPlurality = utility.getPlurality;
+	vm.orderInfo       = data.orderInfo;
+	vm.items           = data.items;
+	vm.itemCount       = data.items.length;
+	vm.getPlurality    = utility.getPlurality;
+	var chargeCurrency = 'sgd';
+
+	// Get past day exchange rate
+	utility.getForexRates().then(function(rate){
+		data.orderInfo.usdSgd = rate;
+		utility.configureMoneyJs(rate);
+		utility.updateTotalUsd();
+		utility.updateTotalSgd();
+		var fxEquation = $filter('currency')(data.orderInfo.totalUsd / 100.00, 'US$') + ' &times; ' + '<span style="text-decoration: underline">' + data.orderInfo.usdSgd + '</span>' + ' = ' + $filter('currency')(data.orderInfo.totalSgd / 100.00, 'S$');
+		$('#total-sgd').popover({
+			title: 'Our exchange rate',
+			content: fxEquation,
+			html : true,
+			placement: 'auto bottom',
+			trigger: 'hover',
+			container: 'body'
+		});
+	});
 
 	// Configure Checkout.js
 	var handler = $window.StripeCheckout.configure({
@@ -613,12 +671,13 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 		locale: 'auto',
 		email: data.userInfo.email,
 		name: 'Loot',
-		description: 'Order Info',
+		description: 'Your order',
 		zipCode: false,
-		currency: 'USD',
+		currency: chargeCurrency,
 		token: function(token) {
 			var request = {
-				amount: data.orderInfo.totalUsd,
+				amount: data.orderInfo.totalSgd,
+				currency: chargeCurrency,
 				token: token.id
 			}
 
@@ -654,9 +713,11 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 	}
 
 	vm.confirmAndPay = function(){
-		utility.updateTotal(); // As a safety net, recalculate total again
+		// As a safety net, recalculate total again and convert
+		utility.updateTotalUsd();
+		utility.updateTotalUsd();
 		handler.open({
-			amount: data.orderInfo.totalUsd
+			amount: data.orderInfo.totalSgd
 		});
 
 		$scope.$on('$routeChangeStart', handler.close);
@@ -695,7 +756,6 @@ mod.controller('modifyController', ['data','utility','$location', function(data,
 		}
 	};
 	
-
 	vm.removeItem = function(itemNumber) {
 		vm.data.items.splice(itemNumber - 1, 1);
 	}
@@ -709,7 +769,7 @@ mod.controller('modifyController', ['data','utility','$location', function(data,
 	}
 
 	vm.save = function(){
-		utility.updateTotal();
+		utility.updateTotalUsd();
 		$location.path('confirm');
 	}
 

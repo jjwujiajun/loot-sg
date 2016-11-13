@@ -702,6 +702,31 @@ td div {
     margin-bottom: 10px;
 }
 
+.confirmed .total {
+    display: table;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.confirmed .total-row {
+    display: table-row;
+}
+
+.confirmed .total-header {
+    display: table-cell;
+    width: 84%;
+}
+
+.confirmed .total-price {
+    display: table-cell;
+    width: 16%;
+    text-align: right;
+}
+
+.confirmed #total-sgd {
+    cursor: pointer;
+}
+
 /********  Modify  ********/
 .modify.hero-title {
     margin-top: 30px;

@@ -14,6 +14,7 @@
     $users_id  = $data['userInfo']['userId'];
     $total_usd = $data['orderInfo']['totalUsd'];
     $total_sgd = $data['orderInfo']['totalSgd'];
+    $usd_sgd   = $data['orderInfo']['usdSgd'];
     
     $items     = $data['items'];
     
@@ -21,7 +22,7 @@
 
     // Logic block
     if($db_on) {
-        $orders_id = addOrder($users_id, $total_usd, $total_sgd);
+        $orders_id = addOrder($users_id, $total_usd, $total_sgd, $usd_sgd);
         addItems($items, $orders_id);
 
         $result['orderId'] = $orders_id;    
@@ -29,13 +30,14 @@
 
     echo json_encode($result);
     
-    function addOrder($users_id, $total_usd, $total_sgd) {
+    function addOrder($users_id, $total_usd, $total_sgd, $usd_sgd) {
         global $db, $table_orders;
-        $query_string = "INSERT INTO $table_orders (users_id, total_usd, total_sgd) VALUES (:users_id, :total_usd, :total_sgd);";
+        $query_string = "INSERT INTO $table_orders (users_id, total_usd, total_sgd, usd_sgd) VALUES (:users_id, :total_usd, :total_sgd, :usd_sgd);";
         $query = $db->prepare($query_string);
         $query->bindParam(':users_id', $users_id, PDO::PARAM_INT);
         $query->bindParam(':total_usd', $total_usd, PDO::PARAM_INT);
         $query->bindParam(':total_sgd', $total_sgd, PDO::PARAM_INT);
+        $query->bindParam(':usd_sgd', $usd_sgd, PDO::PARAM_STR);
         $query->execute();
 
         return $db->lastInsertId();
