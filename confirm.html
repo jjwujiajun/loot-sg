@@ -77,20 +77,20 @@
                 <hr ng-hide="item == confirm.items[0]">
 
             </div>
-            <div class="confirm-total">
-                <div class="confirm-row">
-                    <div class="confirm-header">
+            <div class="total">
+                <div class="total-row">
+                    <div class="total-header">
                         <span>Total USD</span>
                     </div>
-                    <div class="confirm-price">
+                    <div class="total-price">
                         <span class="confirmed-value">{{confirm.orderInfo.totalUsd / 100.00 | currency : 'US$'}}</span>
                     </div>
                 </div>
-                <div class="confirm-row">
-                    <div class="confirm-header">
+                <div class="total-row">
+                    <div class="total-header">
                         <span>Total SGD</span>
                     </div>
-                    <div class="confirm-price">
+                    <div class="total-price">
                         <span class="confirmed-value">{{confirm.orderInfo.totalSgd / 100.00 | currency : 'S$'}}</span>
                     </div>
                 </div>
