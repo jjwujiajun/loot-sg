@@ -58,7 +58,7 @@ mod.service('data', function() {
 	};
 
 	this.siteState = {
-		showPBOutput: false
+		showPBOutput: true
 	};
 });
 
