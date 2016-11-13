@@ -639,12 +639,12 @@ mod.controller('deliveryController', ['data', 'utility', '$location', function(d
 
 }]);
 
-mod.controller('confirmController', ['data', 'utility', '$location', '$window', '$http', '$scope', function(data, utility, $location, $window, $http, $scope){
+mod.controller('confirmController', ['data', 'utility', '$location', '$window', '$http', '$scope', '$filter', function(data, utility, $location, $window, $http, $scope, $filter){
 	var vm = this;
-	vm.orderInfo    = data.orderInfo;
-	vm.items        = data.items;
-	vm.itemCount    = data.items.length;
-	vm.getPlurality = utility.getPlurality;
+	vm.orderInfo       = data.orderInfo;
+	vm.items           = data.items;
+	vm.itemCount       = data.items.length;
+	vm.getPlurality    = utility.getPlurality;
 	var chargeCurrency = 'sgd';
 
 	// Get past day exchange rate
@@ -653,7 +653,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 		utility.configureMoneyJs(rate);
 		utility.updateTotalUsd();
 		utility.updateTotalSgd();
-		var fxEquation = data.orderInfo.totalUsd + ' &times; ' + data.orderInfo.usdSgd + ' = ' + data.orderInfo.totalSgd
+		var fxEquation = $filter('currency')(data.orderInfo.totalUsd / 100.00, 'US$') + ' &times; ' + data.orderInfo.usdSgd + ' = ' + $filter('currency')(data.orderInfo.totalSgd / 100.00, 'S$');
 		$('#total-sgd').popover({
 			title: 'Our exchange rate',
 			content: fxEquation,
