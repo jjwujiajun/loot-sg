@@ -641,6 +641,7 @@ mod.controller('deliveryController', ['data', 'utility', '$location', function(d
 
 mod.controller('confirmController', ['data', 'utility', '$location', '$window', '$http', '$scope', function(data, utility, $location, $window, $http, $scope){
 	var vm = this;
+	vm.orderInfo    = data.orderInfo;
 	vm.items        = data.items;
 	vm.itemCount    = data.items.length;
 	vm.getPlurality = utility.getPlurality;
