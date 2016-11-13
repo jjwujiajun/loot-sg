@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="pb-price-col">
-                    <span class="confirmed-value">{{item.unitPrice / 100 * item.quantity | currency : '$'}}</span>
+                    <span class="confirmed-value">{{item.unitPrice / 100 * item.quantity | currency : 'US$'}}</span>
                 </div>
 
                 <div class="additional-info">
@@ -74,8 +74,26 @@
                 </div>
 
                 <!-- Item separator line -->
-                <hr ng-hide="item == confirm.items[0]">
+                <hr>
 
+            </div>
+            <div class="total">
+                <div class="total-row">
+                    <div class="total-header">
+                        <span>Total USD</span>
+                    </div>
+                    <div class="total-price">
+                        <span class="confirmed-value">{{confirm.orderInfo.totalUsd / 100.00 | currency : 'US$'}}</span>
+                    </div>
+                </div>
+                <div class="total-row">
+                    <div class="total-header">
+                        <span>Total SGD</span>
+                    </div>
+                    <div class="total-price">
+                        <a><span class="confirmed-value" id="total-sgd">{{confirm.orderInfo.totalSgd / 100.00 | currency : 'S$'}}</span></a>
+                    </div>
+                </div>
             </div>
         </div>
 
