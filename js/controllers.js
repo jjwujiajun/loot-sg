@@ -58,7 +58,8 @@ mod.service('data', function() {
 	};
 
 	this.siteState = {
-		showPBOutput: true
+		showPBOutput: true,
+		isScrapping: false
 	};
 });
 
@@ -85,10 +86,15 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 	this.scrapeF21 = function(url) {
 		var urlString = "https://api.import.io/store/connector/7525a0ab-c857-4f60-8c23-73eb625083de/_query?input=webpage/url:" + encodeURIComponent(url) + "&&_apikey=b34ce8b353894e91b3ef33342f0c5ddb82cce3b3dd7be5b65977ed3fd532f3521d5f3c08c232bafdcc60a719fe799b1b03a95e181771f5bf511f85950dcb7c132b1575addd5fa8c5eeb70645857f693c";
 		console.log('scrapeF21 GET: ' + urlString);
+		
+		data.siteState.isScrapping = true;
+
 		return $http({
 			method : 'GET',
 			url    : urlString
 		}).then(function (result) {
+			data.siteState.isScrapping = false;
+
 			resultData = result.data;
 			newItem    = createEmptyItem();
 
@@ -145,6 +151,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 
 			data.items.push(newItem);
 		});
+		vm.isScrapping = false;
 	};
 
 	this.sendOrderEmail = function() {
