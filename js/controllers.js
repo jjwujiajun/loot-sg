@@ -653,6 +653,15 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 		utility.configureMoneyJs(rate);
 		utility.updateTotalUsd();
 		utility.updateTotalSgd();
+		var fxEquation = data.orderInfo.totalUsd + ' &times; ' + data.orderInfo.usdSgd + ' = ' + data.orderInfo.totalSgd
+		$('#total-sgd').popover({
+			title: 'Our exchange rate',
+			content: fxEquation,
+			html : true,
+			placement: 'auto bottom',
+			trigger: 'hover',
+			container: 'body'
+		});
 	});
 
 	// Configure Checkout.js
