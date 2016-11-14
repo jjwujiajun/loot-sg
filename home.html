@@ -15,19 +15,20 @@
     <div class="container">
         <div class="hero-content">
             <div class="hero-title">
-                <h1>Overseas shopping, <span>simplified</span>.</h1>
+                <h1>Overseas shopping, delivered for <span>free</span>.</h1>
                 <span class="subtitle">Loot helps you get stuff from the U.S., delivered to Singapore for free.</span>
             </div>
 
             <form name="putBom" class="form-group put-bom-wrapper">
 
-                <div class="input-group put-bom-input">
+                <div class="put-bom-input">
                     <span ng-show="!home.siteState.showPBOutput && home.data.items.length > 0" class="badge progress-bar-danger" id="pb-cart-size">{{home.data.items.length}}</span>
-                    <input class="form-control" id="putBomInput" type="text" name="itemURL" placeholder="{{home.urlField.placeholder}}" ng-model="home.urlField.text" ng-model-options='{ debounce: 100 }' ng-change="home.scrapeURL()" ng-click="home.showPutBom()">
-                    <span class="input-group-addon put-bom-input-btn">
-                        <span ng-show="!home.siteState.isScraping">Fetch</span>
+
+                    <div id="pb-scraper-loading">
                         <img src="./images/loading.gif" ng-show="home.siteState.isScraping" />
-                    </span>
+                    </div>
+
+                    <input class="form-control" id="putBomInput" type="text" name="itemURL" placeholder="{{home.urlField.placeholder}}" ng-model="home.urlField.text" ng-model-options='{ debounce: 100 }' ng-change="home.scrapeURL()" ng-click="home.showPutBom()">
                 </div>
 
                 <div class="put-bom-output" ng-class="{'fade': home.siteState.showPBOutput && home.data.items.length > 0}">
@@ -84,7 +85,6 @@
                         </div>
                     </div>
                 </div>
-                <span class="note">* Items from Amazon should be over $20 and under 3KG.</span>
             </form>
         </div>
     </div>
@@ -92,9 +92,15 @@
     <div class="ATF-deco" ng-class="{'fade': home.siteState.showPBOutput && home.data.items.length > 0}">
         <img src="./images/ATF_deco_spacedout.png">
 
-        <div>
-            <a href="https://www.amazon.com"><img src="./images/Logo_amazon.png" /></a>
-            <a href="http://www.forever21.com"><img src="./images/Logo_F21_2.png" /></a>
+        <div class="merchant-logos">
+            <div class="title">Works with</div>
+            <div class="merchant-logo">
+                <a href="https://www.amazon.com"><img src="./images/Logo_amazon.png" /></a>
+                <span class="note">* Items from Amazon should be over $20 and under 3KG.</span>
+            </div>
+            <div class="merchant-logo">
+                <a href="http://www.forever21.com"><img src="./images/Logo_F21_2.png" /></a>
+            </div>
         </div>
     </div>
 </div>
