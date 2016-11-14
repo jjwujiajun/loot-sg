@@ -4,7 +4,7 @@
         <div class="menu-wrapper">
             <div class="menu-item" id="how-it-works-menu" ng-click="home.hidePutBom()"><a>How it works</a></div>
             <div class="menu-item" id="why-loot-menu" ng-click="home.hidePutBom()"><a>Why Loot?</a></div>
-            <a href="./#/"><img class="menu-item" src="./images/loot-logo-blue.png" /></a>
+            <a><img id="menu-logo" class="menu-item" src="./images/loot-logo-blue.png" /></a>
             <div class="menu-item"><a href="#/faq">FAQ</a></div>
             <div class="menu-item"><a href="#/contacts">Contact Us</a></div>
         </div>
@@ -22,10 +22,11 @@
             <form name="putBom" class="form-group put-bom-wrapper">
 
                 <div class="input-group put-bom-input">
+                    <span ng-show="!home.siteState.showPBOutput && home.data.items.length > 0" class="badge progress-bar-danger" id="pb-cart-size">{{home.data.items.length}}</span>
                     <input class="form-control" id="putBomInput" type="text" name="itemURL" placeholder="{{home.urlField.placeholder}}" ng-model="home.urlField.text" ng-model-options='{ debounce: 100 }' ng-change="home.scrapeURL()" ng-click="home.showPutBom()">
                     <span class="input-group-addon put-bom-input-btn">
-                        <span ng-show="!home.siteState.isScrapping">Enter</span>
-                        <img src="./images/loading.gif" ng-show="home.siteState.isScrapping" />
+                        <span ng-show="!home.siteState.isScraping">Fetch</span>
+                        <img src="./images/loading.gif" ng-show="home.siteState.isScraping" />
                     </span>
                 </div>
 
