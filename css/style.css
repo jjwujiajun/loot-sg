@@ -134,6 +134,8 @@ img.menu-item {
     right: 0;
 
     z-index: 100;
+
+    padding: 0 10px;
 }
 
 .hero-title {
@@ -171,8 +173,6 @@ img.menu-item {
 
 .put-bom-input {
     margin-bottom: 10px;
-    margin-left: 10px;
-    margin-right: 10px; 
 }
 .put-bom-input input[type=text] {
     height: 60px;
@@ -197,10 +197,12 @@ img.menu-item {
     z-index: 3;
 }
 #pb-scraper-loading{
+    /*border: 1px solid black;*/
+
     position: absolute;
     top: 0;
     bottom: 0;
-    right: 20px;
+    right: 5px;
 
     z-index: 3;
 
@@ -208,10 +210,12 @@ img.menu-item {
     margin-bottom: auto; 
 
     height: 50px;
-    background-color: white;
 
+    background-color: white;
     /*border-left: 1px solid gray;*/
     box-shadow: -15px 0 5px -10px white;
+
+    padding: 0 10px;
 }
 #pb-scraper-loading img{
     height: 100%;
