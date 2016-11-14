@@ -412,7 +412,7 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 	vm.data = data;
 	vm.siteState = data.siteState;
 
-	vm.urlField = {'text': '', 'placeholder': 'Just copy and paste your item URL here'};
+	vm.urlField = {'text': '', 'placeholder': 'Paste the link to the item you like here'};
 	var firstScrape = true;
 
 	var isValidURL = function(str) {
@@ -462,7 +462,7 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 			utility.scrapeF21(vm.urlField.text).then(function(){
 				vm.urlField.text = '';
 				if(firstScrape){
-					vm.urlField.placeholder = 'Paste your next item URL here'
+					vm.urlField.placeholder = 'Paste your next item link here'
 					firstScrape = false
 				}
 			});
