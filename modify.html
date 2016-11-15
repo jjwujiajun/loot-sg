@@ -53,12 +53,13 @@
             </div>
 
         <!-- PutBom Input -->
-        <div class="input-group put-bom-input" id="putBomInput" ng-class="{hidePB: !modify.pbInputIsShown}">
+        <div class="put-bom-input" id="putBomInput" ng-class="{hidePB: !modify.pbInputIsShown}">
+
+            <div id="pb-scraper-loading" ng-show="modify.siteState.isScraping">
+                <img src="./images/loading.gif" />
+            </div>
+
             <input class="form-control" type="text" name="itemURL" placeholder="{{modify.urlField.placeholder}}" ng-model="modify.urlField.text" ng-model-options='{ debounce: 100 }' ng-change="modify.scrapeURL()">
-            <span class="input-group-addon put-bom-input-btn">
-                <span ng-show="!modify.siteState.isScraping">Enter</span>
-                <img src="./images/loading.gif" ng-show="modify.siteState.isScraping" />
-            </span>
         </div>
 
         <!-- Add to cart -->

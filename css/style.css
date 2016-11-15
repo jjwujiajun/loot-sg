@@ -172,6 +172,7 @@ img.menu-item {
 }
 
 .put-bom-input {
+    position: relative;
     margin-bottom: 10px;
 }
 .put-bom-input input[type=text] {
