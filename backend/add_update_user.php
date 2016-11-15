@@ -18,7 +18,9 @@
     // Logic block
     if($db_on) {
         $return_id          = addUpdateUser($userInfo);
-        $response['userId'] = $return_id;
+        if($return_id) {
+            $response['userId'] = $return_id;    
+        }
     }
     
     echo json_encode($response);
@@ -86,7 +88,7 @@
         $db->commit();
         
         return $last_insert_id;
-        // return user_id
+        // return user_id or 0
     }
 
 ?>
