@@ -37,11 +37,7 @@
         $query = $db->prepare($query_string);
         $query->bindParam(':email', $email, PDO::PARAM_STR);
         $query->execute();
-        $result = $query->fetch(PDO::FETCH_ASSOC);
-
-        if(!$result) {
-            return FALSE;
-        }
+        $result = $query->fetch(PDO::FETCH_ASSOC); // Returns false if no results
 
         return $result;
         // return user_id or false
