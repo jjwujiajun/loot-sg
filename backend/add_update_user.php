@@ -82,8 +82,10 @@
         $insert->bindParam(':email', $email, PDO::PARAM_STR);
         $insert->execute();
 
+        $last_insert_id = $db->lastInsertId();
         $db->commit();
-        return $db->lastInsertId();
+        
+        return $last_insert_id;
         // return user_id
     }
 
