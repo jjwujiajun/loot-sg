@@ -644,9 +644,13 @@ mod.controller('deliveryController', ['data', 'utility', '$location', function(d
 	vm.next = function(){
 		utility.addUpdateUser().then(function(response){
 			if (data.userInfo.userId == -1){
-				data.userInfo.userId = response.userId;
-			} 
-			$location.path('confirm');	
+				if(response){
+					data.userInfo.userId = response.userId;	
+					$location.path('confirm');
+				} else {
+					alert('An error occured when saving your info. Please contact help@loot.sg.');	
+				}	
+			}
 		});
 	}
 
