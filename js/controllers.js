@@ -549,7 +549,7 @@ mod.controller('faqController', ['utility', '$sce', function(utility, $sce) {
 		},
 		{
 			'question': 'Can I use a coupon code from the merchants?',
- 			'answer': '<p>Loot’s coupon ninjas automatically find the best prices available - we proactively refund you any savings to your credit card.</p><p>Additionally, we may be able to accommodate coupon codes! Leave a comment under “Additional instructions” when making your order. If your items are eligible for the coupon, expect to see a refund to your credit card within 7 business days :)</p>'
+ 			'answer': '<p>You may! Leave it as a comment under “Additional instructions” when making your order. If your items are eligible for the coupon, expect to see a refund to your credit card within 7 business days :)</p>' //<p>Loot’s coupon ninjas automatically find the best prices available - we proactively refund you any savings to your credit card.</p>
 		},
 		{
 			'question': 'Is your payment link secure?',
