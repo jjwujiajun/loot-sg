@@ -123,6 +123,8 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 				newItem.imageUrl  = result.image2;
 			} else if(result.image3) {
 				newItem.imageUrl  = result.image3;
+			} else {
+				newItem.imageUrl = './images/no_image_avail-F21.png';
 			}
 
 			// Sizes

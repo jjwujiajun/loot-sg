@@ -36,8 +36,7 @@
                     <div class="pb-item" ng-repeat="item in home.data.items | orderBy: '-'">
                         <div class="pb-pic-col">
                             <a href="{{item.url}}">
-                                <img ng-src="{{item.imageUrl}}" ng-show="item.imageUrl != '' "/>
-                                <img src="./images/no_image_avail.png" ng-show="item.imageUrl == '' ">
+                                <img src="{{item.imageUrl}}"/>
                             </a>
                         </div>
                         <div class="pb-middle-col">
