@@ -22,10 +22,6 @@
     // Load and Configure PHPMailer
     require_once("./phpmailer/PHPMailerAutoload.php");
 
-    $mail = new PHPMailer();
-    $mail->isSendmail();
-    $mail->isHTML(true); // Set email format to HTML
-
     // Prepare email HTML body
     $emailBody = '
     <head>
@@ -352,17 +348,18 @@
         </div> 
     </body>';
 
+    $mail = new PHPMailer();
+    $mail->isSendmail();
+    $mail->isHTML(true); // Set email format to HTML
     $mail->Body = $emailBody;
 
-    // Set email parameters for client
+    // Set email parameters for user
     $mail->addReplyTo('help@loot.sg', 'Loot'); // Reply to Loot
     $mail->setFrom('help@loot.sg', 'Loot');
-    if($email_dev) {
-        $mail->addAddress('will@loot.sg', $userInfo['firstName'] + ' ' + $userInfo['lastName']);
-    } else {
-        $mail->addAddress($userInfo['email'], $userInfo['firstName'] + ' ' + $userInfo['lastName']);
-    }
-    $mail->Subject = 'Your Loot Receipt';
+    
+    // Import user email settings
+    include 'email-user-config.php';
+    
     $mail->Subject = 'Your Receipt for Loot Order #' . $order_id;
     
 
