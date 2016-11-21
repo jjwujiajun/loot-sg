@@ -386,11 +386,10 @@
     // Set email parameters for team
     $mail->addReplyTo($userInfo['email'], $userInfo['firstName'] + ' ' + $userInfo['lastName']); // Reply to client
     $mail->setFrom('server@loot.sg', 'Loot');
-    if($email_dev) {
-        $mail->addAddress('will@loot.sg');
-    } else {
-        $mail->addAddress('help@loot.sg', 'Receipts');
-    }
+
+    // Import team email settings
+    include 'email-team-config.php';
+
     $mail->Subject = 'Loot Receipt #' . $order_id;
 
     if($email_on) {
