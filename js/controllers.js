@@ -449,7 +449,13 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 			angular.element(pbInput).focus();
 		});
 
-		var backToTopButton = document.querySelector('#backToTop');
+		var addItemsButton = document.querySelector('#add-items');
+		angular.element(addItemsButton).click(function () {
+			angular.element("body").animate({ scrollTop: '0'});
+			angular.element(pbInput).focus();
+		});
+
+		var backToTopButton = document.querySelector('#back-to-top');
 		angular.element(backToTopButton).click(function () {
 			angular.element("body").animate({ scrollTop: '0'});
 			angular.element(pbInput).focus();
