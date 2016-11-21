@@ -650,6 +650,8 @@ mod.controller('deliveryController', ['data', 'utility', '$location', function(d
 				} else {
 					alert('An error occured when saving your info. Please contact help@loot.sg.');	
 				}	
+			} else {
+				$location.path('confirm');
 			}
 		});
 	}
