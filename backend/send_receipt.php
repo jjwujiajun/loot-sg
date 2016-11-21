@@ -269,7 +269,7 @@
                 <div class="delivery-info">' .
                     $userInfo['addressLine1'] . '<br />' .
                     $userInfo['addressLine2'] . '<br />' .
-                    $userInfo['postalCode'] . '
+                    'Singapore ' . $userInfo['postalCode'] . '
                 </div>
                 <br />
                 <div class="delivery-info">
