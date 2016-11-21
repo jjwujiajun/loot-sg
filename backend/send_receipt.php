@@ -360,7 +360,7 @@
     // Import user email settings
     include 'email-user-config.php';
     
-    $mail->Subject = 'Your Receipt for Loot Order #' . $order_id;
+    $mail->Subject = 'Receipt for your Loot Order. #' . $order_id;
     
 
     $result = array();
@@ -388,7 +388,7 @@
     // Import team email settings
     include 'email-team-config.php';
 
-    $mail->Subject = 'Loot Receipt #' . $order_id;
+    $mail->Subject = 'Receipt for Loot Order #' . $order_id;
 
     if($email_on) {
         if(!$mail->send()) {
