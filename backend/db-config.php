@@ -21,4 +21,3 @@
     
     // Connect to the DB
     $db = new PDO("mysql:host=$hostname;dbname=$db_name", $username, $password);
-?>

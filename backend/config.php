@@ -8,4 +8,3 @@
     $db_dev    = TRUE;
     $email_dev = TRUE;
 
-?>
