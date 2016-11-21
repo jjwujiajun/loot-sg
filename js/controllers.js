@@ -147,8 +147,12 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 			console.log(newItem.useCircleForSizes);
 
 			// Select first size and color
-			newItem.size = newItem.sizes[0]
-			newItem.color = newItem.colors[0]
+			if(typeof newItem.sizes[0] !== 'undefined') {
+				newItem.size = newItem.sizes[0];    			
+			}
+			if(typeof newItem.colors[0] !== 'undefined') {
+				newItem.color = newItem.colors[0]
+			}
 
 			data.items.push(newItem);
 		});
