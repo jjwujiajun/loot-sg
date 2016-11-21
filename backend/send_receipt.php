@@ -363,6 +363,7 @@
         $mail->addAddress($userInfo['email'], $userInfo['firstName'] + ' ' + $userInfo['lastName']);
     }
     $mail->Subject = 'Your Loot Receipt';
+    $mail->Subject = 'Your Receipt for Loot Order #' . $order_id;
     
 
     $result = array();
