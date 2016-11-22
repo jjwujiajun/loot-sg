@@ -804,6 +804,9 @@ td div {
 .confirmed .total-row {
     display: table-row;
 }
+.confirmed .total-row.final {
+    font-size: 20px;
+}
 
 .confirmed .total-header {
     display: table-cell;
