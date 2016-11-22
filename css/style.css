@@ -366,16 +366,26 @@ img.menu-item {
 .cart-actions {
     margin-top: 10px;
 }
-.cart-actions .checkout {
+.cart-actions .btn {
     display: inline-block;
-    
-    width: 100%;
-    height: 50px;
-    line-height: 35px;
 
     font-size: 15px;
     text-align: center;
+
+    line-height: 35px;
+}
+.cart-actions .add-items {
+    background-color: #EBEBEB;
+}
+.cart-actions .checkout {
     background: #6ECEF1;
+}
+
+.ATF .cart-actions .add-items {
+    width: 40%
+}
+.ATF .cart-actions .checkout {
+    width: 60%;
 }
 
 .ATF-deco {
@@ -837,19 +847,8 @@ td div {
     visibility: hidden;
 }
 
-.modify .btn {
+.modify.cart-actions .btn {
     width: 50%;
-
-    height: 50px;
-
-    line-height: 35px;
-
-    font-size: 15px;
-    text-align: center;
-}
-
-.modify .add-items {
-    background-color: #EBEBEB;
 }
 
 /********  Done  ********/
