@@ -414,7 +414,7 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 	vm.data = data;
 	vm.siteState = data.siteState;
 
-	vm.urlField = {'text': '', 'placeholder': 'Paste the link to the item you like here'};
+	vm.urlField = {'text': '', 'placeholder': 'Paste the link to the item you like here. eg. http://www.forever21.com/ProductID=225453'};
 	var firstScrape = true;
 
 	var isValidURL = function(str) {
