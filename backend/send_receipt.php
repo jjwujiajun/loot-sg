@@ -246,6 +246,12 @@
             .final-price-calcs .final {
                 font-size: 30px;
             }
+            #message {
+                font-size: 17px;
+            }
+            .receipt-header p{
+                font-size: 25px;
+            }
         </style>
     </head>';
 
@@ -255,8 +261,16 @@
             <div class="header">
                 <div id="header-circle">
                     <img src="http://loot.sg/images/loot-logo-blue.png" class="logo"/>
-                    <p>Receipt</p>
                 </div>
+            </div>
+            <div class="put-bom-wrapper" id="message">
+                <p>Thank you for ordering with Loot! You should receive your order within 3 weeks, hand-delivered our team.</p>
+                <p><strong>Questions?</strong> Simply reply to this email.</p>
+                <p>Thank you,
+                <br/>Loot</p>
+            </div>
+            <div class="header receipt-header">
+                <p>Receipt</p>
             </div>
             <hr>
 
