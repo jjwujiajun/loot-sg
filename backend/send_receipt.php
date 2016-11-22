@@ -293,7 +293,7 @@
                     </div>
                     <div class="pb-middle-col">
                         <div class="middle-col-row row1">
-                            <div class=""><a href="' . $item['url'] . '">' . $item['name'] . '</a></div>
+                            <div><a href="' . $item['url'] . '">' . $item['name'] . '</a></div>
                         </div>
                         <div class="middle-col-row row2">
                             <div class="item-colors">
