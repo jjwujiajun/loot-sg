@@ -269,7 +269,7 @@
                 <div class="delivery-info">' .
                     $userInfo['addressLine1'] . '<br />' .
                     $userInfo['addressLine2'] . '<br />' .
-                    $userInfo['postalCode'] . '
+                    'Singapore ' . $userInfo['postalCode'] . '
                 </div>
                 <br />
                 <div class="delivery-info">
@@ -289,12 +289,11 @@
         $emailBody .= '
                 <div class="pb-item">
                     <div class="pb-pic-col">
-                        <img src="' . $item['imageUrl'] . '" />
+                        <a href="' . $item['url'] . '"><img src="' . $item['imageUrl'] . '" /></a>
                     </div>
                     <div class="pb-middle-col">
                         <div class="middle-col-row row1">
-                            <div class="">' . $item['name'] . '</div>
-                            <div class="item-url"><a href="' . $item['url'] . '">' . $item['url'] . '</a></div>
+                            <div><a href="' . $item['url'] . '">' . $item['name'] . '</a></div>
                         </div>
                         <div class="middle-col-row row2">
                             <div class="item-colors">
