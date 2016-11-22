@@ -91,16 +91,15 @@
                 </div>
                 <div class="total-row">
                     <div class="total-header">
-                        <span>Total USD</span>
+                        <span>Total</span>
                     </div>
                     <div class="total-price">
                         <span class="confirmed-value">{{confirm.orderInfo.totalUsd / 100.00 | currency : 'US$'}}</span>
                     </div>
                 </div>
-                <hr>
                 <div class="total-row final">
                     <div class="total-header">
-                        <span>Total SGD</span>
+                        <span>You pay</span>
                     </div>
                     <div class="total-price">
                         <a><span class="confirmed-value" id="total-sgd">{{confirm.orderInfo.totalSgd / 100.00 | currency : 'S$'}}</span></a>
