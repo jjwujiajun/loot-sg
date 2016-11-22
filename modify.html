@@ -48,28 +48,30 @@
                     </div>
                 </div>
                 <!-- Item separator line -->
-                <hr ng-hide="item == modify.data.items[0]">
+                <hr />
 
             </div>
 
-        <!-- PutBom Input -->
-        <div class="put-bom-input" id="putBomInput" ng-class="{hidePB: !modify.pbInputIsShown}">
+            <!-- PutBom Input -->
+            <div class="put-bom-input" id="putBomInput" ng-class="{hidePB: !modify.pbInputIsShown}">
 
-            <div id="pb-scraper-loading" ng-show="modify.siteState.isScraping">
-                <img src="./images/loading.gif" />
+                <div id="pb-scraper-loading" ng-show="modify.siteState.isScraping">
+                    <img src="./images/loading.gif" />
+                </div>
+
+                <input class="form-control" type="text" name="itemURL" placeholder="{{modify.urlField.placeholder}}" ng-model="modify.urlField.text" ng-model-options='{ debounce: 100 }' ng-change="modify.scrapeURL()">
             </div>
 
-            <input class="form-control" type="text" name="itemURL" placeholder="{{modify.urlField.placeholder}}" ng-model="modify.urlField.text" ng-model-options='{ debounce: 100 }' ng-change="modify.scrapeURL()">
-        </div>
+            <!-- Add to cart -->
+            <div class="modify cart-actions">
+                <div class="btn add-items" ng-click="modify.togglePBInput()">{{modify.pbInputIsShown ? 'Close Input' : '+ Items'}}</div>
+                <div class="btn checkout" ng-click="modify.save()">Save</div>
+            </div>
+            
+            <!-- <span class="note">
+                * Please ensure that items from Amazon are over $20 and under 3KG.
+            </span> -->
 
-        <!-- Add to cart -->
-        <div class="modify cart-actions">
-            <div class="btn add-items" ng-click="modify.togglePBInput()">{{modify.pbInputIsShown ? 'Close Input' : '+ Items'}}</div>
-            <div class="btn checkout" ng-click="modify.save()">Save</div>
         </div>
-
-        </div>
-
-        <span class="note">* Items from Amazon should be over $20 and under 3KG.</span>
     </form>
 </div>

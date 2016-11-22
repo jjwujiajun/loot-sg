@@ -22,10 +22,6 @@
     // Load and Configure PHPMailer
     require_once("./phpmailer/PHPMailerAutoload.php");
 
-    $mail = new PHPMailer();
-    $mail->isSendmail();
-    $mail->isHTML(true); // Set email format to HTML
-
     // Prepare email HTML body
     $emailBody = '
     <head>
@@ -273,7 +269,7 @@
                 <div class="delivery-info">' .
                     $userInfo['addressLine1'] . '<br />' .
                     $userInfo['addressLine2'] . '<br />' .
-                    $userInfo['postalCode'] . '
+                    'Singapore ' . $userInfo['postalCode'] . '
                 </div>
                 <br />
                 <div class="delivery-info">
@@ -293,12 +289,11 @@
         $emailBody .= '
                 <div class="pb-item">
                     <div class="pb-pic-col">
-                        <img src="' . $item['imageUrl'] . '" />
+                        <a href="' . $item['url'] . '"><img src="' . $item['imageUrl'] . '" /></a>
                     </div>
                     <div class="pb-middle-col">
                         <div class="middle-col-row row1">
-                            <div class="">' . $item['name'] . '</div>
-                            <div class="item-url"><a href="' . $item['url'] . '">' . $item['url'] . '</a></div>
+                            <div><a href="' . $item['url'] . '">' . $item['name'] . '</a></div>
                         </div>
                         <div class="middle-col-row row2">
                             <div class="item-colors">
@@ -352,17 +347,19 @@
         </div> 
     </body>';
 
+    $mail = new PHPMailer();
+    $mail->isSendmail();
+    $mail->isHTML(true); // Set email format to HTML
     $mail->Body = $emailBody;
 
-    // Set email parameters for client
+    // Set email parameters for user
     $mail->addReplyTo('help@loot.sg', 'Loot'); // Reply to Loot
     $mail->setFrom('help@loot.sg', 'Loot');
-    if($email_dev) {
-        $mail->addAddress('will@loot.sg', $userInfo['firstName'] + ' ' + $userInfo['lastName']);
-    } else {
-        $mail->addAddress($userInfo['email'], $userInfo['firstName'] + ' ' + $userInfo['lastName']);
-    }
-    $mail->Subject = 'Your Loot Receipt';
+    
+    // Import user email settings
+    include 'email-user-config.php';
+    
+    $mail->Subject = 'Receipt for your Loot Order. #' . $order_id;
     
 
     $result = array();
@@ -386,12 +383,11 @@
     // Set email parameters for team
     $mail->addReplyTo($userInfo['email'], $userInfo['firstName'] + ' ' + $userInfo['lastName']); // Reply to client
     $mail->setFrom('server@loot.sg', 'Loot');
-    if($email_dev) {
-        $mail->addAddress('will@loot.sg');
-    } else {
-        $mail->addAddress('help@loot.sg', 'Receipts');
-    }
-    $mail->Subject = 'Loot Receipt #' . $order_id;
+
+    // Import team email settings
+    include 'email-team-config.php';
+
+    $mail->Subject = 'Receipt for Loot Order #' . $order_id;
 
     if($email_on) {
         if(!$mail->send()) {

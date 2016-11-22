@@ -4,7 +4,7 @@
         <div class="menu-wrapper">
             <div class="menu-item" id="how-it-works-menu" ng-click="home.hidePutBom()"><a>How it works</a></div>
             <div class="menu-item" id="why-loot-menu" ng-click="home.hidePutBom()"><a>Why Loot?</a></div>
-            <a><img id="menu-logo" class="menu-item" src="./images/loot-logo-blue.png" /></a>
+            <a><img id="menu-logo" class="menu-item" src="./images/loot-logo-blue-beta.png" /></a>
             <div class="menu-item"><a href="#/faq">FAQ</a></div>
             <div class="menu-item"><a href="#/contacts">Contact Us</a></div>
         </div>
@@ -15,8 +15,8 @@
     <div class="container">
         <div class="hero-content">
             <div class="hero-title">
-                <h1>Overseas shopping, delivered for <span>free</span>.</h1>
-                <span class="subtitle">Loot helps you get stuff from the U.S., delivered to Singapore for free.</span>
+                <h1><span>Free shipping</span> to Singapore.</h1>
+                <span class="subtitle">Tell us what you like. Have it delivered in two weeks.</span>
             </div>
 
             <form name="putBom" class="form-group put-bom-wrapper">
@@ -36,8 +36,7 @@
                     <div class="pb-item" ng-repeat="item in home.data.items | orderBy: '-'">
                         <div class="pb-pic-col">
                             <a href="{{item.url}}">
-                                <img ng-src="{{item.imageUrl}}" ng-show="item.imageUrl != '' "/>
-                                <img src="./images/no_image_avail.png" ng-show="item.imageUrl == '' ">
+                                <img src="{{item.imageUrl}}"/>
                             </a>
                         </div>
                         <div class="pb-middle-col">
@@ -79,11 +78,14 @@
 
                     <!-- Add to cart -->
                     <div class="cart-actions">
+                        <div class="btn add-items" id="add-items">
+                            + Items
+                        </div>
                         <div class="btn checkout" ng-click="home.checkOut()">
                             Checkout
-                            <img src="">
                         </div>
                     </div>
+
                 </div>
             </form>
         </div>
@@ -94,12 +96,12 @@
 
         <div class="merchant-logos">
             <div class="title">Works with</div>
+            <!-- <div class="merchant-logo">
+                <a href="https://www.amazon.com" target="_blank"><img src="./images/Logo_amazon.png" /></a>
+                <span class="note">* Please ensure that items from Amazon are over $20 and under 3KG.</span>
+            </div> -->
             <div class="merchant-logo">
-                <a href="https://www.amazon.com"><img src="./images/Logo_amazon.png" /></a>
-                <span class="note">* Items from Amazon should be over $20 and under 3KG.</span>
-            </div>
-            <div class="merchant-logo">
-                <a href="http://www.forever21.com"><img src="./images/Logo_F21_2.png" /></a>
+                <a href="http://www.forever21.com" target="_blank"><img src="./images/Logo_F21_2.png" /></a>
             </div>
         </div>
     </div>
@@ -116,22 +118,22 @@
                     <div class="step-title">
                         <span style="white-space: nowrap;"><span class="step-number" id="1">1 </span>Shop online</span>
                     </div>
-                    <div class="step-subtitle" id="1">Shop at <a href="http://www.amazon.com/" target="_blank">www.amazon.com</a> or <a href="http://www.forever21.com/" target="_blank">www.forever21.com</a> and send us the item URL.</div>
+                    <div class="step-subtitle" id="1">Shop at <!-- <a href="http://www.amazon.com/" target="_blank">Amazon</a> or  --><a href="http://www.forever21.com/" target="_blank">Forever 21</a> and send us the item URL.</div>
                 </div>
                 <div class="step-wrapper">
                     <img src="./images/Ic_Cart.png">
                     <div class="step-title">
-                        <span style="white-space: nowrap;"><span class="step-number" id="2">2 </span>Check out </span>on Loot
+                        <span style="white-space: nowrap;"><span class="step-number" id="2">2 </span>Check out </span> via Loot
                     </div>
 
-                    <div class="step-subtitle" id="2">We accept debit or credit cards.</div>
+                    <div class="step-subtitle" id="2">We accept debit &amp; credit cards.</div>
                 </div>
                 <div class="step-wrapper">
                     <div class="step-image-wrapper"><img src="./images/Ic_Present.png"></div>
                     <div class="step-title">
-                        <span style="white-space: nowrap;"><span class="step-number" id="3">3 </span>Delivered</span>
+                        <span style="white-space: nowrap;"><span class="step-number" id="3">3 </span>Receive items</span>
                     </div>
-                    <div class="step-subtitle" id="3">Have it delivered in 2 weeks!</div>
+                    <div class="step-subtitle" id="3">Receive your items in 2 weeks!</div>
                 </div>
             </div>
         </div>
@@ -144,13 +146,13 @@
             <td><img src="./images/Pic_Freeshipping.png"></td>
             <td>
                 <div class="title">Free shipping</div><br />
-                <div class="subtitle">Delivered from U.S. merchants to your Singapore address.</div>
+                <div class="subtitle">Delivered from U.S. merchants to your doorstep.</div>
             </td>
         </tr>
         <tr>
             <td>
                 <div class="title">Upfront pricing</div><br />
-                    <div class="subtitle">No hidden fees, forex markup, or GST. Pay what you see.</div>
+                    <div class="subtitle">Pay the price you see. No hidden fees.</div>
             </td>
             <td><img src="./images/Pic_Upfrontpricing.png"></td>
         </tr>
@@ -158,7 +160,7 @@
             <td><img src="./images/Pic_Hasslefree.png"></td>
             <td>
                 <div class="title">Hassle-free</div><br />
-                <div class="subtitle">Save time on creating an account. Check out as guest.</div>
+                <div class="subtitle">No need to create an account. Check out as guest.</div>
             </td>
         </tr>
     </table>
@@ -169,9 +171,9 @@
         <div class="final-content">
             <div class="final-message">
                 Online shopping +<br />
-                <span>Free international delivery</span>.
+                <span>Free international delivery</span>!
             </div>
-            <div><button type="button" class="btn btn-primary" id="backToTop" ng-click="home.showPutBom()">Try Loot now!</button></div>
+            <div><button type="button" class="btn btn-primary" id="back-to-top" ng-click="home.showPutBom()">Try Loot now!</button></div>
         </div>
 <!-- Temporary turned off this feature
         <div class="social-media-wrapper">

@@ -16,18 +16,6 @@
     // Load and Configure PHPMailer
     require_once("./phpmailer/PHPMailerAutoload.php");
 
-    $mail = new PHPMailer();
-
-    $mail->isSendmail();
-    $mail->setFrom('server@loot.sg', 'Loot');
-    if($email_dev) {
-        $mail->addAddress('will@loot.sg', 'Will');
-    } else {
-        $mail->addAddress('orders@loot.sg', 'Orders');    
-    }
-
-    $mail->isHTML(true);                                  // Set email format to HTML
-
     // prepare email body text
     $emailBody = '
         <head>
@@ -93,6 +81,15 @@
 
     $emailBody .= "* Reply to this email to respond to the client.";
     $emailBody .= '</body></html>';
+
+    $mail = new PHPMailer();
+    $mail->isSendmail();
+    $mail->setFrom('server@loot.sg', 'Loot');
+
+    // Import team email settings
+    include 'email-team-config.php';
+
+    $mail->isHTML(true);
 
     $mail->Subject = 'Loot Order';
     $mail->Body    = $emailBody;
