@@ -35,13 +35,13 @@
 
                     <div class="pb-item" ng-repeat="item in home.data.items | orderBy: '-'">
                         <div class="pb-pic-col">
-                            <a href="{{item.url}}" target="_blank">
-                                <img src="{{item.imageUrl}}"/>
+                            <a ng-href="{{item.url}}" target="_blank">
+                                <img ng-src="{{item.imageUrl}}"/>
                             </a>
                         </div>
                         <div class="pb-middle-col">
                             <div class="middle-col-row row1">
-                                <div><a href="{{item.url}}" target="_blank">{{item.name}}</a></div>
+                                <div><a ng-href="{{item.url}}" target="_blank">{{item.name}}</a></div>
                             </div>
                             <div class="middle-col-row row2">
                                 <div class="item-colors">
