@@ -157,8 +157,8 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 			}
 
 			data.items.push(newItem);
+			data.siteState.isScraping = false;
 		});
-		data.siteState.isScraping = false;
 	};
 
 	this.sendOrderEmail = function() {
