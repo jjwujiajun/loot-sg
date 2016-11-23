@@ -158,7 +158,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 
 			data.items.push(newItem);
 		});
-		vm.isScraping = false;
+		data.siteState.isScraping = false;
 	};
 
 	this.sendOrderEmail = function() {
