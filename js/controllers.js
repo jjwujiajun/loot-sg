@@ -96,7 +96,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 		}).then(function (result) {
 			data.siteState.isScraping = false;
 
-			resultData = result.data;
+			var resultData = result.data;
 			newItem    = createEmptyItem();
 
 			result     = resultData.results[0];
@@ -153,7 +153,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 				newItem.size = newItem.sizes[0];    			
 			}
 			if(typeof newItem.colors[0] !== 'undefined') {
-				newItem.color = newItem.colors[0]
+				newItem.color = newItem.colors[0];
 			}
 
 			data.items.push(newItem);
@@ -303,7 +303,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 			console.log(rate);
 			return rate;
 		});	
-	}
+	};
 
 	this.configureMoneyJs = function(usd_sgd) {
 		fx.base = "USD";
@@ -314,15 +314,15 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 			from : "USD",
 			to   : "SGD"
 		};
-	}
+	};
 
 	var convertAndRound = function(amount){
 		return parseInt(accounting.toFixed(fx.convert(amount), 0));
-	}
+	};
 	
 	var replaceWithDash = function(obj){
 		angular.forEach(obj, function(value, field){
-			if(value == '') {
+			if(value === '') {
 				obj[field] = '-';
 			} 
 		});
@@ -341,19 +341,19 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 			sum += data.items[i].unitPrice * data.items[i].quantity;
 		}
 		data.orderInfo.totalUsd = sum;
-	}
+	};
 
 	this.updateTotalSgd = function() {
 		data.orderInfo.totalSgd = convertAndRound(data.orderInfo.totalUsd);
-	}
+	};
 
 	this.preprocessForEmail = function() {
 		// Replace blank fields with dashes
 		replaceWithDash(data.userInfo);
-		for(i = 0; i < data.items.length; i++) {
+		for(var i = 0; i < data.items.length; i++) {
 			replaceWithDash(data.items[i]);
 		}
-	}
+	};
 
 	this.goPageAndAnchorScroll = function(page, anchor) {
 		$location.path(page);
@@ -365,7 +365,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 
 		});
 
-	}
+	};
 
 	this.reverseItems = function() {
 		var reversedItems = [];
@@ -376,7 +376,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 		}
 
 		data.items = reversedItems;
-	}
+	};
 
 }]);
 
@@ -426,9 +426,9 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 			return true;
 		} else if (str.indexOf('forever21.com') != -1) {
 			return true;
-		};
+		}
 		return false;
-	}
+	};
 
 	// jQuery/jqLite DOM Manipulation
 	angular.element(document).ready(function () {
@@ -474,8 +474,8 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 			utility.scrapeF21(vm.urlField.text).then(function(){
 				vm.urlField.text = '';
 				if(firstScrape){
-					vm.urlField.placeholder = 'Paste your next item link here'
-					firstScrape = false
+					vm.urlField.placeholder = 'Paste your next item link here';
+					firstScrape = false;
 				}
 			});
 		}
@@ -484,32 +484,32 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 
 	vm.removeItem = function(itemNumber) {
 		vm.data.items.splice(itemNumber - 1, 1);
-	}
+	};
 
 	vm.selectColorForItem = function(color, item) {
 		item.color = color;
-	}
+	};
 
 	vm.selectSizeForItem = function(size, item) {
 		item.size = size;
-	}
+	};
 	
 	vm.checkOut = function(){
 		utility.updateTotalUsd();
 		$location.path('login');
-	}
+	};
 
 	vm.scroll = function(anchor){
 		$anchorScroll(anchor);
-	}
+	};
 
 	vm.showPutBom = function(){
 		vm.siteState.showPBOutput = true;
-	}
+	};
 
 	vm.hidePutBom = function(){
 		vm.siteState.showPBOutput = false;
-	}
+	};
 
 }]);
 
@@ -605,7 +605,7 @@ mod.controller('faqController', ['utility', '$sce', function(utility, $sce) {
 		}
 		]
 	}
-	]
+	];
 	
 	vm.renderHtml = $sce.trustAsHtml;
 
@@ -617,7 +617,7 @@ mod.controller('faqController', ['utility', '$sce', function(utility, $sce) {
 		var sectionContent = angular.element('#' + section.header);
 		sectionContent.slideToggle();
 
-	}
+	};
 }]);
 
 mod.controller('contactsController', ['utility', function(utility) {
@@ -632,7 +632,7 @@ mod.controller('loginController', ['data', 'utility', '$location', function(data
 
 	vm.back = function(){
 		$location.path('');
-	}
+	};
 
 	vm.next = function(){
 		utility.login().then(function(response){
@@ -641,7 +641,7 @@ mod.controller('loginController', ['data', 'utility', '$location', function(data
 			}
 			$location.path('delivery');
 		});
-	}
+	};
 
 }]);
 
@@ -651,7 +651,7 @@ mod.controller('deliveryController', ['data', 'utility', '$location', function(d
 
 	vm.back = function(){
 		$location.path('login');
-	}
+	};
 
 	vm.next = function(){
 		utility.addUpdateUser().then(function(response){
@@ -666,7 +666,7 @@ mod.controller('deliveryController', ['data', 'utility', '$location', function(d
 				$location.path('confirm');
 			}
 		});
-	}
+	};
 
 }]);
 
@@ -710,7 +710,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 				amount: data.orderInfo.totalSgd,
 				currency: chargeCurrency,
 				token: token.id
-			}
+			};
 
 			// Send POST request to server
 			$http({
@@ -741,7 +741,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 
 	vm.back = function(){
 		$location.path('delivery');
-	}
+	};
 
 	vm.confirmAndPay = function(){
 		// As a safety net, recalculate total again and convert
@@ -752,11 +752,11 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 		});
 
 		$scope.$on('$routeChangeStart', handler.close);
-	}
+	};
 
 	vm.modify = function(){
 		$location.path('modify');
-	}
+	};
 
 }]);
 
@@ -772,9 +772,9 @@ mod.controller('modifyController', ['data','utility','$location', function(data,
 			return true;
 		} else if (str.indexOf('forever21.com') != -1) {
 			return true;
-		};
+		}
 		return false;
-	}
+	};
 
 	vm.scrapeURL = function () {
 		// Check if input is valid url
@@ -790,23 +790,23 @@ mod.controller('modifyController', ['data','utility','$location', function(data,
 	
 	vm.removeItem = function(itemNumber) {
 		vm.data.items.splice(itemNumber - 1, 1);
-	}
+	};
 
 	vm.selectColorForItem = function(color, item) {
 		item.color = color;
-	}
+	};
 
 	vm.selectSizeForItem = function(size, item) {
 		item.size = size;
-	}
+	};
 
 	vm.save = function(){
 		utility.updateTotalUsd();
 		$location.path('confirm');
-	}
+	};
 
 	vm.togglePBInput = function () {
 		vm.pbInputIsShown = !vm.pbInputIsShown;
-	}
+	};
 
 }]);
