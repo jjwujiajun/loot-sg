@@ -97,7 +97,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 			data.siteState.isScraping = false;
 
 			var resultData = result.data;
-			newItem    = createEmptyItem();
+			var newItem    = createEmptyItem();
 
 			result     = resultData.results[0];
 			newItem.name = result.item_name;
