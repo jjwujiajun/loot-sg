@@ -246,17 +246,26 @@
             .final-price-calcs .final {
                 font-size: 30px;
             }
+            #message {
+                font-size: 17px;
+            }
         </style>
     </head>';
 
     $emailBody .= '
     <body>
         <div class="orderForm">
+            <div class="put-bom-wrapper" id="message">
+                <p>Thank you for ordering with Loot! You should receive your order within 3 weeks, hand-delivered our team.</p>
+                <p><strong>Questions?</strong> Simply reply to this email.</p>
+                <p>Thank you,
+                <br/>Loot</p>
+            </div>
             <div class="header">
                 <div id="header-circle">
                     <img src="http://loot.sg/images/loot-logo-blue.png" class="logo"/>
-                    <p>Receipt</p>
                 </div>
+                <p>Receipt</p>
             </div>
             <hr>
 
@@ -269,7 +278,7 @@
                 <div class="delivery-info">' .
                     $userInfo['addressLine1'] . '<br />' .
                     $userInfo['addressLine2'] . '<br />' .
-                    $userInfo['postalCode'] . '
+                    'Singapore ' . $userInfo['postalCode'] . '
                 </div>
                 <br />
                 <div class="delivery-info">
@@ -289,12 +298,11 @@
         $emailBody .= '
                 <div class="pb-item">
                     <div class="pb-pic-col">
-                        <img src="' . $item['imageUrl'] . '" />
+                        <a href="' . $item['url'] . '"><img src="' . $item['imageUrl'] . '" /></a>
                     </div>
                     <div class="pb-middle-col">
                         <div class="middle-col-row row1">
-                            <div class="">' . $item['name'] . '</div>
-                            <div class="item-url"><a href="' . $item['url'] . '">' . $item['url'] . '</a></div>
+                            <div><a href="' . $item['url'] . '">' . $item['name'] . '</a></div>
                         </div>
                         <div class="middle-col-row row2">
                             <div class="item-colors">

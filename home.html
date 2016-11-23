@@ -35,14 +35,13 @@
 
                     <div class="pb-item" ng-repeat="item in home.data.items | orderBy: '-'">
                         <div class="pb-pic-col">
-                            <a href="{{item.url}}">
-                                <img ng-src="{{item.imageUrl}}" ng-show="item.imageUrl != '' "/>
-                                <img src="./images/no_image_avail.png" ng-show="item.imageUrl == '' ">
+                            <a ng-href="{{item.url}}" target="_blank">
+                                <img ng-src="{{item.imageUrl}}"/>
                             </a>
                         </div>
                         <div class="pb-middle-col">
                             <div class="middle-col-row row1">
-                                <div><a href="{{item.url}}">{{item.name}}</a></div>
+                                <div><a ng-href="{{item.url}}" target="_blank">{{item.name}}</a></div>
                             </div>
                             <div class="middle-col-row row2">
                                 <div class="item-colors">
@@ -79,11 +78,14 @@
 
                     <!-- Add to cart -->
                     <div class="cart-actions">
+                        <div class="btn add-items" id="add-items">
+                            + Items
+                        </div>
                         <div class="btn checkout" ng-click="home.checkOut()">
                             Checkout
-                            <img src="">
                         </div>
                     </div>
+
                 </div>
             </form>
         </div>
@@ -172,7 +174,7 @@
                 Online shopping +<br />
                 <span>Free international delivery</span>!
             </div>
-            <div><button type="button" class="btn btn-primary" id="backToTop" ng-click="home.showPutBom()">Try Loot now!</button></div>
+            <div><button type="button" class="btn btn-primary" id="back-to-top" ng-click="home.showPutBom()">Try Loot now!</button></div>
         </div>
 <!-- Temporary turned off this feature
         <div class="social-media-wrapper">
