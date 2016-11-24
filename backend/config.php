@@ -5,6 +5,6 @@
     $email_on  = TRUE;
 
     // Development Switches
-    $db_dev    = FALSE;
+    $db_dev    = TRUE;
     $email_dev = FALSE;
 
