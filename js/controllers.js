@@ -579,7 +579,7 @@ mod.controller('faqController', ['utility', '$sce', function(utility, $sce) {
 		'items': [
 		{
 			'question': 'How soon will I get my items?',
-			'answer': 'Less than 2 weeks!'
+			'answer': 'Less than 3 weeks!'
 		},
 		{
 			'question': 'Can I expedite my order?',
