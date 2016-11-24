@@ -261,16 +261,20 @@ img.menu-item {
 
     position: relative;
     width: 64%;
-    height: 100pt;
+    min-height: 100pt;
 }
+.middle-col-row {
+   margin-bottom: 5px;
+}
+
 .middle-col-row.row1 {
-    margin-bottom: 5px;
     font-size: 18px;
 }
 .middle-col-row.row1 a {
     color: black
 }
-.middle-col-row.row2 {
+.middle-col-row.row2,
+.middle-col-row.row3 {
     min-height: 33%;
 }
 
