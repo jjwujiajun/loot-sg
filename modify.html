@@ -34,8 +34,10 @@
                     <div class="middle-col-row row2">
                         <div class="item-sizes">
                             <div class="key">Size</div>
-                            <div ng-repeat="sizei in item.sizes" class="item-size" ng-class="{'selected': sizei==item.size, 'circular': item.useCircleForSizes, 'rectangle': !item.useCircleForSizes, 'btn': !item.useCircleForSizes}" ng-click="modify.selectSizeForItem(sizei, item)">
-                                {{sizei}}
+                            <div class="value">
+                                <div ng-repeat="sizei in item.sizes" class="item-size" ng-class="{'selected': sizei==item.size, 'circular': item.useCircleForSizes, 'rectangle': !item.useCircleForSizes, 'btn': !item.useCircleForSizes}" ng-click="modify.selectSizeForItem(sizei, item)">
+                                    {{sizei}}
+                                </div>
                             </div>
                         </div>
                     </div>
