@@ -16,8 +16,8 @@
             <div class="pb-item" ng-repeat="item in confirm.items | orderBy : '-'">
                 <div class="pb-pic-col">
                     <a ng-href="{{item.url}}" target="_blank">
-                        <img ng-src="{{item.imageUrl}}" ng-show="item.imageUrl != '' "/>
-                        <img src="./images/no_image_avail.png" ng-show="item.imageUrl == '' ">
+                        <img ng-src="{{item.imageUrl}}" ng-show="item.imageUrl !== '' "/>
+                        <img ng-src="./images/no_image_avail-default.png" ng-show="item.imageUrl === ''">
                     </a>
                 </div>
                 <div class="pb-middle-col">
