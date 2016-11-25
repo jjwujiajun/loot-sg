@@ -286,6 +286,30 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 		});
 	};
 
+	this.qualifyOrder = function() {
+		// Prepare Data
+		var request = {
+			orderId: data.orderInfo.orderId;
+		};
+
+		// Send POST request to DB return a promise
+		return $http({
+			method  : 'POST',
+			url     : './backend/qualify_order.php',
+			data    : request,  //param method from jQuery
+			headers : {'Content-Type': 'application/json'}
+		}).then(function(response){
+			console.log(response);
+			if (response.data.orderId) { //success comes from the return json object
+				console.log('db-qualify-order-success');
+				return response.data;
+			} else {
+				console.log('db-qualify-order-failure');
+				return false;
+			}
+		});
+	}
+
 	// Should cache response if requests occur on multiple pages per user
 	this.getForexRates = function(){
 		// HTTPS from MAS
