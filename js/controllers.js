@@ -750,8 +750,9 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 					utility.qualifyOrder().then(function(response){
 						utility.preprocessForEmail();
 						utility.sendOrderEmail();
-						utility.sendReceipt();
-						$window.location.href = 'done.html?orderId=' + data.orderInfo.orderId;
+						utility.sendReceipt().then(function(response){
+							$window.location.href = 'done.html?orderId=' + data.orderInfo.orderId;
+						});
 					});
 				} else {
 					console.log('charge-failure');
