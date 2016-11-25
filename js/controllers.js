@@ -289,7 +289,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 	this.qualifyOrder = function() {
 		// Prepare Data
 		var request = {
-			orderId: data.orderInfo.orderId;
+			orderId: data.orderInfo.orderId
 		};
 
 		// Send POST request to DB return a promise
@@ -740,7 +740,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 			if(data.orderInfo.orderId == 0){
 				utility.submitOrder().then(function(response){
 					data.orderInfo.orderId = response.orderId;
-				}	
+				});
 			}
 
 			// Send POST request to server
