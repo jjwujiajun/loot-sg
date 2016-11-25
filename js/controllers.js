@@ -736,6 +736,13 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 				token: token.id
 			};
 
+			// Record order in DB
+			if(data.orderInfo.orderId == 0){
+				utility.submitOrder().then(function(response){
+					data.orderInfo.orderId = response.orderId;
+				}	
+			}
+
 			// Send POST request to server
 			$http({
 				method  : 'POST',
