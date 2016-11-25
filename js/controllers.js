@@ -754,8 +754,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 				if (response.data.success) { //success comes from the return json object
 					console.log('charge-success');
 					utility.reverseItems();
-					utility.submitOrder().then(function(response){
-						data.orderInfo.orderId = response.orderId;
+					utility.qualifyOrder().then(function(response){
 						utility.preprocessForEmail();
 						utility.sendOrderEmail();
 						utility.sendReceipt();
