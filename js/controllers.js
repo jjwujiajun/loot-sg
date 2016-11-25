@@ -290,7 +290,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 	this.getForexRates = function(){
 		// HTTPS from MAS
 		// var apiurl = 'https://eservices.mas.gov.sg/api/action/datastore/search.json?resource_id=95932927-c8bc-4e7a-b484-68a66a24edfe&limit=1&filters[end_of_day]=2016-11-11&fields=usd_sgd';
-		var apiurl = 'http://api.fixer.io/latest?base=USD&symbols=SGD';
+		var apiurl = 'https://api.fixer.io/latest?base=USD&symbols=SGD';
 
 		return $http({
 			method : 'GET',
