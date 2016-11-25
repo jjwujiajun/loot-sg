@@ -55,7 +55,8 @@ mod.service('data', function() {
 	this.orderInfo = {
 		totalUsd: 0,
 		totalSgd: 0,
-		usdSgd: 1
+		usdSgd: 1,
+		orderId: 0
 	};
 
 	this.siteState = {
@@ -170,7 +171,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 		};
 
 		// Send POST request to email engine
-		$http({
+		return $http({
 			method  : 'POST',
 			url     : './backend/send_order.php',
 			data    : formData,  //param method from jQuery
@@ -196,7 +197,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 		};
 
 		// Send POST request to email engine
-		$http({
+		return $http({
 			method  : 'POST',
 			url     : './backend/send_receipt.php',
 			data    : formData,  //param method from jQuery
@@ -276,7 +277,6 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 		}).then(function(response){
 			console.log(response);
 			if (response.data.orderId) { //success comes from the return json object
-				data.orderInfo.orderId = response.data.orderId;
 				console.log('db-order-success');
 				return response.data;
 			} else {
@@ -285,6 +285,30 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 			}
 		});
 	};
+
+	this.qualifyOrder = function() {
+		// Prepare Data
+		var request = {
+			orderId: data.orderInfo.orderId
+		};
+
+		// Send POST request to DB return a promise
+		return $http({
+			method  : 'POST',
+			url     : './backend/qualify_order.php',
+			data    : request,  //param method from jQuery
+			headers : {'Content-Type': 'application/json'}
+		}).then(function(response){
+			console.log(response);
+			if (response.data.orderId) { //success comes from the return json object
+				console.log('db-qualify-order-success');
+				return response.data;
+			} else {
+				console.log('db-qualify-order-failure');
+				return false;
+			}
+		});
+	}
 
 	// Should cache response if requests occur on multiple pages per user
 	this.getForexRates = function(){
@@ -723,8 +747,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 				if (response.data.success) { //success comes from the return json object
 					console.log('charge-success');
 					utility.reverseItems();
-					utility.submitOrder().then(function(response){
-						data.orderInfo.orderId = response.orderId;
+					utility.qualifyOrder().then(function(response){
 						utility.preprocessForEmail();
 						utility.sendOrderEmail();
 						utility.sendReceipt();
@@ -747,6 +770,14 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 		// As a safety net, recalculate total again and convert
 		utility.updateTotalUsd();
 		utility.updateTotalSgd();
+		
+		// Record order in DB
+		if(data.orderInfo.orderId == 0){
+			utility.submitOrder().then(function(response){
+				data.orderInfo.orderId = response.orderId;
+			});
+		}
+		
 		handler.open({
 			amount: data.orderInfo.totalSgd
 		});
