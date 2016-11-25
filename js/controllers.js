@@ -171,7 +171,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 		};
 
 		// Send POST request to email engine
-		$http({
+		return $http({
 			method  : 'POST',
 			url     : './backend/send_order.php',
 			data    : formData,  //param method from jQuery
@@ -197,7 +197,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 		};
 
 		// Send POST request to email engine
-		$http({
+		return $http({
 			method  : 'POST',
 			url     : './backend/send_receipt.php',
 			data    : formData,  //param method from jQuery
@@ -736,13 +736,6 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 				token: token.id
 			};
 
-			// Record order in DB
-			if(data.orderInfo.orderId == 0){
-				utility.submitOrder().then(function(response){
-					data.orderInfo.orderId = response.orderId;
-				});
-			}
-
 			// Send POST request to server
 			$http({
 				method  : 'POST',
@@ -777,6 +770,14 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 		// As a safety net, recalculate total again and convert
 		utility.updateTotalUsd();
 		utility.updateTotalUsd();
+		
+		// Record order in DB
+		if(data.orderInfo.orderId == 0){
+			utility.submitOrder().then(function(response){
+				data.orderInfo.orderId = response.orderId;
+			});
+		}
+		
 		handler.open({
 			amount: data.orderInfo.totalSgd
 		});
