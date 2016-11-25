@@ -276,7 +276,6 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 		}).then(function(response){
 			console.log(response);
 			if (response.data.orderId) { //success comes from the return json object
-				data.orderInfo.orderId = response.data.orderId;
 				console.log('db-order-success');
 				return response.data;
 			} else {
