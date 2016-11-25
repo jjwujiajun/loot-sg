@@ -55,7 +55,8 @@ mod.service('data', function() {
 	this.orderInfo = {
 		totalUsd: 0,
 		totalSgd: 0,
-		usdSgd: 1
+		usdSgd: 1,
+		orderId: 0
 	};
 
 	this.siteState = {
