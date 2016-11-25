@@ -85,7 +85,7 @@
                         <div class="btn add-items" id="add-items">
                             + Items
                         </div>
-                        <div class="btn checkout" ng-click="home.checkOut()">
+                        <div class="btn checkout" ng-click="home.checkOut()" ng-disabled="home.siteState.isScraping">
                             Checkout
                         </div>
                     </div>
