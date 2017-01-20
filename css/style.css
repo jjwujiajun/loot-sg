@@ -894,7 +894,7 @@ td div {
  */
 
 .faq h1,
-.contacts h1
+.about h1
 {
     text-align: left;
 
@@ -905,7 +905,9 @@ td div {
 }
 
 .faq h1 span, 
-.contacts h1 span {
+.about h1 span,
+.about h2 span 
+{
     color: #23b5e9;
 }
 
@@ -942,12 +944,30 @@ td div {
 .faq .item-content {
     margin-left: 40pt;
 }
-/********  Contacts  ********/
+/********  About  ********/
+.about .container {
+    margin-bottom: 100px;
+}
+
+.about .team img {
+    width: 100%;
+}
+.about .team div > div {
+    text-align: center;
+}
+
+.contact {
+    background-color: #ecfafd;
+
+    padding-bottom: 25px;
+}
+
 .contact-key {
     padding-right: 10px;
 
     color: #23b5e9;
     text-align: left;
+    vertical-align: top;
 }
 .contact-value {
     text-align: left;
