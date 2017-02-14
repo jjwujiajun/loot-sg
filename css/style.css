@@ -120,13 +120,31 @@ img.menu-item {
     background-position: center;*/
 }
 
+.spree-timer {
+    position: absolute;
+
+    top: 11.5%;
+
+    width: 100%;
+
+    padding: 3px 0;
+
+    background-color: red;
+
+    text-align: center;
+
+    font-family: arial;
+    font-size: 17px;
+    color: white;
+}
+
 .hero-content {
 
     position: absolute;
 
     top: 40%;
 
-    transform: translateY(-50%);
+    transform: translateY(-55%);
 
     min-width: 600px;
     margin: 0 auto;
