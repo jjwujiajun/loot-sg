@@ -522,17 +522,22 @@ img.menu-item {
     display: inline-block;
     vertical-align: top;
 
-    padding: 0 60px;
+    padding: 0 50px;
     text-align: center;
 }
 .step-image-wrapper {
+}
+.step-instruction {
+    text-align: left;
 }
 .step-title {
     display: inline-block;
 
     text-align: left;
     /*font-size: 25px;*/
-    font-size: 42px;
+    font-size: 30px;
+
+    /*border: 1px solid orange;*/
 }
 .step-title #1 {
     width: 180px;
