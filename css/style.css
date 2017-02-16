@@ -121,15 +121,10 @@ img.menu-item {
 }
 
 .spree-timer {
-    position: absolute;
-
-    top: 11.5%;
-
-    width: 100%;
 
     padding: 3px 0;
 
-    background-color: red;
+    background-color: #23b5e9;
 
     text-align: center;
 
