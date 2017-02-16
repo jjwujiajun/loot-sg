@@ -522,13 +522,26 @@ img.menu-item {
     display: inline-block;
     vertical-align: top;
 
-    padding: 0 50px;
+    padding: 0 30px;
     text-align: center;
 }
 .step-image-wrapper {
 }
 .step-instruction {
+    display: inline-block;
     text-align: left;
+}
+.step-instruction#one{
+
+    width: 230px;
+}
+.step-instruction#two{
+
+    width: 290px;
+}
+.step-instruction#three{
+
+    width: 250px;
 }
 .step-title {
     display: inline-block;
@@ -538,15 +551,6 @@ img.menu-item {
     font-size: 30px;
 
     /*border: 1px solid orange;*/
-}
-.step-title #1 {
-    width: 180px;
-}
-.step-title #2 {
-    width: 180px;
-}
-.step-title #3 {
-    width: 150px;
 }
 .step-number {
     color: #37CDE9;
@@ -560,7 +564,7 @@ img.menu-item {
     font-size: 20px;
 }
 .step-subtitle #3 {
-    width: 150px;
+    /*width: 150px;*/
 }
 .step-subtitle a {
     color: #37CDE9;
