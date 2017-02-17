@@ -512,8 +512,10 @@ img.menu-item {
 }
 
 .section-1 h2 {
-    margin-top: 140px;
+    margin-top: 100px;
+    margin-bottom: 80px;
     font-size: 20px;
+    font-weight: 700;
 
     text-align: center;
 }
@@ -550,7 +552,7 @@ img.menu-item {
 }
 .step-instruction#two{
 
-    width: 290px;
+    width: 310px;
 }
 .step-instruction#three{
 
@@ -575,6 +577,7 @@ img.menu-item {
 
     text-align: left;
     font-size: 20px;
+    font-weight: normal;
 }
 .step-subtitle #3 {
     /*width: 150px;*/
