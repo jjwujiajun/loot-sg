@@ -327,6 +327,8 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 			// return rate;
 			return 1.42;
 		});	
+		
+
 	};
 
 	this.configureMoneyJs = function(usd_sgd) {
@@ -703,10 +705,13 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 	var chargeCurrency = 'sgd';
 
 	// Get past day exchange rate
-	utility.getForexRates().then(function(rate){
+	// utility.getForexRates().then(function(rate){
+		var rate = 1.42
 		data.orderInfo.usdSgd = rate;
+		console.log(rate);
 		utility.configureMoneyJs(rate);
 		utility.updateTotalUsd();
+		console.log(data.orderInfo.totalUsd);
 		utility.updateTotalSgd();
 		var fxEquation = $filter('currency')(data.orderInfo.totalUsd / 100.00, 'US$') + ' &times; ' + '<span style="text-decoration: underline">' + data.orderInfo.usdSgd + '</span>' + ' = ' + $filter('currency')(data.orderInfo.totalSgd / 100.00, 'S$');
 		$('#total-sgd').popover({
@@ -717,7 +722,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 			trigger: 'hover',
 			container: 'body'
 		});
-	});
+	// });
 
 	// Configure Checkout.js
 	var handler = $window.StripeCheckout.configure({
