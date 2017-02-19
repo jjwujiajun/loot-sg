@@ -324,7 +324,8 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 			// Fixer.io
 			var rate = response.data.rates.SGD;
 			console.log(rate);
-			return rate;
+			// return rate;
+			return 1.42;
 		});	
 	};
 
