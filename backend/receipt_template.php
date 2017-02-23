@@ -386,6 +386,11 @@
                 <div class="final-price-calcs">
                     <table>
                         <tr>
+                            <td>Shipping</td>
+                            <td>US$</td>
+                            <td>0.00</td>
+                        </tr>
+                        <tr>
                             <td>Subtotal</td>
                             <td>US$</td>
                             <td class="value">' . number_format($total_usd / 100.00, 2, '.', ',') . '</td>
