@@ -191,6 +191,9 @@ img.menu-item {
 .put-bom-input input[type=text] {
     height: 60px;
 }
+.put-bom-input input[placeholder] {
+    font-weight: 100;
+}
 .put-bom-input-btn {
     min-width: 80px;
     height: 60px;
@@ -416,6 +419,18 @@ img.menu-item {
 }
 .ATF .cart-actions .checkout {
     width: 60%;
+}
+
+.put-bom-subtitle {
+    margin-top: 5px;
+
+    padding-left: 3px;
+
+    font-family: 'Avenir';
+    font-weight: 200;
+    font-size: 13px;
+    font-style: italic;
+    color: gray;
 }
 
 .ATF-deco {
