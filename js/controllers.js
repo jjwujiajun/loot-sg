@@ -389,9 +389,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 
 		$timeout(function () {
 			$anchorScroll(anchor);
-
 		});
-
 	};
 
 	this.reverseItems = function() {
@@ -440,10 +438,14 @@ function routeConfig($routeProvider) {
 }
 mod.config(routeConfig);
 
-mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll', function(data, utility, $location, $anchorScroll){
+mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll', '$scope', function(data, utility, $location, $anchorScroll, $scope){
 	var vm  = this;
 	vm.data = data;
 	vm.siteState = data.siteState;
+
+	$scope.$on('$viewContentLoaded', function(event){
+		ga('send', 'pageview', { page: $location.url() });
+	});
 
 	vm.urlField = {'text': '', 'placeholder': 'Paste the link to the item you like here. eg. http://www.forever21.com/ProductID=225453'};
 	var firstScrape = true;
@@ -540,8 +542,13 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 
 }]);
 
-mod.controller('faqController', ['utility', '$sce', function(utility, $sce) {
+mod.controller('faqController', ['utility', '$sce', '$scope', '$location', function(utility, $sce, $scope, $location) {
 	var vm = this;
+
+	$scope.$on('$viewContentLoaded', function(event){
+		ga('send', 'pageview', { page: $location.url() });
+	});
+
 	vm.questions = [
 	{
 		'header': 'Ordering',
@@ -647,15 +654,23 @@ mod.controller('faqController', ['utility', '$sce', function(utility, $sce) {
 	};
 }]);
 
-mod.controller('contactsController', ['utility', function(utility) {
+mod.controller('contactsController', ['utility', '$scope', function(utility, $scope) {
 	var vm = this;
+
+	$scope.$on('$viewContentLoaded', function(event){
+		ga('send', 'pageview', { page: '/about' });
+	});
 
 	vm.goPageAndAnchorScroll = utility.goPageAndAnchorScroll;
 }]);
 
-mod.controller('loginController', ['data', 'utility', '$location', function(data, utility, $location){
+mod.controller('loginController', ['data', 'utility', '$location', '$scope', function(data, utility, $location, $scope){
 	var vm = this;
 	vm.userInfo = data.userInfo;
+
+	$scope.$on('$viewContentLoaded', function(event){
+		ga('send', 'pageview', { page: $location.url() });
+	});
 
 	vm.back = function(){
 		$location.path('');
@@ -672,9 +687,13 @@ mod.controller('loginController', ['data', 'utility', '$location', function(data
 
 }]);
 
-mod.controller('deliveryController', ['data', 'utility', '$location', function(data, utility, $location){
+mod.controller('deliveryController', ['data', 'utility', '$location', '$scope', function(data, utility, $location, $scope){
 	var vm = this;
 	vm.userInfo = data.userInfo;
+
+	$scope.$on('$viewContentLoaded', function(event){
+		ga('send', 'pageview', { page: $location.url() });
+	});
 
 	vm.back = function(){
 		$location.path('login');
@@ -704,6 +723,10 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 	vm.itemCount       = data.items.length;
 	vm.getPlurality    = utility.getPlurality;
 	var chargeCurrency = 'sgd';
+
+	$scope.$on('$viewContentLoaded', function(event){
+		ga('send', 'pageview', { page: $location.url() });
+	});
 
 	// Get past day exchange rate
 	// utility.getForexRates().then(function(rate){
@@ -798,12 +821,16 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 
 }]);
 
-mod.controller('modifyController', ['data','utility','$location', function(data, utility, $location){
+mod.controller('modifyController', ['data','utility','$location', '$scope', function(data, utility, $location, $scope){
 	var vm = this;
 	vm.urlField = {'text': '', 'placeholder': 'Paste your next item URL here'};
 	vm.data = data;
 	vm.siteState = data.siteState;
 	vm.pbInputIsShown = false;
+
+	$scope.$on('$viewContentLoaded', function(event){
+		ga('send', 'pageview', { page: $location.url() });
+	});
 
 	var isValidURL = function(str) {
 		if (str.indexOf('amazon.com') != -1) {
