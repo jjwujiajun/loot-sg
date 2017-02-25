@@ -540,6 +540,23 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 		vm.siteState.showPBOutput = false;
 	};
 
+	vm.helpEmailClicked = function() {
+		ga('send', 'event', { 
+			eventCategory: 'email', 
+			eventAction: 'click',
+			eventLabel: 'help'
+		});
+	};
+
+	vm.merchantLinkClicked = function(merchant) {
+		ga('send', 'event', { 
+			eventCategory: 'merchantLink', 
+			eventAction: 'click',
+			eventLabel: merchant
+		});
+		console.log(merchant);
+	};
+
 }]);
 
 mod.controller('faqController', ['utility', '$sce', '$scope', '$location', function(utility, $sce, $scope, $location) {
