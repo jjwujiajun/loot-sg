@@ -85,9 +85,13 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 	};
 
 	this.scrapeF21 = function(url) {
-		var urlString = "https://api.import.io/store/connector/7525a0ab-c857-4f60-8c23-73eb625083de/_query?input=webpage/url:" + encodeURIComponent(url) + "&&_apikey=b34ce8b353894e91b3ef33342f0c5ddb82cce3b3dd7be5b65977ed3fd532f3521d5f3c08c232bafdcc60a719fe799b1b03a95e181771f5bf511f85950dcb7c132b1575addd5fa8c5eeb70645857f693c";
-		urlString = urlString.replace('/mobile/', '/');
-		console.log('scrapeF21 GET: ' + urlString);
+		url = url.replace('/mobile/', '/');
+
+		// import.io API 1
+		// var urlString = "https://api.import.io/store/connector/7525a0ab-c857-4f60-8c23-73eb625083de/_query?input=webpage/url:" + encodeURIComponent(url) + "&&_apikey=b34ce8b353894e91b3ef33342f0c5ddb82cce3b3dd7be5b65977ed3fd532f3521d5f3c08c232bafdcc60a719fe799b1b03a95e181771f5bf511f85950dcb7c132b1575addd5fa8c5eeb70645857f693c";
+		
+		// import.io API 2
+		var urlString = "https://extraction.import.io/query/extractor/af3afc53-967e-4ab7-913b-0ee1b9ad5a3a?_apikey=dc981c6f70dd4d2daa69a6e2a25fbf59093de59662cf20a0ae7e0a697d9d9311f72508d291a847a52aaff3a2bbc06604f729388ec7794353da8ab448f675afd3921f1bcf4484fc0d964e1435c52f3e7e&url=" + encodeURIComponent(url);
 		
 		data.siteState.isScraping = true;
 
@@ -97,50 +101,55 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 		}).then(function (result) {
 			data.siteState.isScraping = false;
 
-			var resultData = result.data;
+			console.log(result);
+
+			var result = result.data.extractorData.data[0].group[0];
+			console.log(result);
 			var newItem    = createEmptyItem();
 
-			result     = resultData.results[0];
-			newItem.name = result.item_name;
+			newItem.name = result.item_name[0].text;
 			newItem.url = url;
-			newItem.details = result.details;
+			newItem.details = result.details[0].text;
 
 			newItem.quantity = 1;
 
 			// Price
 			if(result.price_sale) {
-				newItem.unitPrice = result.price_sale * 100;
+				newItem.unitPrice = parseInt(result.price_sale[0].text) * 100;
 			} else if(result.price_normal) {
-				newItem.unitPrice = result.price_normal * 100;
+				newItem.unitPrice = parseInt(result.price_normal[0].text) * 100;
 			}
 			
-			console.log(result.price_sale);
-			console.log(result.price_normal);
+			// console.log(result.price_sale);
+			// console.log(result.price_normal);
 
 			// Image
 			if(result.image1) {
-				newItem.imageUrl  = result.image1;
+				newItem.imageUrl  = result.image1[0].src;
 			} else if(result.image2) {
-				newItem.imageUrl  = result.image2;
+				newItem.imageUrl  = result.image2[0].src;
 			} else if(result.image3) {
-				newItem.imageUrl  = result.image3;
+				newItem.imageUrl  = result.image3[0].src;
 			} else {
 				newItem.imageUrl = './images/no_image_avail-F21.png';
 			}
 
 			// Sizes
-			if(!Array.isArray(result.sizes_available)) {
-				newItem.sizes  = [result.sizes_available];
-			} else {
-				newItem.sizes = result.sizes_available;    
-			}
+			// if(!Array.isArray(result.sizes_available)) {
+			newItem.sizes = result.sizes_available.map(function(size) {
+				return size.text;
+			});    
+			console.log('newItem.sizes');
+			console.log(newItem.sizes);
+
 			
 			// Colors
-			if(!Array.isArray(result["colors_available/_alt"])) {
-				newItem.colors = [result["colors_available/_alt"]];
-			} else {
-				newItem.colors = result["colors_available/_alt"];    
-			}
+			// if(!Array.isArray(result.colors_available)) {
+			newItem.colors = result.colors_available.map(function(color) {
+				return color.alt;
+			});
+			console.log('colors[].alt');
+			console.log(newItem.colors);
 
 			if (isNaN(newItem.sizes[0])) {
 				newItem.useCircleForSizes = newItem.sizes[0].length <= 2;
