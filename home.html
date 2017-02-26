@@ -38,7 +38,7 @@
                     <input class="form-control" id="putBomInput" type="text" name="itemURL" placeholder="{{home.urlField.placeholder}}" ng-model="home.urlField.text" ng-model-options='{ debounce: 100 }' ng-change="home.scrapeURL()" ng-click="home.showPutBom()">
                 </div>
 
-                <div class="put-bom-subtitle">Encountering a problem? Email us at <a href="mailto:orders@loot.sg?subject=Problem%20using%20Loot.%20Please%20help!&body=Hi%20Team%20Loot,%0D%0A%0D%0A" ng-click="home.helpEmailClicked()">orders@loot.sg</a>.</div>
+                <div class="put-bom-subtitle" ng-hide="home.siteState.showPBOutput && home.data.items.length > 0">Encountering a problem? Email us at <a href="mailto:orders@loot.sg?subject=Problem%20using%20Loot.%20Please%20help!&body=Hi%20Team%20Loot,%0D%0A%0D%0A" ng-click="home.helpEmailClicked()">orders@loot.sg</a>.</div>
 
 
                 <div class="put-bom-output" ng-class="{'fade': home.siteState.showPBOutput && home.data.items.length > 0}">
