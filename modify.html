@@ -22,7 +22,7 @@
                         <div class="item-colors">
                             <div class="key">Color</div>
                             <div class="value">
-                                <div ng-repeat="colori in item.colors" class="item-color btn" ng-class="{'selected': colori==item.color}" ng-click="modify.selectColorForItem(colori, item)">
+                                <div ng-repeat="colori in item.colors track by $index" class="item-color btn" ng-class="{'selected': colori==item.color}" ng-click="modify.selectColorForItem(colori, item)">
                                     {{colori}}
                                 </div>
                             </div>
@@ -35,7 +35,7 @@
                         <div class="item-sizes">
                             <div class="key">Size</div>
                             <div class="value">
-                                <div ng-repeat="sizei in item.sizes" class="item-size" ng-class="{'selected': sizei==item.size, 'circular': item.useCircleForSizes, 'rectangle': !item.useCircleForSizes, 'btn': !item.useCircleForSizes}" ng-click="modify.selectSizeForItem(sizei, item)">
+                                <div ng-repeat="sizei in item.sizes track by $index" class="item-size" ng-class="{'selected': sizei==item.size, 'circular': item.useCircleForSizes, 'rectangle': !item.useCircleForSizes, 'btn': !item.useCircleForSizes}" ng-click="modify.selectSizeForItem(sizei, item)">
                                     {{sizei}}
                                 </div>
                             </div>

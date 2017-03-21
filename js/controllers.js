@@ -88,7 +88,6 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 
 		var getResult = function() {
 			setTimeout(function() {
-				console.log('getting');
 				$http({
 					method	: 'GET',
 					url 	: 'https://api.apifier.com/v1/e3yAFMJ4jvRj6GMYS/crawlers/forever21.com/lastExec/results?token=6TGJZ44MXCgh5i8uFqcnmGwWy'
@@ -136,26 +135,23 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 						// if(!Array.isArray(result.sizes_avail)) {
 						// newItem.sizes = result.sizes_available.map(function(size) {
 						// 	return size.text;
-						// });    
-						// console.log('newItem.sizes');
-						// console.log(newItem.sizes);
+						// });
 
 						
 						// Colors
 						newItem.colors = result.colors_avail;
+						console.log("colors_avail");
+						console.log(newItem.colors);
 						// // if(!Array.isArray(result.colors_available)) {
 						// newItem.colors = result.colors_available.map(function(color) {
 						// 	return color.alt;
 						// });
-						// console.log('colors[].alt');
-						// console.log(newItem.colors);
 
 						if (isNaN(newItem.sizes[0])) {
 							newItem.useCircleForSizes = newItem.sizes[0].length <= 2;
 						} else {
 							newItem.useCircleForSizes = newItem.sizes[0].toString().length <= 2;
 						}
-						// console.log(newItem.useCircleForSizes);
 
 						// Select first size and color
 						if(typeof newItem.sizes[0] !== 'undefined') {
