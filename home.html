@@ -55,7 +55,9 @@
                                 <div><a ng-href="{{item.url}}" target="_blank">{{item.name}}</a></div>
                             </div>
                             <div class="middle-col-row row2">
-                                <div class="item-colors">
+
+                                <!-- F21 Color-->
+                                <div class="item-colors" ng-if="item.merchant == 'f21'">
                                     <div class="key">Color</div>
                                     <div class="value">
                                         <div ng-repeat="colori in item.colors track by $index" class="item-color btn" ng-class="{'selected': colori==item.color}" ng-click="home.selectColorForItem(colori, item)">
@@ -63,12 +65,24 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- Sephora SKU -->
+                                <div class="item-colors" ng-if="item.merchant == 'sephora'">
+                                    <div class="key">SKU</div>
+                                    <div class="value">
+                                        <div class="item-color btn">{{item.color}}</div>
+                                    </div>
+                                </div>
+
+                                <!-- Item Quantity -->
                                 <div class="item-qty">
                                     Quantity <input class="form-control" type="number" ng-model="item.quantity" min="1">
                                 </div>
                             </div>
                             <div class="middle-col-row row2">
-                                <div class="item-sizes">
+
+                                <!-- F21 Sizes -->
+                                <div class="item-sizes" ng-if="item.merchant == F21">
                                     <div class="key">Size</div>
                                     <div class="value">
                                         <div ng-repeat="sizei in item.sizes track by $index" class="item-size" ng-class="{'selected': sizei==item.size, 'circular': item.useCircleForSizes, 'rectangle': !item.useCircleForSizes, 'btn': !item.useCircleForSizes}" ng-click="home.selectSizeForItem(sizei, item)">

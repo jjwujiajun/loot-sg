@@ -80,9 +80,83 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 			imageUrl: '',
 			sizes: [],
 			colors: [],
-			details: ''
+			details: '',
+			merchant: ''
 		};
 	};
+
+	this.scrapeSephora = function(textField) {
+		var url = textField.text;
+
+		var getResult = function() {
+			setTimeout(function() {
+				$http({
+					method	: 'GET',
+					url 	: 'https://api.apifier.com/v1/e3yAFMJ4jvRj6GMYS/crawlers/sephora/lastExec/results?token=3HLoZbeYE3rzm4MdWNvau2ECG'
+				}).then(function (response) {
+					console.log(response);
+					if (response.data.length == 0) {
+						getResult();
+					} else {
+						var result = response.data[0].pageFunctionResult;
+						console.log(result);
+
+						data.siteState.isScraping = false;
+
+						var newItem    = createEmptyItem();
+
+						newItem.merchant = 'sephora';
+						newItem.name = result.item_name;
+						newItem.url = url;
+						// newItem.details = result.description;
+
+						newItem.quantity = 1;
+
+						// Price
+						if(result.prices.length == 0) {
+							newItem.unitPrice = 0.00
+						} else {
+							newItem.unitPrice = Math.max.apply(null, result.prices)*100;
+						}
+
+						// Image
+						if(result.item_image) {
+							newItem.imageUrl  = result.item_image;
+						}
+
+						// Sizes
+						newItem.sizes = [];
+
+						// Colors
+						newItem.color = result.item_sku;
+
+						data.items.push(newItem);
+						data.siteState.isScraping = false;
+						textField.text = '';
+					}
+				});
+			}, 3000);
+		}
+
+		data.siteState.isScraping = true;
+
+		return $http({
+			method	: 'PUT',
+			url 	: 'https://api.apifier.com/v1/e3yAFMJ4jvRj6GMYS/crawlers/sephora?token=FdZzu9coKqgmzHWwryA9TfXnF',
+			data 	: {
+				'customId': 'sephora',
+				'startUrls': [{
+					"key": "start",
+      				"value": url
+				}]
+			}
+		}).then(function() {
+			return $http({
+				method	: 'POST',
+				url 	: 'https://api.apifier.com/v1/e3yAFMJ4jvRj6GMYS/crawlers/sephora/execute?token=QawBiZJGBSqgs3nxqmRJaeJTw',
+			});
+		}).then(getResult());
+	}
 
 	this.scrapeF21 = function(textField) {
 
@@ -105,6 +179,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 
 						var newItem    = createEmptyItem();
 
+						newItem.merchant = 'f21';
 						newItem.name = result.item_name;
 						newItem.url = url;
 						newItem.details = result.description;
@@ -142,8 +217,6 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 						
 						// Colors
 						newItem.colors = result.colors_avail;
-						console.log("colors_avail");
-						console.log(newItem.colors);
 						// // if(!Array.isArray(result.colors_available)) {
 						// newItem.colors = result.colors_available.map(function(color) {
 						// 	return color.alt;
@@ -197,21 +270,6 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 				url 	: 'https://api.apifier.com/v1/e3yAFMJ4jvRj6GMYS/crawlers/forever21.com/execute?token=Crr68CRua6Wb5QZSXazTp6My6',
 			});
 		}).then(getResult());	
-
-		// .then(function() {
-		// 	var getter = setInterval(function() {
-		// 		console.log('getting');
-		// 		var result = $http({
-		// 			method	: 'GET',
-		// 			url 	: 'https://api.apifier.com/v1/e3yAFMJ4jvRj6GMYS/crawlers/forever21.com/lastExec/results?token=6TGJZ44MXCgh5i8uFqcnmGwWy'
-		// 		});
-		// 		console.log(result);
-		// 		if (result.$$state.value.data.length == 0) {
-		// 			console.log('clearing getter');
-		// 			clearInterval(getter);
-		// 		};
-		// 	}, 3000);
-		// });
 	};
 
 	this.sendOrderEmail = function() {
@@ -504,11 +562,13 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 
 	var isValidURL = function(str) {
 		if (str.indexOf('amazon.com') != -1) {
-			return true;
+			return 'amazon';
 		} else if (str.indexOf('forever21.com') != -1) {
-			return true;
+			return 'f21';
+		} else if (str.indexOf('sephora') != -1) {
+			return 'sephora';
 		}
-		return false;
+		return -1;
 	};
 
 	// jQuery/jqLite DOM Manipulation
@@ -547,17 +607,31 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 		});
 	});
 
+	var insertFirstScrapePlaceHolderInPutbom = function() {
+		if(firstScrape){
+			vm.urlField.placeholder = 'Paste your next item link here';
+			firstScrape = false;
+		}
+	}
+
 	vm.scrapeURL = function () {
 		// Check if input is valid url
-		if (isValidURL(vm.urlField.text)) { 
-
-			// try scrape from import.io
-			utility.scrapeF21(vm.urlField).then(function(){
-				if(firstScrape){
-					vm.urlField.placeholder = 'Paste your next item link here';
-					firstScrape = false;
-				}
-			});
+		switch (isValidURL(vm.urlField.text)) { 
+			case 'f21':
+				utility.scrapeF21(vm.urlField).then(function(){
+					insertFirstScrapePlaceHolderI();
+				});
+				break;
+			case 'sephora':
+				utility.scrapeSephora(vm.urlField).then(function(){
+					if (firstScrape) {
+						insertFirstScrapePlaceHolderInPutbom();
+					};
+				});
+				break;
+			default:
+				console.log('URL not recognised');
+				break;
 		}
 	};
 	
@@ -902,9 +976,11 @@ mod.controller('modifyController', ['data','utility','$location', '$scope', func
 
 	var isValidURL = function(str) {
 		if (str.indexOf('amazon.com') != -1) {
-			return true;
+			return 0;
 		} else if (str.indexOf('forever21.com') != -1) {
-			return true;
+			return 1;
+		}else if (str.indexOf('sephora.com') != -1) {
+			return 2;
 		}
 		return false;
 	};
