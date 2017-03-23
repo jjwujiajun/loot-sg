@@ -976,24 +976,33 @@ mod.controller('modifyController', ['data','utility','$location', '$scope', func
 
 	var isValidURL = function(str) {
 		if (str.indexOf('amazon.com') != -1) {
-			return 0;
+			return 'amazon';
 		} else if (str.indexOf('forever21.com') != -1) {
-			return 1;
-		}else if (str.indexOf('sephora.com') != -1) {
-			return 2;
+			return 'f21';
+		} else if (str.indexOf('sephora') != -1) {
+			return 'sephora';
 		}
-		return false;
+		return -1;
 	};
 
 	vm.scrapeURL = function () {
 		// Check if input is valid url
-		if (isValidURL(vm.urlField.text)) { 
-
-			// try scrape from import.io
-			utility.scrapeF21(vm.urlField).then(function(){
-				// vm.urlField.text = '';	
-			});
-			
+		switch (isValidURL(vm.urlField.text)) { 
+			case 'f21':
+				utility.scrapeF21(vm.urlField).then(function(){
+					insertFirstScrapePlaceHolderI();
+				});
+				break;
+			case 'sephora':
+				utility.scrapeSephora(vm.urlField).then(function(){
+					if (firstScrape) {
+						insertFirstScrapePlaceHolderInPutbom();
+					};
+				});
+				break;
+			default:
+				console.log('URL not recognised');
+				break;
 		}
 	};
 	

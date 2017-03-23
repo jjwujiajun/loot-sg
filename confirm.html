@@ -27,9 +27,15 @@
                     <div class="middle-col-row row2">
                         <table>
                             <tr>
-                                <td>
+                                <td ng-if="item.merchant == 'f21'">
                                     <div class="key-value-wrapper">
                                         <div class="key">Color</div>
+                                        <span class="confirmed-value">{{item.color}}</div>
+                                    </div>
+                                </td>
+                                <td ng-if="item.merchant == 'sephora'">
+                                    <div class="key-value-wrapper">
+                                        <div class="key">Item no.</div>
                                         <span class="confirmed-value">{{item.color}}</div>
                                     </div>
                                 </td>
@@ -42,7 +48,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td ng-if="item.merchant == 'sephora'">
                                     <div>
                                         <div class="key">Size</div>
                                         <span class="confirmed-value">
