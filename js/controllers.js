@@ -84,7 +84,9 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 		};
 	};
 
-	this.scrapeF21 = function(url) {
+	this.scrapeF21 = function(textField) {
+
+		var url = textField.text;
 
 		var getResult = function() {
 			setTimeout(function() {
@@ -163,6 +165,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 
 						data.items.push(newItem);
 						data.siteState.isScraping = false;
+						textField.text = '';
 					}
 				});
 			}, 3000);
@@ -549,8 +552,7 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 		if (isValidURL(vm.urlField.text)) { 
 
 			// try scrape from import.io
-			utility.scrapeF21(vm.urlField.text).then(function(){
-				vm.urlField.text = '';
+			utility.scrapeF21(vm.urlField).then(function(){
 				if(firstScrape){
 					vm.urlField.placeholder = 'Paste your next item link here';
 					firstScrape = false;
@@ -912,8 +914,8 @@ mod.controller('modifyController', ['data','utility','$location', '$scope', func
 		if (isValidURL(vm.urlField.text)) { 
 
 			// try scrape from import.io
-			utility.scrapeF21(vm.urlField.text).then(function(){
-				vm.urlField.text = '';	
+			utility.scrapeF21(vm.urlField).then(function(){
+				// vm.urlField.text = '';	
 			});
 			
 		}
