@@ -475,6 +475,13 @@ img.menu-item {
     /*-webkit-filter: drop-shadow(0px 0px 40px rgba(0,0,0,0.5));*/
 }
 
+.ATF-deco .merchant-logo.divider {
+    margin-top: 5%;
+    width: 0px;
+    height: 2vw;
+    border-left: 1px solid gray;
+}
+
 .merchant-logo .note {
 
     font-size: 10px;
