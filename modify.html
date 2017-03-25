@@ -24,7 +24,7 @@
                         <div class="item-colors" ng-if="item.merchant == 'f21'">
                             <div class="key">Color</div>
                             <div class="value">
-                                <div ng-repeat="colori in item.colors track by $index" class="item-color btn" ng-class="{'selected': colori==item.color}" ng-click="home.selectColorForItem(colori, item)">
+                                <div ng-repeat="colori in item.colors track by $index" class="item-color btn" ng-class="{'selected': colori==item.color}" ng-click="modify.selectColorForItem(colori, item)">
                                     {{colori}}
                                 </div>
                             </div>
@@ -32,10 +32,8 @@
 
                         <!-- Sephora SKU -->
                         <div class="item-colors" ng-if="item.merchant == 'sephora'">
-                            <div class="key">SKU</div>
-                            <div class="value">
-                                <div class="item-color btn">{{item.color}}</div>
-                            </div>
+                            <div class="key">Item</div>
+                            <div class="value">{{item.size}}</div>
                         </div>
 
                         <!-- Item Quantity -->
@@ -49,9 +47,18 @@
                         <div class="item-sizes" ng-if="item.merchant == F21">
                             <div class="key">Size</div>
                             <div class="value">
-                                <div ng-repeat="sizei in item.sizes track by $index" class="item-size" ng-class="{'selected': sizei==item.size, 'circular': item.useCircleForSizes, 'rectangle': !item.useCircleForSizes, 'btn': !item.useCircleForSizes}" ng-click="home.selectSizeForItem(sizei, item)">
+                                <div ng-repeat="sizei in item.sizes track by $index" class="item-size" ng-class="{'selected': sizei==item.size, 'circular': item.useCircleForSizes, 'rectangle': !item.useCircleForSizes, 'btn': !item.useCircleForSizes}" ng-click="modify.selectSizeForItem(sizei, item)">
                                     {{sizei}}
                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- Sephora Option -->
+                        <div class="item-colors" ng-if="item.merchant == 'sephora'">
+                            <div class="key">Type</div>
+                            <div class="value">
+                                <select name="colors" ng-options="colori.option for colori in item.colors" ng-model="item.selectedOption" ng-change="modify.updateDropdownItem(item, 'sephora')">
+                                </select>
                             </div>
                         </div>
                     </div>

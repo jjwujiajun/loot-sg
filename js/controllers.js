@@ -4,6 +4,44 @@ mod.service('data', function() {
 
 	this.items    = [];
 
+	// Sephora Item
+	// [{
+	// 	"merchant": "sephora",
+	// 	"quantity": 1,
+	// 	"url": "sephora.com",
+	//     "name": "Enamored Hi-Shine Nail Polish",
+	//     "imageUrl": "http://sephora.com//productimages/sku/s1511344-main-Lhero.jpg",
+	//     "unitPrice": 18,
+	//     "colors": [
+	//       {
+	//         "option": "118 Oui!",
+	//         "sku": "1510916",
+	//         "prices": []
+	//       },
+	//       {
+	//         "option": "116 Shocking",
+	//         "sku": "1510924",
+	//         "prices": []
+	//       },
+	//       {
+	//         "option": "138 Jezebel",
+	//         "sku": "1511351",
+	//         "prices": []
+	//       },
+	//       {
+	//         "option": "136 Desire",
+	//         "sku": "1511344",
+	//         "prices": [
+	//           18
+	//         ]
+	//       }
+	//     ],
+	//     "selectedOption": {},
+	//     'color': '',
+	//     'size':''
+	// }];
+
+	// Dummy item
 	// this.items = {
 	// 	number: 1,
 	// 	name: '',
@@ -20,7 +58,7 @@ mod.service('data', function() {
 	// 	details: ''
 	// }
 
-
+	// F21 Item
 	// this.items    = [
 	// 					{name: 'Loot.sg', number: 2, url: 'http://www.loot.sg', quantity: 3, sizes: ['S','M','XL'], size: 'M', colors: ['Black','Blue'], color: 'Black', unitPrice: '0', instructions: 'FRAGILE!', proceedOrder: true, imageUrl: 'test-img.jpg'},
 	// 					{name: 'Lootcommerce.com', number: 1, url: 'http://spree.loot.sg', quantity: 2, sizes: ['S','M','XL'], size: 'XL', unitPrice: '1990', colors: ['Black','Blue'], color: 'Rainbow', instructions: 'NOT FRAGILE!', proceedOrder: true,  imageUrl: 'test-img.jpg'}
@@ -127,8 +165,12 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 						// Sizes
 						newItem.sizes = [];
 
-						// Colors
-						newItem.color = result.item_sku;
+						// Options, using the Colors field
+						newItem.colors = result.options;
+
+						newItem.selectedOption = newItem.colors[0];
+						newItem.color = newItem.selectedOption.color;
+						newItem.size = newItem.selectedOption.sku;
 
 						data.items.push(newItem);
 						data.siteState.isScraping = false;
@@ -553,6 +595,10 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 	vm.data = data;
 	vm.siteState = data.siteState;
 
+	// data.items[0].selectedOption = data.items[0].colors[1];
+	// data.items[0].size = data.items[0].selectedOption.sku;
+	// data.items[0].color = data.items[0].selectedOption.color;
+
 	$scope.$on('$viewContentLoaded', function(event){
 		ga('send', 'pageview', { page: $location.url() });
 	});
@@ -634,6 +680,17 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 				break;
 		}
 	};
+
+	vm.updateDropdownItem = function(item, merchant) {
+		switch (merchant) {
+			case 'sephora':
+				item.size = item.selectedOption.sku;
+				item.color = item.selectedOption.option;
+				break;
+			default:
+				break;
+		}
+	}
 	
 
 	vm.removeItem = function(itemNumber) {
@@ -1005,6 +1062,17 @@ mod.controller('modifyController', ['data','utility','$location', '$scope', func
 				break;
 		}
 	};
+
+	vm.updateDropdownItem = function(item, merchant) {
+		switch (merchant) {
+			case 'sephora':
+				item.size = item.selectedOption.sku;
+				item.color = item.selectedOption.option;
+				break;
+			default:
+				break;
+		}
+	}
 	
 	vm.removeItem = function(itemNumber) {
 		vm.data.items.splice(itemNumber - 1, 1);
