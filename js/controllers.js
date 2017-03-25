@@ -168,9 +168,13 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 						// Options, using the Colors field
 						newItem.colors = result.options;
 
-						newItem.selectedOption = newItem.colors[0];
-						newItem.color = newItem.selectedOption.color;
-						newItem.size = newItem.selectedOption.sku;
+						if (newItem.colors.length == 0) {
+							newItem.size = result.sku;
+						} else {
+							newItem.selectedOption = newItem.colors[0];
+							newItem.color = newItem.selectedOption.color;
+							newItem.size = newItem.selectedOption.sku;
+						}
 
 						data.items.push(newItem);
 						data.siteState.isScraping = false;
