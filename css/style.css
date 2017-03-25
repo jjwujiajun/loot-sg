@@ -320,6 +320,17 @@ img.menu-item {
 
     white-space: normal;
 }
+.pb-item .value.dropdown select {
+    -webkit-appearance: none;
+    background: url('https://i1.social.s-msft.com/Forums/GlobalResources/images/Technet/DropDownArrow_Gray.png') no-repeat 95% 50%;
+
+    height: 30px;
+    padding: 0 5px;
+    border: none;
+
+    background-color: #EBEBEB;
+
+}
 .pb-item .item-colors {
     display: inline-block;
     width: 70%;

@@ -93,7 +93,7 @@
                                 <!-- Sephora Option -->
                                 <div class="item-colors" ng-if="item.merchant == 'sephora'">
                                     <div class="key">Type</div>
-                                    <div class="value">
+                                    <div class="value dropdown">
                                         <select name="colors" ng-options="colori.option for colori in item.colors" ng-model="item.selectedOption" ng-change="home.updateDropdownItem(item, 'sephora')">
                                         </select>
                                     </div>
