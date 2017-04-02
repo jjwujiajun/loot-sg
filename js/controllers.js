@@ -154,7 +154,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 						if(result.prices.length == 0) {
 							newItem.unitPrice = 0.00
 						} else {
-							newItem.unitPrice = Math.max.apply(null, result.prices)*100;
+							newItem.unitPrice = Math.min.apply(null, result.prices)*100;
 						}
 
 						// Image
