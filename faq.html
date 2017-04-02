@@ -17,7 +17,7 @@
 
 		<div class="section" ng-repeat="section in faq.questions">
 			<h2 class="section-header" ng-click="faq.expandSection(section)">
-				<div>{{section.isOpen ? '-' : '+'}}</div>{{section.header}}
+				<div>{{section.isOpen ? '-' : '+'}}</div>{{section.headerName}}
 			</h2>
 			<div class="section-content" id="{{section.header}}" >
 				<div class="item" ng-repeat="item in section.items">
