@@ -55,7 +55,7 @@
                             <div class="middle-col-row row1">
                                 <div><a ng-href="{{item.url}}" target="_blank">{{item.name}}</a></div>
                             </div>
-                            <div class="middle-col-row row2">
+                            <div class="middle-col-row row2" ng-if="item.isSupported">
 
                                 <!-- F21 Color-->
                                 <div class="item-colors" ng-if="item.merchant == 'f21'">
@@ -78,7 +78,8 @@
                                     Quantity <input class="form-control" type="number" ng-model="item.quantity" min="1">
                                 </div>
                             </div>
-                            <div class="middle-col-row row2">
+                            <div class="middle-col-row row2 item-not-supported" ng-if="!item.isSupported">{{item.notSupportedInfo}}</div>
+                            <div class="middle-col-row row3"  ng-if="item.isSupported">
 
                                 <!-- F21 Sizes -->
                                 <div class="item-sizes" ng-if="item.merchant == 'f21'">

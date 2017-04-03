@@ -293,6 +293,10 @@ img.menu-item {
 .middle-col-row.row3 {
     min-height: 33%;
 }
+.item-not-supported.middle-col-row {
+    padding: 20px 0;
+    color: red;
+}
 
 .pb-item .item-url {
     margin-top: -3px;

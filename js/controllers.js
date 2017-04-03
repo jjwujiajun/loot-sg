@@ -1,10 +1,9 @@
 var mod = angular.module('loot-sg', ['ngRoute']);
 
 mod.service('data', function() {
-
-	this.items    = [];
-
-	// Sephora Item
+	
+	this.items    = []; 
+	// Dummy Sephora Item
 	// [{
 	// 	"merchant": "sephora",
 	// 	"quantity": 1,
@@ -15,48 +14,30 @@ mod.service('data', function() {
 	//     "colors": [
 	//       {
 	//         "option": "118 Oui!",
-	//         "sku": "1510916",
-	//         "prices": []
+	//         "sku": "1510916"
 	//       },
 	//       {
 	//         "option": "116 Shocking",
-	//         "sku": "1510924",
-	//         "prices": []
+	//         "sku": "1510924"
 	//       },
 	//       {
 	//         "option": "138 Jezebel",
-	//         "sku": "1511351",
-	//         "prices": []
+	//         "sku": "1511351"
 	//       },
 	//       {
 	//         "option": "136 Desire",
 	//         "sku": "1511344",
-	//         "prices": [
-	//           18
-	//         ]
 	//       }
 	//     ],
 	//     "selectedOption": {},
 	//     'color': '',
-	//     'size':''
+	//     'size':'',
+	//     'isSupported': false,
+	//     'notSupportedInfo': 'Sephora Play! subscription box is not supported.'
 	// }];
-
-	// Dummy item
-	// this.items = {
-	// 	number: 1,
-	// 	name: '',
-	// 	url: '',
-	// 	quantity: '',
-	// 	size: '',
-	// 	color: '',
-	// 	instructions: '',
-	// 	proceedOrder: true,
-	// 	unitPrice: '',
-	// 	imageUrl: '',
-	// 	sizes: [],
-	// 	colors: [],
-	// 	details: ''
-	// }
+	// this.items[0].selectedOption = this.items[0].colors[0];
+	// this.items[0].color = this.items[0].selectedOption.option;
+	// this.items[0].size = this.items[0].selectedOption.sku;
 
 	// F21 Item
 	// this.items    = [
@@ -119,7 +100,8 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 			sizes: [],
 			colors: [],
 			details: '',
-			merchant: ''
+			merchant: '',
+			isSupported: true
 		};
 	};
 
@@ -148,6 +130,22 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 						newItem.url = url;
 						// newItem.details = result.description;
 
+
+						// Unsupported items
+						if (url.includes('/play-subscription')) {
+							newItem.isSupported = false;
+							newItem.notSupportedInfo = 'Sephora Play! subscription box is not supported.';
+							newItem.quantity = 0;
+							newItem.unitPrice = 0.00
+
+							data.items.push(newItem);
+							data.siteState.isScraping = false;
+							textField.text = '';
+							return;
+						}
+
+
+						// Quantity
 						newItem.quantity = 1;
 
 						// Price
