@@ -133,10 +133,13 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 
 						// Unsupported items
 						if (url.includes('/play-subscription')) {
+
 							newItem.isSupported = false;
 							newItem.notSupportedInfo = 'Sephora Play! subscription box is not supported.';
 							newItem.quantity = 0;
-							newItem.unitPrice = 0.00
+							newItem.unitPrice = 0.00;
+
+							console.log('is sub. price: '+ newItem.unitPrice+'isSupported: '+newItem.isSupported);
 
 							data.items.push(newItem);
 							data.siteState.isScraping = false;

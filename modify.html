@@ -18,7 +18,7 @@
                     <div class="middle-col-row row1">
                         <div><a ng-href="{{item.url}}" target="_blank">{{item.name}}</a></div>
                     </div>
-                    <div class="middle-col-row row2">
+                    <div class="middle-col-row row2" ng-if="item.isSupported">
                         
                         <!-- F21 Color-->
                         <div class="item-colors" ng-if="item.merchant == 'f21'">
@@ -41,10 +41,11 @@
                             Quantity <input class="form-control" type="number" ng-model="item.quantity" min="1">
                         </div>
                     </div>
-                    <div class="middle-col-row row2">
+                    <div class="middle-col-row row2 item-not-supported" ng-if="!item.isSupported">{{item.notSupportedInfo}}</div>
+                    <div class="middle-col-row row2" ng-if="item.isSupported">
 
                         <!-- F21 Sizes -->
-                        <div class="item-sizes" ng-if="item.merchant == F21">
+                        <div class="item-sizes" ng-if="item.merchant == f21">
                             <div class="key">Size</div>
                             <div class="value">
                                 <div ng-repeat="sizei in item.sizes track by $index" class="item-size" ng-class="{'selected': sizei==item.size, 'circular': item.useCircleForSizes, 'rectangle': !item.useCircleForSizes, 'btn': !item.useCircleForSizes}" ng-click="modify.selectSizeForItem(sizei, item)">
@@ -56,7 +57,7 @@
                         <!-- Sephora Option -->
                         <div class="item-colors" ng-if="item.merchant == 'sephora' && item.colors.length > 0">
                             <div class="key">Type</div>
-                            <div class="value">
+                            <div class="value dropdown">
                                 <select name="colors" ng-options="colori.option for colori in item.colors" ng-model="item.selectedOption" ng-change="modify.updateDropdownItem(item, 'sephora')">
                                 </select>
                             </div>
