@@ -479,8 +479,9 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 			// Fixer.io
 			var rate = response.data.rates.SGD;
 			console.log(rate);
-			// return rate;
-			return 1.42;
+			
+			// exchange rate here
+			return 1.3971;
 		});	
 		
 
@@ -942,7 +943,8 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 
 	// Get past day exchange rate
 	// utility.getForexRates().then(function(rate){
-		var rate = 1.42
+		// Exchange rate here
+		var rate = 1.3971;
 		data.orderInfo.usdSgd = rate;
 		console.log(rate);
 		utility.configureMoneyJs(rate);
