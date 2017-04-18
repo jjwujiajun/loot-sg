@@ -470,21 +470,24 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 	// Should cache response if requests occur on multiple pages per user
 	this.getForexRates = function(){
 		// HTTPS from MAS
-		// var apiurl = 'https://eservices.mas.gov.sg/api/action/datastore/search.json?resource_id=95932927-c8bc-4e7a-b484-68a66a24edfe&limit=1&filters[end_of_day]=2016-11-11&fields=usd_sgd';
-		var apiurl = 'https://api.fixer.io/latest?base=USD&symbols=SGD';
+		var apiurl = 'https://eservices.mas.gov.sg/api/action/datastore/search.json?resource_id=95932927-c8bc-4e7a-b484-68a66a24edfe&limit=1&filters[end_of_day]=2016-11-11&fields=usd_sgd';
+		// var apiurl = 'https://api.fixer.io/latest?base=USD&symbols=SGD';
 
 		return $http({
 			method : 'GET',
 			url    : apiurl,
 		}).then(function(response){
 			// MAS
-			// rate = response.data.result.records[0].usd_sgd;
+			var rate = response.data.result.records[0].usd_sgd;
+
 			// Fixer.io
-			var rate = response.data.rates.SGD;
+			// var rate = response.data.rates.SGD;
 			console.log(rate);
 			
 			// exchange rate here
-			return 1.3971;
+			// return 1.3971;
+
+			return rate;
 		});	
 		
 
@@ -945,9 +948,9 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 	});
 
 	// Get past day exchange rate
-	// utility.getForexRates().then(function(rate){
+	utility.getForexRates().then(function(rate){
 		// Exchange rate here
-		var rate = 1.3971;
+		// var rate = 1.3971;
 		data.orderInfo.usdSgd = rate;
 		console.log(rate);
 		utility.configureMoneyJs(rate);
@@ -963,7 +966,7 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 			trigger: 'hover',
 			container: 'body'
 		});
-	// });
+	});
 
 	// Configure Checkout.js
 	var handler = $window.StripeCheckout.configure({
