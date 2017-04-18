@@ -292,6 +292,7 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 		}
 
 		url = url.replace('/mobile/', '/');
+		url = url.replace('/Mobile/', '/');
 
 		// import.io API 1
 		// var urlString = "https://api.import.io/store/connector/7525a0ab-c857-4f60-8c23-73eb625083de/_query?input=webpage/url:" + encodeURIComponent(url) + "&&_apikey=b34ce8b353894e91b3ef33342f0c5ddb82cce3b3dd7be5b65977ed3fd532f3521d5f3c08c232bafdcc60a719fe799b1b03a95e181771f5bf511f85950dcb7c132b1575addd5fa8c5eeb70645857f693c";
