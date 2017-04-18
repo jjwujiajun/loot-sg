@@ -2,7 +2,7 @@
     // DB Constants
     if($db_dev) {
         $db_name  = 'loot-sg_dev';
-        $hostname = 'ec2-52-34-201-146.us-west-2.compute.amazonaws.com';
+        $hostname = 'ec2-35-164-128-55.us-west-2.compute.amazonaws.com';
         $username = 'loot-sg_dev';
         $password = '0EaX4SgkSAS0ZHng';
         
