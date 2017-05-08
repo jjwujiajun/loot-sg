@@ -300,7 +300,7 @@
     <body>
         <div class="orderForm">
             <div class="put-bom-wrapper" id="message">
-                <p>Thank you for ordering with Loot! You should receive your order within 3 weeks, hand-delivered our team.</p>
+                <p>Thank you for ordering with Loot! You should receive your order within 4 weeks, hand-delivered our team.</p>
                 <p><strong>Questions?</strong> Simply reply to this email.</p>
                 <p>Thank you,
                 <br/>Loot</p>
