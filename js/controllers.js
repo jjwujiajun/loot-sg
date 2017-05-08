@@ -4,7 +4,7 @@ mod.service('data', function() {
 	
 	this.items    = []; 
 	// Dummy Sephora Item
-	// [{
+	// this.items = [{
 	// 	"merchant": "sephora",
 	// 	"quantity": 1,
 	// 	"url": "sephora.com",
