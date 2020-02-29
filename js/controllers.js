@@ -84,7 +84,7 @@ mod.service('data', function() {
 });
 
 
-mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll', function(data, $http, $location, $timeout, $anchorScroll) {
+mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll', '$timeout', function(data, $http, $location, $timeout, $anchorScroll, $timeout) {
 	var createEmptyItem = function() {
 		return {
 			number: data.items.length + 1,
@@ -110,15 +110,32 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 
 		var getResult = function() {
 			setTimeout(function() {
-				$http({
-					method	: 'GET',
-					url 	: 'https://api.apifier.com/v1/e3yAFMJ4jvRj6GMYS/crawlers/sephora/lastExec/results?token=3HLoZbeYE3rzm4MdWNvau2ECG'
-				}).then(function (response) {
-					console.log(response);
-					if (response.data.length == 0) {
-						getResult();
-					} else {
-						var result = response.data[0].pageFunctionResult;
+				// $http({
+				// 	method	: 'GET',
+				// 	url 	: 'https://api.apifier.com/v1/e3yAFMJ4jvRj6GMYS/crawlers/sephora/lastExec/results?token=3HLoZbeYE3rzm4MdWNvau2ECG'
+				// }).then(function (response) {
+				// 	console.log(response);
+				// 	if (response.data.length == 0) {
+				// 		getResult();
+				// 	} else {
+				// 		var result = response.data[0].pageFunctionResult;
+
+						$timeout(delay=1500);
+						var result = {}
+						result.item_name = 'Real Lipstick'
+						result.description = 'This is a beautiful lipstick'
+						result.prices = [10, 20]
+						result.sizes_avail = ['S', 'M', 'L']
+						result.options = [
+							{
+								option:'Red',
+								sku: 6954
+							}, 
+							{
+								option:'Really red',
+								sku: 4479
+							}];
+
 						console.log(result);
 
 						data.siteState.isScraping = false;
@@ -180,29 +197,31 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 						data.items.push(newItem);
 						data.siteState.isScraping = false;
 						textField.text = '';
-					}
-				});
+				// 	}
+				// });
 			}, 3000);
 		}
 
 		data.siteState.isScraping = true;
 
-		return $http({
-			method	: 'PUT',
-			url 	: 'https://api.apifier.com/v1/e3yAFMJ4jvRj6GMYS/crawlers/sephora?token=FdZzu9coKqgmzHWwryA9TfXnF',
-			data 	: {
-				'customId': 'sephora',
-				'startUrls': [{
-					"key": "start",
-      				"value": url
-				}]
-			}
-		}).then(function() {
-			return $http({
-				method	: 'POST',
-				url 	: 'https://api.apifier.com/v1/e3yAFMJ4jvRj6GMYS/crawlers/sephora/execute?token=QawBiZJGBSqgs3nxqmRJaeJTw',
-			});
-		}).then(getResult());
+		// return $http({
+		// 	method	: 'PUT',
+		// 	url 	: 'https://api.apifier.com/v1/e3yAFMJ4jvRj6GMYS/crawlers/sephora?token=FdZzu9coKqgmzHWwryA9TfXnF',
+		// 	data 	: {
+		// 		'customId': 'sephora',
+		// 		'startUrls': [{
+		// 			"key": "start",
+      	// 			"value": url
+		// 		}]
+		// 	}
+		// }).then(function() {
+		// 	return $http({
+		// 		method	: 'POST',
+		// 		url 	: 'https://api.apifier.com/v1/e3yAFMJ4jvRj6GMYS/crawlers/sephora/execute?token=QawBiZJGBSqgs3nxqmRJaeJTw',
+		// 	});
+		// }).then(getResult());
+
+		return $timeout(getResult());
 	}
 
 	this.scrapeF21 = function(textField) {
@@ -211,15 +230,24 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 
 		var getResult = function() {
 			setTimeout(function() {
-				$http({
-					method	: 'GET',
-					url 	: 'https://api.apifier.com/v1/e3yAFMJ4jvRj6GMYS/crawlers/forever21.com/lastExec/results?token=6TGJZ44MXCgh5i8uFqcnmGwWy'
-				}).then(function (response) {
-					console.log(response);
-					if (response.data.length == 0) {
-						getResult();
-					} else {
-						var result = response.data[0].pageFunctionResult;
+				// $http({
+				// 	method	: 'GET',
+				// 	url 	: 'https://api.apifier.com/v1/e3yAFMJ4jvRj6GMYS/crawlers/forever21.com/lastExec/results?token=6TGJZ44MXCgh5i8uFqcnmGwWy'
+				// }).then(function (response) {
+					// console.log(response);
+					// if (response.data.length == 0) {
+					// 	getResult();
+					// } else {
+						// var result = response.data[0].pageFunctionResult;
+						
+						$timeout(delay=2000);
+						var result = {}
+						result.item_name = 'Real skirt'
+						result.description = 'This is a beautiful skirt'
+						result.price_sale = 100
+						result.sizes_avail = ['S', 'M', 'L']
+						result.colors_avail = ['White', 'Black', 'Gold']
+
 						console.log(result);
 
 						data.siteState.isScraping = false;
@@ -286,10 +314,10 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 						data.items.push(newItem);
 						data.siteState.isScraping = false;
 						textField.text = '';
-					}
-				});
+					// }
+				// });
 			}, 3000);
-		}
+		};
 
 		url = url.replace('/mobile/', '/');
 		url = url.replace('/Mobile/', '/');
@@ -302,22 +330,24 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 		
 		data.siteState.isScraping = true;
 
-		return $http({
-			method	: 'PUT',
-			url 	: 'https://api.apifier.com/v1/e3yAFMJ4jvRj6GMYS/crawlers/forever21.com?token=FdZzu9coKqgmzHWwryA9TfXnF',
-			data 	: {
-				'customId': 'forever21.com',
-				'startUrls': [{
-					"key": "start",
-      				"value": url
-				}]
-			}
-		}).then(function() {
-			return $http({
-				method	: 'POST',
-				url 	: 'https://api.apifier.com/v1/e3yAFMJ4jvRj6GMYS/crawlers/forever21.com/execute?token=Crr68CRua6Wb5QZSXazTp6My6',
-			});
-		}).then(getResult());	
+		// return $http({
+		// 	method	: 'PUT',
+		// 	url 	: 'https://api.apifier.com/v1/e3yAFMJ4jvRj6GMYS/crawlers/forever21.com?token=FdZzu9coKqgmzHWwryA9TfXnF',
+		// 	data 	: {
+		// 		'customId': 'forever21.com',
+		// 		'startUrls': [{
+		// 			"key": "start",
+      	// 			"value": url
+		// 		}]
+		// 	}
+		// }).then(function() {
+		// 	return $http({
+		// 		method	: 'POST',
+		// 		url 	: 'https://api.apifier.com/v1/e3yAFMJ4jvRj6GMYS/crawlers/forever21.com/execute?token=Crr68CRua6Wb5QZSXazTp6My6',
+		// 	});
+		// }).then(getResult());
+		
+		return $timeout(getResult());
 	};
 
 	this.sendOrderEmail = function() {
@@ -548,7 +578,8 @@ mod.service('utility', ['data', '$http', '$location', '$timeout', '$anchorScroll
 		$location.path(page);
 
 		data.siteState.showPBOutput = false;
-
+		
+		$anchorScroll.yOffset = 100;
 		$timeout(function () {
 			$anchorScroll(anchor);
 		});
@@ -609,9 +640,9 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 	// data.items[0].size = data.items[0].selectedOption.sku;
 	// data.items[0].color = data.items[0].selectedOption.color;
 
-	$scope.$on('$viewContentLoaded', function(event){
-		ga('send', 'pageview', { page: $location.url() });
-	});
+	// $scope.$on('$viewContentLoaded', function(event){
+	// 	ga('send', 'pageview', { page: $location.url() });
+	// });
 
 	vm.urlField = {'text': '', 'placeholder': 'Paste the link to the item you like here. eg. http://www.forever21.com/ProductID=225453'};
 	var firstScrape = true;
@@ -621,7 +652,7 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 			return 'amazon';
 		} else if (str.indexOf('forever21.com') != -1) {
 			return 'f21';
-		} else if (str.indexOf('sephora') != -1) {
+		} else if (str.indexOf('sephora.com') != -1) {
 			return 'sephora';
 		}
 		return -1;
@@ -635,30 +666,35 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 		var howItWorksMenu = document.querySelector('#how-it-works-menu');
 		angular.element(howItWorksMenu).click(function () {
 			var howItWorksAnchor = angular.element('#how-it-works');
-			angular.element("body").animate({ scrollTop: howItWorksAnchor.offset().top - 80});
+			window.scrollTo({left:0, top:howItWorksAnchor.offset().top - 100, behavior: 'smooth'});
+			// angular.element("body").animate({ scrollTop: howItWorksAnchor.offset().top - 80});
 		});		
 
 		var whyLootMenu = document.querySelector('#why-loot-menu');
 		angular.element(whyLootMenu).click(function () {
 			var whyLootAnchor = angular.element('#why-loot');
-			angular.element("body").animate({ scrollTop: whyLootAnchor.offset().top - 80});
+			window.scrollTo({left:0, top:whyLootAnchor.offset().top - 100, behavior: 'smooth'});
+			// angular.element("body").animate({ scrollTop: whyLootAnchor.offset().top - 80});
 		});
 
 		var logoMenu = document.querySelector('#menu-logo');
 		angular.element(logoMenu).click(function () {
-			angular.element("body").animate({ scrollTop: '0'});
+			window.scrollTo({top:1, behavior: 'smooth'})
+			// angular.element("body").animate({ scrollTop: '0'});
 			angular.element(pbInput).focus();
 		});
 
 		var addItemsButton = document.querySelector('#add-items');
 		angular.element(addItemsButton).click(function () {
-			angular.element("body").animate({ scrollTop: '0'});
+			window.scrollTo({top:1, behavior: 'smooth'})
+			// angular.element("body").animate({ scrollTop: '0'});
 			angular.element(pbInput).focus();
 		});
 
 		var backToTopButton = document.querySelector('#back-to-top');
 		angular.element(backToTopButton).click(function () {
-			angular.element("body").animate({ scrollTop: '0'});
+			window.scrollTo({top:1, behavior: 'smooth'})
+			// angular.element("body").animate({ scrollTop: '0'});
 			angular.element(pbInput).focus();
 		});
 	});
@@ -675,7 +711,7 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 		switch (isValidURL(vm.urlField.text)) { 
 			case 'f21':
 				utility.scrapeF21(vm.urlField).then(function(){
-					insertFirstScrapePlaceHolderI();
+					insertFirstScrapePlaceHolderInPutbom();
 				});
 				break;
 			case 'sephora':
@@ -720,9 +756,9 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 		$location.path('login');
 	};
 
-	vm.scroll = function(anchor){
-		$anchorScroll(anchor);
-	};
+	// vm.scroll = function(anchor){
+	// 	$anchorScroll(anchor);
+	// };
 
 	vm.showPutBom = function(){
 		vm.siteState.showPBOutput = true;
@@ -733,19 +769,19 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 	};
 
 	vm.helpEmailClicked = function() {
-		ga('send', 'event', { 
-			eventCategory: 'email', 
-			eventAction: 'click',
-			eventLabel: 'help'
-		});
+		// ga('send', 'event', { 
+		// 	eventCategory: 'email', 
+		// 	eventAction: 'click',
+		// 	eventLabel: 'help'
+		// });
 	};
 
 	vm.merchantLinkClicked = function(merchant) {
-		ga('send', 'event', { 
-			eventCategory: 'merchantLink', 
-			eventAction: 'click',
-			eventLabel: merchant
-		});
+		// ga('send', 'event', { 
+		// 	eventCategory: 'merchantLink', 
+		// 	eventAction: 'click',
+		// 	eventLabel: merchant
+		// });
 		console.log(merchant);
 	};
 
@@ -754,9 +790,9 @@ mod.controller('homeController', ['data', 'utility','$location', '$anchorScroll'
 mod.controller('faqController', ['utility', '$sce', '$scope', '$location', function(utility, $sce, $scope, $location) {
 	var vm = this;
 
-	$scope.$on('$viewContentLoaded', function(event){
-		ga('send', 'pageview', { page: $location.url() });
-	});
+	// $scope.$on('$viewContentLoaded', function(event){
+	// 	ga('send', 'pageview', { page: $location.url() });
+	// });
 
 	vm.questions = [
 	{
@@ -877,9 +913,9 @@ mod.controller('faqController', ['utility', '$sce', '$scope', '$location', funct
 mod.controller('contactsController', ['utility', '$scope', function(utility, $scope) {
 	var vm = this;
 
-	$scope.$on('$viewContentLoaded', function(event){
-		ga('send', 'pageview', { page: '/about' });
-	});
+	// $scope.$on('$viewContentLoaded', function(event){
+	// 	ga('send', 'pageview', { page: '/about' });
+	// });
 
 	vm.goPageAndAnchorScroll = utility.goPageAndAnchorScroll;
 }]);
@@ -888,21 +924,22 @@ mod.controller('loginController', ['data', 'utility', '$location', '$scope', fun
 	var vm = this;
 	vm.userInfo = data.userInfo;
 
-	$scope.$on('$viewContentLoaded', function(event){
-		ga('send', 'pageview', { page: $location.url() });
-	});
+	// $scope.$on('$viewContentLoaded', function(event){
+	// 	ga('send', 'pageview', { page: $location.url() });
+	// });
 
 	vm.back = function(){
 		$location.path('');
 	};
 
 	vm.next = function(){
-		utility.login().then(function(response){
-			if(response){
-				data.userInfo = response;
-			}
+		// utility.login().then(function(response){
+		// 	if(response){
+		// 		data.userInfo = response;
+		// 	}
+		console.log('hihi')
 			$location.path('delivery');
-		});
+		// });
 	};
 
 }]);
@@ -911,27 +948,27 @@ mod.controller('deliveryController', ['data', 'utility', '$location', '$scope', 
 	var vm = this;
 	vm.userInfo = data.userInfo;
 
-	$scope.$on('$viewContentLoaded', function(event){
-		ga('send', 'pageview', { page: $location.url() });
-	});
+	// $scope.$on('$viewContentLoaded', function(event){
+	// 	ga('send', 'pageview', { page: $location.url() });
+	// });
 
 	vm.back = function(){
 		$location.path('login');
 	};
 
 	vm.next = function(){
-		utility.addUpdateUser().then(function(response){
-			if (data.userInfo.userId == -1){
-				if(response){
-					data.userInfo.userId = response.userId;	
-					$location.path('confirm');
-				} else {
-					alert('An error occured when saving your info. Please contact help@loot.sg.');	
-				}	
-			} else {
+		// utility.addUpdateUser().then(function(response){
+		// 	if (data.userInfo.userId == -1){
+		// 		if(response){
+		// 			data.userInfo.userId = response.userId;	
+		// 			$location.path('confirm');
+		// 		} else {
+		// 			alert('An error occured when saving your info. Please contact help@loot.sg.');	
+		// 		}	
+		// 	} else {
 				$location.path('confirm');
-			}
-		});
+		// 	}
+		// });
 	};
 
 }]);
@@ -944,9 +981,9 @@ mod.controller('confirmController', ['data', 'utility', '$location', '$window', 
 	vm.getPlurality    = utility.getPlurality;
 	var chargeCurrency = 'sgd';
 
-	$scope.$on('$viewContentLoaded', function(event){
-		ga('send', 'pageview', { page: $location.url() });
-	});
+	// $scope.$on('$viewContentLoaded', function(event){
+	// 	ga('send', 'pageview', { page: $location.url() });
+	// });
 
 	// Get past day exchange rate
 	utility.getForexRates().then(function(rate){
@@ -1049,17 +1086,19 @@ mod.controller('modifyController', ['data','utility','$location', '$scope', func
 	vm.siteState = data.siteState;
 	vm.pbInputIsShown = false;
 
-	$scope.$on('$viewContentLoaded', function(event){
-		ga('send', 'pageview', { page: $location.url() });
-	});
+	// $scope.$on('$viewContentLoaded', function(event){
+	// 	ga('send', 'pageview', { page: $location.url() });
+	// });
 
 	var isValidURL = function(str) {
 		if (str.indexOf('amazon.com') != -1) {
-			return 'amazon';
+			// return 'amazon';
+			return 'f21';
 		} else if (str.indexOf('forever21.com') != -1) {
 			return 'f21';
 		} else if (str.indexOf('sephora') != -1) {
-			return 'sephora';
+			// return 'sephora';
+			return 'f21'
 		}
 		return -1;
 	};
@@ -1069,7 +1108,7 @@ mod.controller('modifyController', ['data','utility','$location', '$scope', func
 		switch (isValidURL(vm.urlField.text)) { 
 			case 'f21':
 				utility.scrapeF21(vm.urlField).then(function(){
-					insertFirstScrapePlaceHolderI();
+					insertFirstScrapePlaceHolderInPutbom();
 				});
 				break;
 			case 'sephora':
@@ -1125,7 +1164,7 @@ mod.directive('countdown', ['Util', '$interval', function (Util, $interval) {
         scope: { date: '@' },
         link: function (scope, element) {
             var future;
-            future = new Date(scope.date);
+			future = new Date(scope.date);
             $interval(function () {
                 var diff;
                 diff = Math.floor((future.getTime() - new Date().getTime()) / 1000);
